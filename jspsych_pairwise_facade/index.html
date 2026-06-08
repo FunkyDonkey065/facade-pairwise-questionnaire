@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pairwise Facade Comparison</title>
+    <link rel="stylesheet" href="https://unpkg.com/jspsych@7.3.4/css/jspsych.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <noscript>
+      This experiment requires JavaScript. Please enable JavaScript to continue.
+    </noscript>
+
+    <!-- Netlify detects this static form during deploy. The experiment submits to it by fetch(). -->
+    <form name="facade_pairwise_data" data-netlify="true" hidden>
+      <input type="hidden" name="form-name" value="facade_pairwise_data" />
+      <input type="hidden" name="prolific_pid" />
+      <input type="hidden" name="study_id" />
+      <input type="hidden" name="session_id" />
+      <input type="hidden" name="pair_set_id" />
+      <input type="hidden" name="randomization_seed" />
+      <input type="hidden" name="dimension_order" />
+      <textarea name="payload_json"></textarea>
+      <textarea name="payload_csv"></textarea>
+    </form>
+
+    <main id="jspsych-target"></main>
+
+    <script src="https://unpkg.com/jspsych@7.3.4"></script>
+    <script src="scene_manifest.js"></script>
+    <script src="pairs.js"></script>
+    <script src="experiment.js"></script>
+  </body>
+</html>
