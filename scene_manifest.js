@@ -1,1145 +1,1255 @@
 window.SURVEY_SCENES = [
   {
-    "scene_id": "1",
+    "scene_id": "barcelona_0001",
     "selected_heading": 180,
-    "main_image": "images/survey_ready_streetview_scenes/1/frame_180_f.jpg",
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0001/frame_180_f.jpg",
     "context_images": [
       {
         "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/1/frame_0.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0001/frame_0.jpg"
       },
       {
         "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/1/frame_90.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0001/frame_90.jpg"
       },
       {
         "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/1/frame_270.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0001/frame_270.jpg"
       }
     ],
-    "excluded_duplicate": "1/frame_180.jpg",
+    "excluded_duplicate": "barcelona_0001/frame_180.jpg",
     "selection_result": "",
     "metadata": ""
   },
   {
-    "scene_id": "2",
+    "scene_id": "barcelona_0002",
+    "selected_heading": 180,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0002/frame_180_f.jpg",
+    "context_images": [
+      {
+        "heading": 0,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0002/frame_0.jpg"
+      },
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0002/frame_90.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0002/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0002/frame_180.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0003",
+    "selected_heading": 0,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0003/frame_0_f.jpg",
+    "context_images": [
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0003/frame_90.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0003/frame_180.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0003/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0003/frame_0.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0004",
+    "selected_heading": 270,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0004/frame_270_f.jpg",
+    "context_images": [
+      {
+        "heading": 0,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0004/frame_0.jpg"
+      },
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0004/frame_90.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0004/frame_180.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0004/frame_270.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0005",
+    "selected_heading": 0,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0005/frame_0_f.jpg",
+    "context_images": [
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0005/frame_90.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0005/frame_180.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0005/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0005/frame_0.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0006",
+    "selected_heading": 180,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0006/frame_180_f.jpg",
+    "context_images": [
+      {
+        "heading": 0,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0006/frame_0.jpg"
+      },
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0006/frame_90.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0006/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0006/frame_180.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0007",
+    "selected_heading": 0,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0007/frame_0_f.jpg",
+    "context_images": [
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0007/frame_90.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0007/frame_180.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0007/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0007/frame_0.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0008",
+    "selected_heading": 180,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0008/frame_180_f.jpg",
+    "context_images": [
+      {
+        "heading": 0,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0008/frame_0.jpg"
+      },
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0008/frame_90.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0008/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0008/frame_180.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0009",
     "selected_heading": 90,
-    "main_image": "images/survey_ready_streetview_scenes/2/frame_90_f.jpg",
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0009/frame_90_f.jpg",
     "context_images": [
       {
         "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/2/frame_0.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0009/frame_0.jpg"
       },
       {
         "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/2/frame_180.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0009/frame_180.jpg"
       },
       {
         "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/2/frame_270.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0009/frame_270.jpg"
       }
     ],
-    "excluded_duplicate": "2/frame_90.jpg",
+    "excluded_duplicate": "barcelona_0009/frame_90.jpg",
     "selection_result": "",
     "metadata": ""
   },
   {
-    "scene_id": "4",
-    "selected_heading": 0,
-    "main_image": "images/survey_ready_streetview_scenes/4/frame_0_f.jpg",
-    "context_images": [
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/4/frame_90.jpg"
-      },
-      {
-        "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/4/frame_180.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/4/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "4/frame_0.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "5",
-    "selected_heading": 180,
-    "main_image": "images/survey_ready_streetview_scenes/5/frame_180_f.jpg",
-    "context_images": [
-      {
-        "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/5/frame_0.jpg"
-      },
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/5/frame_90.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/5/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "5/frame_180.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "6",
-    "selected_heading": 180,
-    "main_image": "images/survey_ready_streetview_scenes/6/frame_180_f.jpg",
-    "context_images": [
-      {
-        "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/6/frame_0.jpg"
-      },
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/6/frame_90.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/6/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "6/frame_180.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "8",
-    "selected_heading": 270,
-    "main_image": "images/survey_ready_streetview_scenes/8/frame_270_f.jpg",
-    "context_images": [
-      {
-        "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/8/frame_0.jpg"
-      },
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/8/frame_90.jpg"
-      },
-      {
-        "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/8/frame_180.jpg"
-      }
-    ],
-    "excluded_duplicate": "8/frame_270.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "10",
-    "selected_heading": 0,
-    "main_image": "images/survey_ready_streetview_scenes/10/frame_0_f.jpg",
-    "context_images": [
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/10/frame_90.jpg"
-      },
-      {
-        "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/10/frame_180.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/10/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "10/frame_0.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "11",
-    "selected_heading": 270,
-    "main_image": "images/survey_ready_streetview_scenes/11/frame_270_f.jpg",
-    "context_images": [
-      {
-        "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/11/frame_0.jpg"
-      },
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/11/frame_90.jpg"
-      },
-      {
-        "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/11/frame_180.jpg"
-      }
-    ],
-    "excluded_duplicate": "11/frame_270.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "15",
-    "selected_heading": 0,
-    "main_image": "images/survey_ready_streetview_scenes/15/frame_0_f.jpg",
-    "context_images": [
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/15/frame_90.jpg"
-      },
-      {
-        "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/15/frame_180.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/15/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "15/frame_0.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "16",
-    "selected_heading": 0,
-    "main_image": "images/survey_ready_streetview_scenes/16/frame_0_f.jpg",
-    "context_images": [
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/16/frame_90.jpg"
-      },
-      {
-        "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/16/frame_180.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/16/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "16/frame_0.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "18",
+    "scene_id": "barcelona_0010",
     "selected_heading": 90,
-    "main_image": "images/survey_ready_streetview_scenes/18/frame_90_f.jpg",
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0010/frame_90_f.jpg",
     "context_images": [
       {
         "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/18/frame_0.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0010/frame_0.jpg"
       },
       {
         "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/18/frame_180.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0010/frame_180.jpg"
       },
       {
         "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/18/frame_270.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0010/frame_270.jpg"
       }
     ],
-    "excluded_duplicate": "18/frame_90.jpg",
+    "excluded_duplicate": "barcelona_0010/frame_90.jpg",
     "selection_result": "",
     "metadata": ""
   },
   {
-    "scene_id": "19",
+    "scene_id": "barcelona_0011",
     "selected_heading": 180,
-    "main_image": "images/survey_ready_streetview_scenes/19/frame_180_f.jpg",
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0011/frame_180_f.jpg",
     "context_images": [
       {
         "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/19/frame_0.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0011/frame_0.jpg"
       },
       {
         "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/19/frame_90.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0011/frame_90.jpg"
       },
       {
         "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/19/frame_270.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0011/frame_270.jpg"
       }
     ],
-    "excluded_duplicate": "19/frame_180.jpg",
+    "excluded_duplicate": "barcelona_0011/frame_180.jpg",
     "selection_result": "",
     "metadata": ""
   },
   {
-    "scene_id": "20",
-    "selected_heading": 0,
-    "main_image": "images/survey_ready_streetview_scenes/20/frame_0_f.jpg",
-    "context_images": [
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/20/frame_90.jpg"
-      },
-      {
-        "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/20/frame_180.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/20/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "20/frame_0.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "21",
-    "selected_heading": 0,
-    "main_image": "images/survey_ready_streetview_scenes/21/frame_0_f.jpg",
-    "context_images": [
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/21/frame_90.jpg"
-      },
-      {
-        "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/21/frame_180.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/21/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "21/frame_0.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "24",
-    "selected_heading": 180,
-    "main_image": "images/survey_ready_streetview_scenes/24/frame_180_f.jpg",
-    "context_images": [
-      {
-        "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/24/frame_0.jpg"
-      },
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/24/frame_90.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/24/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "24/frame_180.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "25",
-    "selected_heading": 180,
-    "main_image": "images/survey_ready_streetview_scenes/25/frame_180_f.jpg",
-    "context_images": [
-      {
-        "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/25/frame_0.jpg"
-      },
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/25/frame_90.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/25/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "25/frame_180.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "26",
-    "selected_heading": 0,
-    "main_image": "images/survey_ready_streetview_scenes/26/frame_0_f.jpg",
-    "context_images": [
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/26/frame_90.jpg"
-      },
-      {
-        "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/26/frame_180.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/26/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "26/frame_0.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "27",
-    "selected_heading": 270,
-    "main_image": "images/survey_ready_streetview_scenes/27/frame_270_f.jpg",
-    "context_images": [
-      {
-        "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/27/frame_0.jpg"
-      },
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/27/frame_90.jpg"
-      },
-      {
-        "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/27/frame_180.jpg"
-      }
-    ],
-    "excluded_duplicate": "27/frame_270.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "28",
+    "scene_id": "barcelona_0012",
     "selected_heading": 90,
-    "main_image": "images/survey_ready_streetview_scenes/28/frame_90_f.jpg",
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0012/frame_90_f.jpg",
     "context_images": [
       {
         "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/28/frame_0.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0012/frame_0.jpg"
       },
       {
         "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/28/frame_180.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0012/frame_180.jpg"
       },
       {
         "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/28/frame_270.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0012/frame_270.jpg"
       }
     ],
-    "excluded_duplicate": "28/frame_90.jpg",
+    "excluded_duplicate": "barcelona_0012/frame_90.jpg",
     "selection_result": "",
     "metadata": ""
   },
   {
-    "scene_id": "29",
+    "scene_id": "barcelona_0013",
+    "selected_heading": 270,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0013/frame_270_f.jpg",
+    "context_images": [
+      {
+        "heading": 0,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0013/frame_0.jpg"
+      },
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0013/frame_90.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0013/frame_180.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0013/frame_270.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0014",
     "selected_heading": 90,
-    "main_image": "images/survey_ready_streetview_scenes/29/frame_90_f.jpg",
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0014/frame_90_f.jpg",
     "context_images": [
       {
         "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/29/frame_0.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0014/frame_0.jpg"
       },
       {
         "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/29/frame_180.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0014/frame_180.jpg"
       },
       {
         "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/29/frame_270.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0014/frame_270.jpg"
       }
     ],
-    "excluded_duplicate": "29/frame_90.jpg",
+    "excluded_duplicate": "barcelona_0014/frame_90.jpg",
     "selection_result": "",
     "metadata": ""
   },
   {
-    "scene_id": "31",
-    "selected_heading": 180,
-    "main_image": "images/survey_ready_streetview_scenes/31/frame_180_f.jpg",
-    "context_images": [
-      {
-        "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/31/frame_0.jpg"
-      },
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/31/frame_90.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/31/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "31/frame_180.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "32",
-    "selected_heading": 270,
-    "main_image": "images/survey_ready_streetview_scenes/32/frame_270_f.jpg",
-    "context_images": [
-      {
-        "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/32/frame_0.jpg"
-      },
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/32/frame_90.jpg"
-      },
-      {
-        "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/32/frame_180.jpg"
-      }
-    ],
-    "excluded_duplicate": "32/frame_270.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "33",
-    "selected_heading": 180,
-    "main_image": "images/survey_ready_streetview_scenes/33/frame_180_f.jpg",
-    "context_images": [
-      {
-        "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/33/frame_0.jpg"
-      },
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/33/frame_90.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/33/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "33/frame_180.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "34",
+    "scene_id": "barcelona_0015",
     "selected_heading": 0,
-    "main_image": "images/survey_ready_streetview_scenes/34/frame_0_f.jpg",
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0015/frame_0_f.jpg",
     "context_images": [
       {
         "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/34/frame_90.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0015/frame_90.jpg"
       },
       {
         "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/34/frame_180.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0015/frame_180.jpg"
       },
       {
         "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/34/frame_270.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0015/frame_270.jpg"
       }
     ],
-    "excluded_duplicate": "34/frame_0.jpg",
+    "excluded_duplicate": "barcelona_0015/frame_0.jpg",
     "selection_result": "",
     "metadata": ""
   },
   {
-    "scene_id": "35",
+    "scene_id": "barcelona_0016",
     "selected_heading": 270,
-    "main_image": "images/survey_ready_streetview_scenes/35/frame_270_f.jpg",
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0016/frame_270_f.jpg",
     "context_images": [
       {
         "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/35/frame_0.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0016/frame_0.jpg"
       },
       {
         "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/35/frame_90.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0016/frame_90.jpg"
       },
       {
         "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/35/frame_180.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0016/frame_180.jpg"
       }
     ],
-    "excluded_duplicate": "35/frame_270.jpg",
+    "excluded_duplicate": "barcelona_0016/frame_270.jpg",
     "selection_result": "",
     "metadata": ""
   },
   {
-    "scene_id": "36",
-    "selected_heading": 0,
-    "main_image": "images/survey_ready_streetview_scenes/36/frame_0_f.jpg",
-    "context_images": [
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/36/frame_90.jpg"
-      },
-      {
-        "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/36/frame_180.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/36/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "36/frame_0.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "37",
+    "scene_id": "barcelona_0017",
     "selected_heading": 90,
-    "main_image": "images/survey_ready_streetview_scenes/37/frame_90_f.jpg",
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0017/frame_90_f.jpg",
     "context_images": [
       {
         "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/37/frame_0.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0017/frame_0.jpg"
       },
       {
         "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/37/frame_180.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0017/frame_180.jpg"
       },
       {
         "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/37/frame_270.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0017/frame_270.jpg"
       }
     ],
-    "excluded_duplicate": "37/frame_90.jpg",
+    "excluded_duplicate": "barcelona_0017/frame_90.jpg",
     "selection_result": "",
     "metadata": ""
   },
   {
-    "scene_id": "39",
+    "scene_id": "barcelona_0018",
     "selected_heading": 270,
-    "main_image": "images/survey_ready_streetview_scenes/39/frame_270_f.jpg",
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0018/frame_270_f.jpg",
     "context_images": [
       {
         "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/39/frame_0.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0018/frame_0.jpg"
       },
       {
         "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/39/frame_90.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0018/frame_90.jpg"
       },
       {
         "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/39/frame_180.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0018/frame_180.jpg"
       }
     ],
-    "excluded_duplicate": "39/frame_270.jpg",
+    "excluded_duplicate": "barcelona_0018/frame_270.jpg",
     "selection_result": "",
     "metadata": ""
   },
   {
-    "scene_id": "41",
-    "selected_heading": 180,
-    "main_image": "images/survey_ready_streetview_scenes/41/frame_180_f.jpg",
-    "context_images": [
-      {
-        "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/41/frame_0.jpg"
-      },
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/41/frame_90.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/41/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "41/frame_180.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "42",
-    "selected_heading": 180,
-    "main_image": "images/survey_ready_streetview_scenes/42/frame_180_f.jpg",
-    "context_images": [
-      {
-        "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/42/frame_0.jpg"
-      },
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/42/frame_90.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/42/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "42/frame_180.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "44",
-    "selected_heading": 0,
-    "main_image": "images/survey_ready_streetview_scenes/44/frame_0_f.jpg",
-    "context_images": [
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/44/frame_90.jpg"
-      },
-      {
-        "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/44/frame_180.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/44/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "44/frame_0.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "45",
-    "selected_heading": 270,
-    "main_image": "images/survey_ready_streetview_scenes/45/frame_270_f.jpg",
-    "context_images": [
-      {
-        "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/45/frame_0.jpg"
-      },
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/45/frame_90.jpg"
-      },
-      {
-        "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/45/frame_180.jpg"
-      }
-    ],
-    "excluded_duplicate": "45/frame_270.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "46",
-    "selected_heading": 270,
-    "main_image": "images/survey_ready_streetview_scenes/46/frame_270_f.jpg",
-    "context_images": [
-      {
-        "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/46/frame_0.jpg"
-      },
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/46/frame_90.jpg"
-      },
-      {
-        "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/46/frame_180.jpg"
-      }
-    ],
-    "excluded_duplicate": "46/frame_270.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "47",
-    "selected_heading": 270,
-    "main_image": "images/survey_ready_streetview_scenes/47/frame_270_f.jpg",
-    "context_images": [
-      {
-        "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/47/frame_0.jpg"
-      },
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/47/frame_90.jpg"
-      },
-      {
-        "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/47/frame_180.jpg"
-      }
-    ],
-    "excluded_duplicate": "47/frame_270.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "48",
-    "selected_heading": 0,
-    "main_image": "images/survey_ready_streetview_scenes/48/frame_0_f.jpg",
-    "context_images": [
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/48/frame_90.jpg"
-      },
-      {
-        "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/48/frame_180.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/48/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "48/frame_0.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "54",
-    "selected_heading": 0,
-    "main_image": "images/survey_ready_streetview_scenes/54/frame_0_f.jpg",
-    "context_images": [
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/54/frame_90.jpg"
-      },
-      {
-        "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/54/frame_180.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/54/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "54/frame_0.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "58",
+    "scene_id": "barcelona_0020",
     "selected_heading": 90,
-    "main_image": "images/survey_ready_streetview_scenes/58/frame_90_f.jpg",
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0020/frame_90_f.jpg",
     "context_images": [
       {
         "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/58/frame_0.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0020/frame_0.jpg"
       },
       {
         "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/58/frame_180.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0020/frame_180.jpg"
       },
       {
         "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/58/frame_270.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0020/frame_270.jpg"
       }
     ],
-    "excluded_duplicate": "58/frame_90.jpg",
+    "excluded_duplicate": "barcelona_0020/frame_90.jpg",
     "selection_result": "",
     "metadata": ""
   },
   {
-    "scene_id": "59",
+    "scene_id": "barcelona_0021",
     "selected_heading": 90,
-    "main_image": "images/survey_ready_streetview_scenes/59/frame_90_f.jpg",
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0021/frame_90_f.jpg",
     "context_images": [
       {
         "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/59/frame_0.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0021/frame_0.jpg"
       },
       {
         "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/59/frame_180.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0021/frame_180.jpg"
       },
       {
         "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/59/frame_270.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0021/frame_270.jpg"
       }
     ],
-    "excluded_duplicate": "59/frame_90.jpg",
+    "excluded_duplicate": "barcelona_0021/frame_90.jpg",
     "selection_result": "",
     "metadata": ""
   },
   {
-    "scene_id": "61",
+    "scene_id": "barcelona_0022",
+    "selected_heading": 0,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0022/frame_0_f.jpg",
+    "context_images": [
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0022/frame_90.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0022/frame_180.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0022/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0022/frame_0.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0023",
+    "selected_heading": 0,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0023/frame_0_f.jpg",
+    "context_images": [
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0023/frame_90.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0023/frame_180.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0023/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0023/frame_0.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0025",
+    "selected_heading": 0,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0025/frame_0_f.jpg",
+    "context_images": [
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0025/frame_90.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0025/frame_180.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0025/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0025/frame_0.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0026",
+    "selected_heading": 180,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0026/frame_180_f.jpg",
+    "context_images": [
+      {
+        "heading": 0,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0026/frame_0.jpg"
+      },
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0026/frame_90.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0026/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0026/frame_180.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0027",
+    "selected_heading": 180,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0027/frame_180_f.jpg",
+    "context_images": [
+      {
+        "heading": 0,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0027/frame_0.jpg"
+      },
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0027/frame_90.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0027/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0027/frame_180.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0028",
     "selected_heading": 270,
-    "main_image": "images/survey_ready_streetview_scenes/61/frame_270_f.jpg",
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0028/frame_270_f.jpg",
     "context_images": [
       {
         "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/61/frame_0.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0028/frame_0.jpg"
       },
       {
         "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/61/frame_90.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0028/frame_90.jpg"
       },
       {
         "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/61/frame_180.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0028/frame_180.jpg"
       }
     ],
-    "excluded_duplicate": "61/frame_270.jpg",
+    "excluded_duplicate": "barcelona_0028/frame_270.jpg",
     "selection_result": "",
     "metadata": ""
   },
   {
-    "scene_id": "63",
+    "scene_id": "barcelona_0029",
+    "selected_heading": 180,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0029/frame_180_f.jpg",
+    "context_images": [
+      {
+        "heading": 0,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0029/frame_0.jpg"
+      },
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0029/frame_90.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0029/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0029/frame_180.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0030",
     "selected_heading": 90,
-    "main_image": "images/survey_ready_streetview_scenes/63/frame_90_f.jpg",
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0030/frame_90_f.jpg",
     "context_images": [
       {
         "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/63/frame_0.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0030/frame_0.jpg"
       },
       {
         "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/63/frame_180.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0030/frame_180.jpg"
       },
       {
         "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/63/frame_270.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0030/frame_270.jpg"
       }
     ],
-    "excluded_duplicate": "63/frame_90.jpg",
+    "excluded_duplicate": "barcelona_0030/frame_90.jpg",
     "selection_result": "",
     "metadata": ""
   },
   {
-    "scene_id": "67",
+    "scene_id": "barcelona_0031",
     "selected_heading": 180,
-    "main_image": "images/survey_ready_streetview_scenes/67/frame_180_f.jpg",
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0031/frame_180_f.jpg",
     "context_images": [
       {
         "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/67/frame_0.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0031/frame_0.jpg"
       },
       {
         "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/67/frame_90.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0031/frame_90.jpg"
       },
       {
         "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/67/frame_270.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0031/frame_270.jpg"
       }
     ],
-    "excluded_duplicate": "67/frame_180.jpg",
+    "excluded_duplicate": "barcelona_0031/frame_180.jpg",
     "selection_result": "",
     "metadata": ""
   },
   {
-    "scene_id": "69",
+    "scene_id": "barcelona_0032",
+    "selected_heading": 0,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0032/frame_0_f.jpg",
+    "context_images": [
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0032/frame_90.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0032/frame_180.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0032/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0032/frame_0.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0033",
     "selected_heading": 180,
-    "main_image": "images/survey_ready_streetview_scenes/69/frame_180_f.jpg",
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0033/frame_180_f.jpg",
     "context_images": [
       {
         "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/69/frame_0.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0033/frame_0.jpg"
       },
       {
         "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/69/frame_90.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0033/frame_90.jpg"
       },
       {
         "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/69/frame_270.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0033/frame_270.jpg"
       }
     ],
-    "excluded_duplicate": "69/frame_180.jpg",
+    "excluded_duplicate": "barcelona_0033/frame_180.jpg",
     "selection_result": "",
     "metadata": ""
   },
   {
-    "scene_id": "74",
+    "scene_id": "barcelona_0034",
+    "selected_heading": 180,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0034/frame_180_f.jpg",
+    "context_images": [
+      {
+        "heading": 0,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0034/frame_0.jpg"
+      },
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0034/frame_90.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0034/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0034/frame_180.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0035",
     "selected_heading": 0,
-    "main_image": "images/survey_ready_streetview_scenes/74/frame_0_f.jpg",
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0035/frame_0_f.jpg",
     "context_images": [
       {
         "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/74/frame_90.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0035/frame_90.jpg"
       },
       {
         "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/74/frame_180.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0035/frame_180.jpg"
       },
       {
         "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/74/frame_270.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0035/frame_270.jpg"
       }
     ],
-    "excluded_duplicate": "74/frame_0.jpg",
+    "excluded_duplicate": "barcelona_0035/frame_0.jpg",
     "selection_result": "",
     "metadata": ""
   },
   {
-    "scene_id": "76",
+    "scene_id": "barcelona_0036",
     "selected_heading": 0,
-    "main_image": "images/survey_ready_streetview_scenes/76/frame_0_f.jpg",
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0036/frame_0_f.jpg",
     "context_images": [
       {
         "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/76/frame_90.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0036/frame_90.jpg"
       },
       {
         "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/76/frame_180.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0036/frame_180.jpg"
       },
       {
         "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/76/frame_270.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0036/frame_270.jpg"
       }
     ],
-    "excluded_duplicate": "76/frame_0.jpg",
+    "excluded_duplicate": "barcelona_0036/frame_0.jpg",
     "selection_result": "",
     "metadata": ""
   },
   {
-    "scene_id": "77",
+    "scene_id": "barcelona_0037",
+    "selected_heading": 180,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0037/frame_180_f.jpg",
+    "context_images": [
+      {
+        "heading": 0,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0037/frame_0.jpg"
+      },
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0037/frame_90.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0037/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0037/frame_180.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0038",
     "selected_heading": 90,
-    "main_image": "images/survey_ready_streetview_scenes/77/frame_90_f.jpg",
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0038/frame_90_f.jpg",
     "context_images": [
       {
         "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/77/frame_0.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0038/frame_0.jpg"
       },
       {
         "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/77/frame_180.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0038/frame_180.jpg"
       },
       {
         "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/77/frame_270.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0038/frame_270.jpg"
       }
     ],
-    "excluded_duplicate": "77/frame_90.jpg",
+    "excluded_duplicate": "barcelona_0038/frame_90.jpg",
     "selection_result": "",
     "metadata": ""
   },
   {
-    "scene_id": "78",
-    "selected_heading": 180,
-    "main_image": "images/survey_ready_streetview_scenes/78/frame_180_f.jpg",
-    "context_images": [
-      {
-        "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/78/frame_0.jpg"
-      },
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/78/frame_90.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/78/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "78/frame_180.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "84",
-    "selected_heading": 180,
-    "main_image": "images/survey_ready_streetview_scenes/84/frame_180_f.jpg",
-    "context_images": [
-      {
-        "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/84/frame_0.jpg"
-      },
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/84/frame_90.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/84/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "84/frame_180.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "85",
+    "scene_id": "barcelona_0039",
     "selected_heading": 0,
-    "main_image": "images/survey_ready_streetview_scenes/85/frame_0_f.jpg",
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0039/frame_0_f.jpg",
     "context_images": [
       {
         "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/85/frame_90.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0039/frame_90.jpg"
       },
       {
         "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/85/frame_180.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0039/frame_180.jpg"
       },
       {
         "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/85/frame_270.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0039/frame_270.jpg"
       }
     ],
-    "excluded_duplicate": "85/frame_0.jpg",
+    "excluded_duplicate": "barcelona_0039/frame_0.jpg",
     "selection_result": "",
     "metadata": ""
   },
   {
-    "scene_id": "88",
-    "selected_heading": 90,
-    "main_image": "images/survey_ready_streetview_scenes/88/frame_90_f.jpg",
-    "context_images": [
-      {
-        "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/88/frame_0.jpg"
-      },
-      {
-        "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/88/frame_180.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/88/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "88/frame_90.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "91",
-    "selected_heading": 0,
-    "main_image": "images/survey_ready_streetview_scenes/91/frame_0_f.jpg",
-    "context_images": [
-      {
-        "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/91/frame_90.jpg"
-      },
-      {
-        "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/91/frame_180.jpg"
-      },
-      {
-        "heading": 270,
-        "url": "images/survey_ready_streetview_scenes/91/frame_270.jpg"
-      }
-    ],
-    "excluded_duplicate": "91/frame_0.jpg",
-    "selection_result": "",
-    "metadata": ""
-  },
-  {
-    "scene_id": "93",
+    "scene_id": "barcelona_0040",
     "selected_heading": 270,
-    "main_image": "images/survey_ready_streetview_scenes/93/frame_270_f.jpg",
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0040/frame_270_f.jpg",
     "context_images": [
       {
         "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/93/frame_0.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0040/frame_0.jpg"
       },
       {
         "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/93/frame_90.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0040/frame_90.jpg"
       },
       {
         "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/93/frame_180.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0040/frame_180.jpg"
       }
     ],
-    "excluded_duplicate": "93/frame_270.jpg",
+    "excluded_duplicate": "barcelona_0040/frame_270.jpg",
     "selection_result": "",
     "metadata": ""
   },
   {
-    "scene_id": "96",
-    "selected_heading": 270,
-    "main_image": "images/survey_ready_streetview_scenes/96/frame_270_f.jpg",
+    "scene_id": "barcelona_0041",
+    "selected_heading": 180,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0041/frame_180_f.jpg",
     "context_images": [
       {
         "heading": 0,
-        "url": "images/survey_ready_streetview_scenes/96/frame_0.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0041/frame_0.jpg"
       },
       {
         "heading": 90,
-        "url": "images/survey_ready_streetview_scenes/96/frame_90.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0041/frame_90.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0041/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0041/frame_180.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0042",
+    "selected_heading": 0,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0042/frame_0_f.jpg",
+    "context_images": [
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0042/frame_90.jpg"
       },
       {
         "heading": 180,
-        "url": "images/survey_ready_streetview_scenes/96/frame_180.jpg"
+        "url": "images/survey_ready_streetview_scenes/barcelona_0042/frame_180.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0042/frame_270.jpg"
       }
     ],
-    "excluded_duplicate": "96/frame_270.jpg",
+    "excluded_duplicate": "barcelona_0042/frame_0.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0043",
+    "selected_heading": 180,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0043/frame_180_f.jpg",
+    "context_images": [
+      {
+        "heading": 0,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0043/frame_0.jpg"
+      },
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0043/frame_90.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0043/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0043/frame_180.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0044",
+    "selected_heading": 180,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0044/frame_180_f.jpg",
+    "context_images": [
+      {
+        "heading": 0,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0044/frame_0.jpg"
+      },
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0044/frame_90.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0044/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0044/frame_180.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0045",
+    "selected_heading": 0,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0045/frame_0_f.jpg",
+    "context_images": [
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0045/frame_90.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0045/frame_180.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0045/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0045/frame_0.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0046",
+    "selected_heading": 90,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0046/frame_90_f.jpg",
+    "context_images": [
+      {
+        "heading": 0,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0046/frame_0.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0046/frame_180.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0046/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0046/frame_90.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0047",
+    "selected_heading": 90,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0047/frame_90_f.jpg",
+    "context_images": [
+      {
+        "heading": 0,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0047/frame_0.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0047/frame_180.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0047/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0047/frame_90.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0048",
+    "selected_heading": 270,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0048/frame_270_f.jpg",
+    "context_images": [
+      {
+        "heading": 0,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0048/frame_0.jpg"
+      },
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0048/frame_90.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0048/frame_180.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0048/frame_270.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0049",
+    "selected_heading": 180,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0049/frame_180_f.jpg",
+    "context_images": [
+      {
+        "heading": 0,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0049/frame_0.jpg"
+      },
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0049/frame_90.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0049/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0049/frame_180.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0050",
+    "selected_heading": 0,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0050/frame_0_f.jpg",
+    "context_images": [
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0050/frame_90.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0050/frame_180.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0050/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0050/frame_0.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0052",
+    "selected_heading": 90,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0052/frame_90_f.jpg",
+    "context_images": [
+      {
+        "heading": 0,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0052/frame_0.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0052/frame_180.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0052/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0052/frame_90.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0053",
+    "selected_heading": 0,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0053/frame_0_f.jpg",
+    "context_images": [
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0053/frame_90.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0053/frame_180.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0053/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0053/frame_0.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0054",
+    "selected_heading": 0,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0054/frame_0_f.jpg",
+    "context_images": [
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0054/frame_90.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0054/frame_180.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0054/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0054/frame_0.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0055",
+    "selected_heading": 270,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0055/frame_270_f.jpg",
+    "context_images": [
+      {
+        "heading": 0,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0055/frame_0.jpg"
+      },
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0055/frame_90.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0055/frame_180.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0055/frame_270.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0056",
+    "selected_heading": 180,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0056/frame_180_f.jpg",
+    "context_images": [
+      {
+        "heading": 0,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0056/frame_0.jpg"
+      },
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0056/frame_90.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0056/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0056/frame_180.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0057",
+    "selected_heading": 0,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0057/frame_0_f.jpg",
+    "context_images": [
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0057/frame_90.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0057/frame_180.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0057/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0057/frame_0.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0058",
+    "selected_heading": 0,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0058/frame_0_f.jpg",
+    "context_images": [
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0058/frame_90.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0058/frame_180.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0058/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0058/frame_0.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0059",
+    "selected_heading": 0,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0059/frame_0_f.jpg",
+    "context_images": [
+      {
+        "heading": 90,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0059/frame_90.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0059/frame_180.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0059/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0059/frame_0.jpg",
+    "selection_result": "",
+    "metadata": ""
+  },
+  {
+    "scene_id": "barcelona_0060",
+    "selected_heading": 90,
+    "main_image": "images/survey_ready_streetview_scenes/barcelona_0060/frame_90_f.jpg",
+    "context_images": [
+      {
+        "heading": 0,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0060/frame_0.jpg"
+      },
+      {
+        "heading": 180,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0060/frame_180.jpg"
+      },
+      {
+        "heading": 270,
+        "url": "images/survey_ready_streetview_scenes/barcelona_0060/frame_270.jpg"
+      }
+    ],
+    "excluded_duplicate": "barcelona_0060/frame_90.jpg",
     "selection_result": "",
     "metadata": ""
   }
