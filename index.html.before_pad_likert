@@ -21,9 +21,6 @@
       <input type="hidden" name="pair_set_id" />
       <input type="hidden" name="randomization_seed" />
       <input type="hidden" name="dimension_order" />
-      <input type="hidden" name="pad_dimension_order" />
-      <input type="hidden" name="pad_scene_order" />
-      <input type="hidden" name="survey_version" />
       <textarea name="payload_json"></textarea>
       <textarea name="payload_csv"></textarea>
     </form>

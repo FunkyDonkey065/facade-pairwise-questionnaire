@@ -1,5 +1,4 @@
 const PROLIFIC_COMPLETION_URL = "https://app.prolific.com/submissions/complete?cc=YOUR_COMPLETION_CODE";
-const SURVEY_VERSION = "facade_preference_pairwise_pad_likert_20260706";
 
 function getUrlParam(name) {
   return new URLSearchParams(window.location.search).get(name) || "";
@@ -47,19 +46,6 @@ function shuffleWithRandom(items, random) {
   return shuffled;
 }
 
-function imageFromPair(pair, side) {
-  return {
-    id: pair[`image_${side}_id`],
-    url: pair[`image_${side}_url`],
-    scene_id: pair[`image_${side}_scene_id`],
-    selected_heading: pair[`image_${side}_selected_heading`],
-    context_urls: pair[`image_${side}_context_urls`],
-    excluded_duplicate: pair[`image_${side}_excluded_duplicate`],
-    location: pair[`image_${side}_location`],
-    context: pair[`image_${side}_context`]
-  };
-}
-
 function preparePairList(basePairs, seedInput) {
   const pairOrderRandom = createSeededRandom(`${seedInput}|pair-order`);
   const sideRandom = createSeededRandom(`${seedInput}|ab-side`);
@@ -71,8 +57,48 @@ function preparePairList(basePairs, seedInput) {
 
   return orderedPairs.map((pair, index) => {
     const aBSwapped = sidePattern[index];
-    const imageA = aBSwapped ? imageFromPair(pair, "B") : imageFromPair(pair, "A");
-    const imageB = aBSwapped ? imageFromPair(pair, "A") : imageFromPair(pair, "B");
+    const imageA = aBSwapped
+      ? {
+          id: pair.image_B_id,
+          url: pair.image_B_url,
+          scene_id: pair.image_B_scene_id,
+          selected_heading: pair.image_B_selected_heading,
+          context_urls: pair.image_B_context_urls,
+          excluded_duplicate: pair.image_B_excluded_duplicate,
+          location: pair.image_B_location,
+          context: pair.image_B_context
+        }
+      : {
+          id: pair.image_A_id,
+          url: pair.image_A_url,
+          scene_id: pair.image_A_scene_id,
+          selected_heading: pair.image_A_selected_heading,
+          context_urls: pair.image_A_context_urls,
+          excluded_duplicate: pair.image_A_excluded_duplicate,
+          location: pair.image_A_location,
+          context: pair.image_A_context
+        };
+    const imageB = aBSwapped
+      ? {
+          id: pair.image_A_id,
+          url: pair.image_A_url,
+          scene_id: pair.image_A_scene_id,
+          selected_heading: pair.image_A_selected_heading,
+          context_urls: pair.image_A_context_urls,
+          excluded_duplicate: pair.image_A_excluded_duplicate,
+          location: pair.image_A_location,
+          context: pair.image_A_context
+        }
+      : {
+          id: pair.image_B_id,
+          url: pair.image_B_url,
+          scene_id: pair.image_B_scene_id,
+          selected_heading: pair.image_B_selected_heading,
+          context_urls: pair.image_B_context_urls,
+          excluded_duplicate: pair.image_B_excluded_duplicate,
+          location: pair.image_B_location,
+          context: pair.image_B_context
+        };
 
     return {
       ...pair,
@@ -100,37 +126,9 @@ function preparePairList(basePairs, seedInput) {
   });
 }
 
-function preparePadSceneList(pairList, seedInput) {
-  const seen = new Map();
-  pairList.forEach((pair) => {
-    [imageFromPair(pair, "A"), imageFromPair(pair, "B")].forEach((image) => {
-      if (image.id && !seen.has(image.id)) seen.set(image.id, image);
-    });
-  });
-  const random = createSeededRandom(`${seedInput}|pad-scene-order`);
-  return shuffleWithRandom([...seen.values()], random).map((scene, index) => ({
-    ...scene,
-    pad_order_index: index + 1
-  }));
-}
-
-function pickPadDimensionOrder(seedInput) {
-  const random = createSeededRandom(`${seedInput}|pad-dimension-order`);
-  return shuffleWithRandom(["pleasure", "arousal", "dominance"], random);
-}
-
-function renderContextThumbs(contextUrls) {
-  if (!Array.isArray(contextUrls) || !contextUrls.length) return "";
-  const thumbs = contextUrls
-    .map(
-      (entry) => `
-        <figure>
-          <img src="${escapeHtml(entry.url)}" alt="Street context heading ${escapeHtml(entry.heading)}" />
-          <figcaption>${escapeHtml(entry.heading)} deg</figcaption>
-        </figure>`
-    )
-    .join("");
-  return `<div class="context-thumbs" aria-label="Street context images">${thumbs}</div>`;
+function pickDimensionOrder(seedInput) {
+  const random = createSeededRandom(`${seedInput}|dimension-order`);
+  return shuffleWithRandom(["pleasure", "arousal", "dominance", "preference"], random);
 }
 
 function makeButtonTrial({ title, body, button = "Continue", data = {} }) {
@@ -321,168 +319,25 @@ const jsPsychChoiceCheck = (() => {
   return ChoiceCheckPlugin;
 })();
 
-const jsPsychPadLikert = (() => {
+const jsPsychPairwiseMatrix = (() => {
   const info = {
-    name: "pad-likert",
+    name: "pairwise-matrix",
     parameters: {
-      image: { type: jsPsychModule.ParameterType.OBJECT, default: {} },
+      pair: { type: jsPsychModule.ParameterType.OBJECT, default: {} },
       trial_index: { type: jsPsychModule.ParameterType.INT, default: 0 },
       trial_count: { type: jsPsychModule.ParameterType.INT, default: 0 },
       dimension_order: { type: jsPsychModule.ParameterType.STRING, array: true, default: [] }
     }
   };
 
-  const labels = {
-    pleasure: {
-      title: "Pleasure",
-      prompt: "How pleasant does this target facade feel within its street context?",
-      left: "Very unpleasant",
-      right: "Very pleasant"
-    },
-    arousal: {
-      title: "Arousal",
-      prompt: "How visually stimulating does this target facade feel?",
-      left: "Very calm",
-      right: "Very stimulating"
-    },
-    dominance: {
-      title: "Dominance",
-      prompt: "How legible, open, and easy to feel in control does this facade context appear?",
-      left: "Very confusing/enclosed",
-      right: "Very legible/open"
-    }
+  const dimensionLabels = {
+    pleasure: "Pleasure: which facade feels more pleasant within its street context?",
+    arousal: "Arousal: which facade feels more visually stimulating within its street context?",
+    dominance: "Dominance: which facade feels more legible, open, and easy to feel in control within its street context?",
+    preference: "Overall preference: which facade do you prefer as part of this street scene?"
   };
 
-  const scale = [-3, -2, -1, 0, 1, 2, 3];
-
-  class PadLikertPlugin {
-    constructor(jsPsych) {
-      this.jsPsych = jsPsych;
-    }
-
-    trial(displayElement, trial) {
-      const image = trial.image;
-      const start = performance.now();
-      const dimensionOrder = (trial.dimension_order.length ? trial.dimension_order : ["pleasure", "arousal", "dominance"])
-        .filter((name) => labels[name]);
-      const rows = dimensionOrder
-        .map((name) => {
-          const item = labels[name];
-          const options = scale
-            .map(
-              (value) => `
-                <label>
-                  <input type="radio" name="${name}" value="${value}" />
-                  <span>${value}</span>
-                </label>`
-            )
-            .join("");
-          return `
-            <div class="question-row likert-row">
-              <div class="question-title">${escapeHtml(item.title)}: ${escapeHtml(item.prompt)}</div>
-              <div class="likert-anchors">
-                <span>${escapeHtml(item.left)}</span>
-                <span>Neutral</span>
-                <span>${escapeHtml(item.right)}</span>
-              </div>
-              <div class="likert-grid">${options}</div>
-            </div>`;
-        })
-        .join("");
-
-      displayElement.innerHTML = `
-        <div class="wrap single-wrap">
-          <section class="panel single-panel">
-            <div class="comparison-header">
-              <div class="progress">PAD rating ${trial.trial_index + 1} of ${trial.trial_count}</div>
-              <div class="progress">Image ID: ${escapeHtml(image.id)}</div>
-            </div>
-            <div class="context-strip">
-              <strong>Location/context:</strong> ${escapeHtml(image.location || "Barcelona, Catalonia, Spain")}.
-              Rate the marked target facade as part of the visible street scene.
-            </div>
-            <div class="single-image-layout">
-              <div class="image-panel">
-                <div class="image-label"><strong>Target facade</strong><span>${escapeHtml(image.id)}</span></div>
-                <img class="single-facade-image" src="${image.url}" alt="Marked target facade" />
-                ${renderContextThumbs(image.context_urls)}
-              </div>
-              <form id="pad-form" class="single-form">
-                <div class="question-block">${rows}</div>
-                <div class="question-row">
-                  <div class="question-title">Were you able to rate this target facade clearly enough?</div>
-                  <div class="option-grid judgeability-grid">
-                    <label><input type="radio" name="judgeability" value="yes" />Yes</label>
-                    <label><input type="radio" name="judgeability" value="somewhat" />Somewhat</label>
-                    <label><input type="radio" name="judgeability" value="no" />No</label>
-                  </div>
-                </div>
-                <div class="error" id="pad-error" hidden>Please answer every row before continuing.</div>
-                <div class="actions">
-                  <button class="primary-button" type="submit">Next image</button>
-                </div>
-              </form>
-            </div>
-          </section>
-        </div>`;
-
-      displayElement.querySelector("#pad-form").addEventListener("submit", (event) => {
-        event.preventDefault();
-        const values = {};
-        for (const name of dimensionOrder) {
-          const selected = displayElement.querySelector(`input[name="${name}"]:checked`);
-          if (!selected) {
-            displayElement.querySelector("#pad-error").hidden = false;
-            return;
-          }
-          values[name] = Number(selected.value);
-        }
-        const judgeability = displayElement.querySelector('input[name="judgeability"]:checked');
-        if (!judgeability) {
-          displayElement.querySelector("#pad-error").hidden = false;
-          return;
-        }
-        const rt = Math.round(performance.now() - start);
-        this.jsPsych.finishTrial({
-          task: "pad_likert",
-          image_id: image.id,
-          scene_id: image.scene_id,
-          selected_heading: image.selected_heading,
-          pad_order_index: image.pad_order_index,
-          pad_dimension_order: dimensionOrder.join("|"),
-          image_url: image.url.startsWith("data:") ? "placeholder" : image.url,
-          context_urls: Array.isArray(image.context_urls)
-            ? image.context_urls.map((entry) => `${entry.heading}:${entry.url}`).join("|")
-            : "",
-          image_location: image.location,
-          image_context: image.context,
-          excluded_duplicate: image.excluded_duplicate,
-          pleasure_likert: values.pleasure,
-          arousal_likert: values.arousal,
-          dominance_likert: values.dominance,
-          pleasure_norm: values.pleasure / 3,
-          arousal_norm: values.arousal / 3,
-          dominance_norm: values.dominance / 3,
-          judgeability: judgeability.value,
-          rt
-        });
-      });
-    }
-  }
-
-  PadLikertPlugin.info = info;
-  return PadLikertPlugin;
-})();
-
-const jsPsychPreferencePairwise = (() => {
-  const info = {
-    name: "preference-pairwise",
-    parameters: {
-      pair: { type: jsPsychModule.ParameterType.OBJECT, default: {} },
-      trial_index: { type: jsPsychModule.ParameterType.INT, default: 0 },
-      trial_count: { type: jsPsychModule.ParameterType.INT, default: 0 }
-    }
-  };
+  const defaultDimensionOrder = ["pleasure", "arousal", "dominance", "preference"];
 
   const options = [
     ["-2", "Strongly A"],
@@ -492,7 +347,24 @@ const jsPsychPreferencePairwise = (() => {
     ["2", "Strongly B"]
   ];
 
-  class PreferencePairwisePlugin {
+  function renderContextThumbs(contextUrls) {
+    if (!Array.isArray(contextUrls) || !contextUrls.length) return "";
+    const thumbs = contextUrls
+      .map(
+        (entry) => `
+          <figure>
+            <img src="${escapeHtml(entry.url)}" alt="Street context heading ${escapeHtml(entry.heading)}" />
+            <figcaption>${escapeHtml(entry.heading)}°</figcaption>
+          </figure>`
+      )
+      .join("");
+    return `
+      <div class="context-thumbs" aria-label="Street context images">
+        ${thumbs}
+      </div>`;
+  }
+
+  class PairwiseMatrixPlugin {
     constructor(jsPsych) {
       this.jsPsych = jsPsych;
     }
@@ -502,26 +374,39 @@ const jsPsychPreferencePairwise = (() => {
       const start = performance.now();
       const imageAContextThumbs = renderContextThumbs(pair.image_A_context_urls);
       const imageBContextThumbs = renderContextThumbs(pair.image_B_context_urls);
-      const preferenceOptions = options
-        .map(
-          ([value, text]) => `
-            <label>
-              <input type="radio" name="preference" value="${value}" />
-              ${text}
-            </label>`
-        )
+      const trialDimensions = (trial.dimension_order.length ? trial.dimension_order : defaultDimensionOrder)
+        .filter((name) => dimensionLabels[name])
+        .map((name) => [name, dimensionLabels[name]]);
+      const rows = trialDimensions
+        .map(([name, label]) => {
+          const radios = options
+            .map(
+              ([value, text]) => `
+                <label>
+                  <input type="radio" name="${name}" value="${value}" />
+                  ${text}
+                </label>`
+            )
+            .join("");
+          return `
+            <div class="question-row">
+              <div class="question-title">${label}</div>
+              <div class="option-grid">${radios}</div>
+            </div>`;
+        })
         .join("");
 
       displayElement.innerHTML = `
         <div class="wrap comparison-wrap">
           <section class="panel comparison-panel">
             <div class="comparison-header">
-              <div class="progress">Preference pair ${trial.trial_index + 1} of ${trial.trial_count}</div>
+              <div class="progress">Pair ${trial.trial_index + 1} of ${trial.trial_count}</div>
               <div class="progress">Pair ID: ${escapeHtml(pair.pair_id)}</div>
             </div>
             <div class="context-strip">
               <strong>Location/context:</strong> ${escapeHtml(pair.location_context || "Barcelona, Catalonia, Spain")}.
-              Compare only the marked target facades as part of their visible street scenes.
+              Compare the marked target facade within the visible street scene, including adjacent buildings, street width,
+              ground-floor interface, sidewalk, vegetation, enclosure, and overall visual coherence.
             </div>
             <div class="pair-grid comparison-image-grid">
               <div class="image-panel">
@@ -535,19 +420,14 @@ const jsPsychPreferencePairwise = (() => {
                 ${imageBContextThumbs}
               </div>
             </div>
-            <form id="pair-form" class="comparison-form preference-only-form">
-              <div class="question-block">
-                <div class="question-row">
-                  <div class="question-title">Overall preference: which target facade do you prefer as part of this street scene?</div>
-                  <div class="option-grid">${preferenceOptions}</div>
-                </div>
-                <div class="question-row">
-                  <div class="question-title">Were you able to compare these two target facades clearly enough?</div>
-                  <div class="option-grid judgeability-grid">
-                    <label><input type="radio" name="judgeability" value="yes" />Yes</label>
-                    <label><input type="radio" name="judgeability" value="somewhat" />Somewhat</label>
-                    <label><input type="radio" name="judgeability" value="no" />No</label>
-                  </div>
+            <form id="pair-form" class="comparison-form">
+              <div class="question-block">${rows}</div>
+              <div class="question-row">
+                <div class="question-title">Were you able to compare these two target facades clearly enough?</div>
+                <div class="option-grid">
+                  <label><input type="radio" name="judgeability" value="yes" />Yes</label>
+                  <label><input type="radio" name="judgeability" value="somewhat" />Somewhat</label>
+                  <label><input type="radio" name="judgeability" value="no" />No</label>
                 </div>
               </div>
               <div class="error" id="pair-error" hidden>Please answer every row before continuing.</div>
@@ -560,18 +440,24 @@ const jsPsychPreferencePairwise = (() => {
 
       displayElement.querySelector("#pair-form").addEventListener("submit", (event) => {
         event.preventDefault();
-        const selected = displayElement.querySelector('input[name="preference"]:checked');
+        const values = {};
+        for (const [name] of trialDimensions) {
+          const selected = displayElement.querySelector(`input[name="${name}"]:checked`);
+          if (!selected) {
+            displayElement.querySelector("#pair-error").hidden = false;
+            return;
+          }
+          values[name] = Number(selected.value);
+        }
         const judgeability = displayElement.querySelector('input[name="judgeability"]:checked');
-        if (!selected || !judgeability) {
+        if (!judgeability) {
           displayElement.querySelector("#pair-error").hidden = false;
           return;
         }
-        const preferenceChoice = Number(selected.value);
-        const preferredImageId =
-          preferenceChoice < 0 ? pair.image_A_id : preferenceChoice > 0 ? pair.image_B_id : "about_the_same";
+
         const rt = Math.round(performance.now() - start);
         this.jsPsych.finishTrial({
-          task: "pairwise_preference",
+          task: "pairwise_facade",
           pair_id: pair.pair_id,
           pair_set_id: pair.set_id,
           source_order_index: pair.source_order_index,
@@ -579,6 +465,7 @@ const jsPsychPreferencePairwise = (() => {
           a_b_swapped: pair.a_b_swapped,
           original_image_A_id: pair.original_image_A_id,
           original_image_B_id: pair.original_image_B_id,
+          dimension_order: trialDimensions.map(([name]) => name).join("|"),
           location_context: pair.location_context,
           street_context: pair.street_context,
           image_A_id: pair.image_A_id,
@@ -601,9 +488,10 @@ const jsPsychPreferencePairwise = (() => {
           image_B_context: pair.image_B_context,
           image_A_url: pair.image_A_url.startsWith("data:") ? "placeholder" : pair.image_A_url,
           image_B_url: pair.image_B_url.startsWith("data:") ? "placeholder" : pair.image_B_url,
-          preference_choice: preferenceChoice,
-          preferred_image_id: preferredImageId,
-          preference_strength: Math.abs(preferenceChoice),
+          preference_choice: values.preference,
+          pleasure_choice: values.pleasure,
+          arousal_choice: values.arousal,
+          dominance_choice: values.dominance,
           judgeability: judgeability.value,
           rt
         });
@@ -611,22 +499,18 @@ const jsPsychPreferencePairwise = (() => {
     }
   }
 
-  PreferencePairwisePlugin.info = info;
-  return PreferencePairwisePlugin;
+  PairwiseMatrixPlugin.info = info;
+  return PairwiseMatrixPlugin;
 })();
 
 const prolificPid = getUrlParam("PROLIFIC_PID");
 const studyId = getUrlParam("STUDY_ID");
 const sessionId = getUrlParam("SESSION_ID");
 const forcedSet = getUrlParam("PAIR_SET_ID");
-const padTrialLimitRaw = Number(getUrlParam("PAD_TRIAL_LIMIT"));
-const padTrialLimit = Number.isFinite(padTrialLimitRaw) && padTrialLimitRaw > 0 ? Math.floor(padTrialLimitRaw) : 0;
 const randomizationSeed = sessionId || prolificPid || Math.random().toString(36).slice(2);
 const pairSetId = forcedSet || pickSetFromSession(randomizationSeed);
 const pairList = preparePairList(getPairSet(pairSetId), randomizationSeed);
-const padDimensionOrder = pickPadDimensionOrder(randomizationSeed);
-const fullPadSceneList = preparePadSceneList(pairList, randomizationSeed);
-const padSceneList = padTrialLimit ? fullPadSceneList.slice(0, padTrialLimit) : fullPadSceneList;
+const dimensionOrder = pickDimensionOrder(randomizationSeed);
 let effectiveProlificPid = prolificPid;
 
 const jsPsych = initJsPsych({
@@ -647,9 +531,8 @@ jsPsych.data.addProperties({
   session_id: sessionId,
   pair_set_id: pairSetId,
   randomization_seed: randomizationSeed,
-  pad_dimension_order: padDimensionOrder.join("|"),
-  pad_scene_order: padSceneList.map((scene) => scene.id).join("|"),
-  survey_version: SURVEY_VERSION,
+  dimension_order: dimensionOrder.join("|"),
+  survey_version: "facade_pairwise_20260608",
   user_agent: navigator.userAgent,
   screen_width: window.screen.width,
   screen_height: window.screen.height,
@@ -665,9 +548,7 @@ async function submitToNetlify({ csv, json }) {
     session_id: sessionId,
     pair_set_id: pairSetId,
     randomization_seed: randomizationSeed,
-    pad_dimension_order: padDimensionOrder.join("|"),
-    pad_scene_order: padSceneList.map((scene) => scene.id).join("|"),
-    survey_version: SURVEY_VERSION,
+    dimension_order: dimensionOrder.join("|"),
     payload_json: json,
     payload_csv: csv
   };
@@ -718,10 +599,10 @@ function showFinalScreen({ submitted, csv, json }) {
     </div>`;
 
   document.querySelector("#download-csv").addEventListener("click", () => {
-    downloadText(`facade_pad_pairwise_${effectiveProlificPid || "anonymous"}.csv`, csv, "text/csv");
+    downloadText(`facade_pairwise_${effectiveProlificPid || "anonymous"}.csv`, csv, "text/csv");
   });
   document.querySelector("#download-json").addEventListener("click", () => {
-    downloadText(`facade_pad_pairwise_${effectiveProlificPid || "anonymous"}.json`, json, "application/json");
+    downloadText(`facade_pairwise_${effectiveProlificPid || "anonymous"}.json`, json, "application/json");
   });
   document.querySelector("#finish-prolific").addEventListener("click", () => {
     window.location.href = PROLIFIC_COMPLETION_URL;
@@ -732,12 +613,11 @@ const timeline = [];
 
 timeline.push(
   makeButtonTrial({
-    title: "Facade perception survey",
+    title: "Pairwise visual comparison of urban building facades",
     body: `
-      <p>You will evaluate urban street-scene images from Barcelona, Catalonia, Spain.</p>
-      <p>The study has two parts. First, you will rate individual target facades using three affective scales. Second, you will compare pairs of facades and choose which one you prefer.</p>
-      <p>This study must be completed on a laptop or desktop computer. Mobile phones and tablets are not suitable because images need to be inspected carefully.</p>
-      <p class="muted">Estimated time: 10-13 minutes, depending on the assigned image set.</p>
+      <p>You will compare pairs of urban street-scene images from Barcelona, Catalonia, Spain. For each pair, indicate which target facade you prefer and which target facade feels more pleasant, more visually stimulating, and more legible or controllable within its visible street context.</p>
+      <p>This study must be completed on a laptop or desktop computer. Mobile phones and tablets are not suitable because two images need to be compared side by side.</p>
+      <p class="muted">Estimated time: 8-9 minutes.</p>
       <h2>Data use and protection</h2>
       <p>Your personal data will be processed by the Universitat Politecnica de Catalunya - BarcelonaTech (UPC), as data controller, in accordance with Regulation (EU) 2016/679, the General Data Protection Regulation (GDPR), and Organic Law 3/2018 on personal data protection and digital rights.</p>
       <p>The purpose of processing is to conduct academic research on visual perception of urban building facades and to validate a computational facade perception model. We will collect your Prolific ID, survey responses, completion information, response time, basic technical information needed to run the online task, and selected demographic information supplied by Prolific or confirmed in the survey where necessary.</p>
@@ -805,12 +685,12 @@ timeline.push({
 
 timeline.push(
   makeButtonTrial({
-    title: "General instructions",
+    title: "Task instructions",
     body: `
       <p>All images in this task show urban street scenes from <strong>Barcelona, Catalonia, Spain</strong>.</p>
-      <p>If a facade is marked or outlined, evaluate the marked target facade as part of its visible street context.</p>
+      <p>For each pair, compare the <strong>target building facade</strong> in Image A and Image B as part of its visible street scene. If a facade is marked or outlined, compare the marked target facades.</p>
       <p>Please consider stable contextual features such as adjacent buildings, street width, ground-floor interface, sidewalk, vegetation, enclosure, and overall visual coherence.</p>
-      <p>Do not base your answers mainly on temporary or incidental elements such as cars, pedestrians, sky, weather, shadows, or photo quality.</p>
+      <p>Do not base your answer mainly on temporary or incidental elements such as cars, pedestrians, sky, weather, shadows, or photo quality.</p>
       <p>There are no right or wrong answers. We are interested in your immediate visual impression.</p>`,
     data: { screen: "instructions" }
   })
@@ -819,9 +699,9 @@ timeline.push(
 timeline.push({
   type: jsPsychChoiceCheck,
   title: "Comprehension check",
-  prompt: "What should your evaluations focus on?",
+  prompt: "What should your comparisons focus on?",
   choices: [
-    "The marked target building facade within its Barcelona street context.",
+    "The target building facades in Image A and Image B within their Barcelona street context.",
     "Only the sky and weather.",
     "Only cars, traffic signs, and temporary objects.",
     "Whether the photos are technically perfect."
@@ -839,42 +719,13 @@ timeline.push({
   data: { screen: "attention_check_1" }
 });
 
-timeline.push(
-  makeButtonTrial({
-    title: "Part 1: single-image PAD ratings",
-    body: `
-      <p>You will now rate individual target facades. Each page shows one target facade and three context views from the same location.</p>
-      <p>Use the 7-point scales from -3 to +3. A value of 0 means neutral.</p>`,
-    data: { screen: "pad_instructions" }
-  })
-);
-
-padSceneList.forEach((image, index) => {
-  timeline.push({
-    type: jsPsychPadLikert,
-    image,
-    trial_index: index,
-    trial_count: padSceneList.length,
-    dimension_order: padDimensionOrder
-  });
-});
-
-timeline.push(
-  makeButtonTrial({
-    title: "Part 2: pairwise preference comparisons",
-    body: `
-      <p>You will now compare pairs of target facades. For each pair, choose which target facade you prefer within its visible Barcelona street context.</p>
-      <p>This part asks only about overall preference. The affective PAD ratings were collected separately to avoid turning those ratings into direct pairwise comparisons.</p>`,
-    data: { screen: "pairwise_instructions" }
-  })
-);
-
 pairList.forEach((pair, index) => {
   timeline.push({
-    type: jsPsychPreferencePairwise,
+    type: jsPsychPairwiseMatrix,
     pair,
     trial_index: index,
-    trial_count: pairList.length
+    trial_count: pairList.length,
+    dimension_order: dimensionOrder
   });
 });
 
@@ -890,7 +741,7 @@ timeline.push({
 timeline.push(
   makeButtonTrial({
     title: "End of task",
-    body: "<p>You have completed the survey. On the next screen, your data will be saved and you will be able to return to Prolific.</p>",
+    body: "<p>You have completed the comparison task. On the next screen, your data will be saved and you will be able to return to Prolific.</p>",
     button: "Save responses",
     data: { screen: "pre_finish" }
   })
