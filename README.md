@@ -68,13 +68,13 @@ For each participant/session, the experiment:
 
 The data records `randomization_seed`, `pair_set_id`, `pad_scene_order`, `pad_dimension_order`, `a_b_swapped`, `original_image_A_id`, and `original_image_B_id`.
 
-For preview, add `PAD_TRIAL_LIMIT` to the URL, for example:
+By default, each participant rates 6 single-image PAD trials and 8 pairwise preference trials. This keeps the task close to the original time budget while separating PAD from preference. For preview or pilot tuning, add `PAD_TRIAL_LIMIT` to the URL, for example:
 
 ```text
 https://YOUR-SITE.netlify.app/?PAD_TRIAL_LIMIT=4
 ```
 
-For the formal study, omit this parameter so that all facades appearing in the participant's pair set receive PAD ratings.
+For the formal study, omit this parameter to use the default 6 PAD trials. If you recruit about 150 participants and need roughly 20 PAD ratings per 50 scenes, use `PAD_TRIAL_LIMIT=7`; if payment time is tighter, keep the default 6 and treat PAD reliability as slightly lower but still usable for a pilot/first validation.
 
 ## Netlify Deployment
 

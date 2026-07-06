@@ -41,7 +41,7 @@ function getImageContext(imageId) {
   };
 }
 
-function buildAutoPairSetsFromScenes(scenes, pairsPerSet = 10) {
+function buildAutoPairSetsFromScenes(scenes, pairsPerSet = 8) {
   if (!scenes.length) return [];
   const sortedScenes = [...scenes].sort((a, b) => {
     const aId = Number(a.scene_id);

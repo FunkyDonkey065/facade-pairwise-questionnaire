@@ -620,7 +620,8 @@ const studyId = getUrlParam("STUDY_ID");
 const sessionId = getUrlParam("SESSION_ID");
 const forcedSet = getUrlParam("PAIR_SET_ID");
 const padTrialLimitRaw = Number(getUrlParam("PAD_TRIAL_LIMIT"));
-const padTrialLimit = Number.isFinite(padTrialLimitRaw) && padTrialLimitRaw > 0 ? Math.floor(padTrialLimitRaw) : 0;
+const DEFAULT_PAD_TRIAL_LIMIT = 6;
+const padTrialLimit = Number.isFinite(padTrialLimitRaw) && padTrialLimitRaw > 0 ? Math.floor(padTrialLimitRaw) : DEFAULT_PAD_TRIAL_LIMIT;
 const randomizationSeed = sessionId || prolificPid || Math.random().toString(36).slice(2);
 const pairSetId = forcedSet || pickSetFromSession(randomizationSeed);
 const pairList = preparePairList(getPairSet(pairSetId), randomizationSeed);
@@ -737,7 +738,7 @@ timeline.push(
       <p>You will evaluate urban street-scene images from Barcelona, Catalonia, Spain.</p>
       <p>The study has two parts. First, you will rate individual target facades using three affective scales. Second, you will compare pairs of facades and choose which one you prefer.</p>
       <p>This study must be completed on a laptop or desktop computer. Mobile phones and tablets are not suitable because images need to be inspected carefully.</p>
-      <p class="muted">Estimated time: 10-13 minutes, depending on the assigned image set.</p>
+      <p class="muted">Estimated time: 8-10 minutes.</p>
       <h2>Data use and protection</h2>
       <p>Your personal data will be processed by the Universitat Politecnica de Catalunya - BarcelonaTech (UPC), as data controller, in accordance with Regulation (EU) 2016/679, the General Data Protection Regulation (GDPR), and Organic Law 3/2018 on personal data protection and digital rights.</p>
       <p>The purpose of processing is to conduct academic research on visual perception of urban building facades and to validate a computational facade perception model. We will collect your Prolific ID, survey responses, completion information, response time, basic technical information needed to run the online task, and selected demographic information supplied by Prolific or confirmed in the survey where necessary.</p>
@@ -843,7 +844,7 @@ timeline.push(
   makeButtonTrial({
     title: "Part 1: single-image PAD ratings",
     body: `
-      <p>You will now rate individual target facades. Each page shows one target facade and three context views from the same location.</p>
+      <p>You will now rate a small subset of individual target facades. Each page shows one target facade and three context views from the same location.</p>
       <p>Use the 7-point scales from -3 to +3. A value of 0 means neutral.</p>`,
     data: { screen: "pad_instructions" }
   })
