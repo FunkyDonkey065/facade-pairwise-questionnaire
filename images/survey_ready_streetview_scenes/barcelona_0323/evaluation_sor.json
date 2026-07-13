@@ -1,0 +1,107 @@
+{
+  "city": "Barcelona",
+  "selected_heading": 0,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "computed_metrics": {
+    "wwr": 0.25748006379585325,
+    "fractal_dimension": 1.5612813222266184,
+    "brightness": 0.5923044681549072,
+    "saturation": 0.3856373727321625,
+    "wwr_source": "bbox_repair_existing_window_mask",
+    "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "source_pixels": 24216
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies the primary building facade in the scene. It is a single, well-defined architectural plane with clear openings, and the occlusion from the tree is minimal and does not hinder the perception of the building's structure.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask incorrectly includes two distinct building facades (the front-facing elevation and the side elevation) as well as a separate building in the background, violating the single-facade requirement.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.55,
+        0.0,
+        0.995,
+        0.515
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "repair": {
+      "repair_method": "mllm_suggested_bbox",
+      "bbox_norm": [
+        0.55,
+        0.0,
+        0.995,
+        0.515
+      ],
+      "bbox_pixels": [
+        352,
+        0,
+        637,
+        330
+      ],
+      "facade_area_ratio": 0.2296142578125,
+      "initial_validation": {
+        "is_valid": false,
+        "single_facade": false,
+        "main_facade": true,
+        "not_multiple_facades": false,
+        "not_blank_side_wall": true,
+        "occlusion_ok": true,
+        "reason": "The mask incorrectly includes two distinct building facades (the front-facing elevation and the side elevation) as well as a separate building in the background, violating the single-facade requirement.",
+        "failure_tags": [
+          "multiple_facades"
+        ],
+        "repair_possible": true,
+        "suggested_bbox_norm": [
+          0.55,
+          0.0,
+          0.995,
+          0.515
+        ],
+        "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+      },
+      "wwr_source": "bbox_repair_existing_window_mask",
+      "wwr_debug": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "source_pixels": 24216
+      }
+    }
+  },
+  "mask_quality": {
+    "usable_for_training": true,
+    "visible_facade_completeness": 0.95,
+    "non_facade_contamination": 0.15,
+    "occlusion_severity": 0.1,
+    "reason": "The mask captures the primary facade well, with minor occlusion from a tree and some ground-level elements."
+  },
+  "pad": {
+    "pleasure": -0.2,
+    "arousal": 0.1,
+    "dominance": -0.3
+  },
+  "preference_score": 4.0,
+  "sample_weight": 1.0,
+  "confidence": {
+    "o_stage": 0.85
+  }
+}

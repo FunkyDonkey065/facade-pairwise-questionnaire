@@ -1,0 +1,126 @@
+{
+  "selected_heading": 270,
+  "selection_reason": "Heading 270 provides the most complete and clear view of a building facade, showing the full height and width of the structure without being cut off by the frame, while also offering a good perspective of the street scene.",
+  "bbox": [
+    361,
+    0,
+    639,
+    554
+  ],
+  "facade_area_ratio": 0.376005859375,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "mask_diagnostics": {
+    "repair_method": "mllm_suggested_bbox",
+    "bbox_norm": [
+      0.565,
+      0.0,
+      0.998,
+      0.865
+    ],
+    "bbox_pixels": [
+      361,
+      0,
+      639,
+      554
+    ],
+    "facade_area_ratio": 0.376005859375,
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask incorrectly includes multiple distinct building facades (the red building and the green building) as a single entity, rather than selecting one individual architectural plane.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.565,
+        0.0,
+        0.998,
+        0.865
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "wwr_source": "bbox_repair_existing_window_mask",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "source_pixels": 7285
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies a single, clear, street-facing facade plane with architectural features, excluding adjacent buildings and street elements.",
+    "suggested_bbox_norm": null,
+    "repair_possible": false,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask incorrectly includes multiple distinct building facades (the red building and the green building) as a single entity, rather than selecting one individual architectural plane.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.565,
+        0.0,
+        0.998,
+        0.865
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "repair": {
+      "repair_method": "mllm_suggested_bbox",
+      "bbox_norm": [
+        0.565,
+        0.0,
+        0.998,
+        0.865
+      ],
+      "bbox_pixels": [
+        361,
+        0,
+        639,
+        554
+      ],
+      "facade_area_ratio": 0.376005859375,
+      "initial_validation": {
+        "is_valid": false,
+        "single_facade": false,
+        "main_facade": true,
+        "not_multiple_facades": false,
+        "not_blank_side_wall": true,
+        "occlusion_ok": true,
+        "reason": "The mask incorrectly includes multiple distinct building facades (the red building and the green building) as a single entity, rather than selecting one individual architectural plane.",
+        "failure_tags": [
+          "multiple_facades"
+        ],
+        "repair_possible": true,
+        "suggested_bbox_norm": [
+          0.565,
+          0.0,
+          0.998,
+          0.865
+        ],
+        "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+      },
+      "wwr_source": "bbox_repair_existing_window_mask",
+      "wwr_debug": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "source_pixels": 7285
+      }
+    }
+  }
+}

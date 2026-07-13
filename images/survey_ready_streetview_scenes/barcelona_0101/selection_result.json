@@ -1,0 +1,279 @@
+{
+  "selected_heading": 0,
+  "selection_reason": "Heading 0 provides the most complete and frontal view of a clear building facade, satisfying all criteria including roofline visibility and facade dominance.",
+  "bbox": [
+    335,
+    170,
+    542,
+    361
+  ],
+  "facade_area_ratio": 0.08298095703125,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "mask_diagnostics": {
+    "pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "seed_area": 96208,
+    "opening_seed_area": 0,
+    "splits": [
+      {
+        "reason": "vertical_boundary",
+        "seam_x": 291,
+        "kept_side": "right",
+        "area_before": 102990,
+        "area_after": 53071,
+        "left_area": 49919,
+        "right_area": 53071,
+        "left_score": 12418.415668158843,
+        "right_score": 14064.170873437502,
+        "left_opening_area": 0,
+        "right_opening_area": 0,
+        "left_opening_components": 0,
+        "right_opening_components": 0,
+        "low_coverage": false,
+        "strong_vertical": false,
+        "strong_gradient": true,
+        "seam_score": 1.2648351192474365
+      },
+      {
+        "reason": "vertical_boundary",
+        "seam_x": 542,
+        "kept_side": "left",
+        "area_before": 53071,
+        "area_after": 40365,
+        "left_area": 40365,
+        "right_area": 12706,
+        "left_score": 53170.54032661158,
+        "right_score": -1.0,
+        "left_opening_area": 0,
+        "right_opening_area": 0,
+        "left_opening_components": 0,
+        "right_opening_components": 0,
+        "low_coverage": true,
+        "strong_vertical": false,
+        "strong_gradient": true,
+        "seam_score": 1.1532695293426514
+      },
+      {
+        "reason": "vertical_boundary",
+        "seam_x": 335,
+        "kept_side": "right",
+        "area_before": 40365,
+        "area_after": 33989,
+        "left_area": 6376,
+        "right_area": 33989,
+        "left_score": -1.0,
+        "right_score": 44117.8785780841,
+        "left_opening_area": 0,
+        "right_opening_area": 0,
+        "left_opening_components": 0,
+        "right_opening_components": 0,
+        "low_coverage": false,
+        "strong_vertical": false,
+        "strong_gradient": true,
+        "seam_score": 0.9588544368743896
+      }
+    ],
+    "component_count": 1,
+    "main_component_selected": false,
+    "merge_component_count": 1,
+    "merged_component_count": 1,
+    "join_gap_px": 18,
+    "main_component_bbox": [
+      0,
+      168,
+      640,
+      411
+    ],
+    "main_component_opening_pixels": 0,
+    "main_component_opening_components": 0,
+    "area_after_component_merge": 102990,
+    "final_opening_area": 0,
+    "final_opening_components": 0,
+    "final_width_ratio": 0.3234375,
+    "area_final": 33989,
+    "segmenter_backend": "mask2former",
+    "raw_facade_seed_area_ratio": 0.2348828125,
+    "raw_opening_seed_area_ratio": 0.0,
+    "hard_exclusion_area_ratio": 0.73938232421875,
+    "vegetation_area_ratio_image": 0.0226171875,
+    "mask2former_window_pixels": 0,
+    "mask2former_opening_pixels": 0,
+    "tree_occlusion_reject": false,
+    "tree_to_facade_ratio": 0.0,
+    "tree_context_share": 0.0,
+    "tree_center_share": 0.0,
+    "tree_context_area": 0,
+    "tree_center_area": 0,
+    "tree_context_bbox": [
+      319,
+      159,
+      558,
+      372
+    ],
+    "mask2former_segment_pixels": {
+      "building": 88383,
+      "plant": 3373,
+      "wall": 7825,
+      "tree": 5891
+    },
+    "wwr_source": "cv_window_fallback",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "reason": "no_usable_window_candidate",
+      "segformer_attempt": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "reason": "no_usable_window_candidate"
+      },
+      "final_fallback": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "cv_fallback": {
+          "method": "cv_dark_edge_component_fallback",
+          "dark_threshold": 129.0,
+          "l_threshold": 139.0,
+          "saturation_threshold": 37.0,
+          "value_mid_threshold": 165.0,
+          "candidate_pixels": 15048,
+          "component_filter": {
+            "candidate_pixels": 14943,
+            "kept_components": 11,
+            "kept_component_sample": [
+              {
+                "bbox": [
+                  338,
+                  192,
+                  353,
+                  206
+                ],
+                "area": 122,
+                "aspect": 1.0714285714285714,
+                "extent": 0.580952380952381
+              },
+              {
+                "bbox": [
+                  369,
+                  197,
+                  392,
+                  201
+                ],
+                "area": 40,
+                "aspect": 5.75,
+                "extent": 0.43478260869565216
+              },
+              {
+                "bbox": [
+                  472,
+                  203,
+                  494,
+                  233
+                ],
+                "area": 250,
+                "aspect": 0.7333333333333333,
+                "extent": 0.3787878787878788
+              },
+              {
+                "bbox": [
+                  354,
+                  206,
+                  383,
+                  238
+                ],
+                "area": 553,
+                "aspect": 0.90625,
+                "extent": 0.5959051724137931
+              },
+              {
+                "bbox": [
+                  418,
+                  209,
+                  448,
+                  242
+                ],
+                "area": 349,
+                "aspect": 0.9090909090909091,
+                "extent": 0.3525252525252525
+              },
+              {
+                "bbox": [
+                  516,
+                  210,
+                  531,
+                  214
+                ],
+                "area": 25,
+                "aspect": 3.75,
+                "extent": 0.4166666666666667
+              },
+              {
+                "bbox": [
+                  499,
+                  212,
+                  509,
+                  216
+                ],
+                "area": 23,
+                "aspect": 2.5,
+                "extent": 0.575
+              },
+              {
+                "bbox": [
+                  344,
+                  323,
+                  358,
+                  334
+                ],
+                "area": 88,
+                "aspect": 1.2727272727272727,
+                "extent": 0.5714285714285714
+              },
+              {
+                "bbox": [
+                  407,
+                  340,
+                  415,
+                  346
+                ],
+                "area": 26,
+                "aspect": 1.3333333333333333,
+                "extent": 0.5416666666666666
+              },
+              {
+                "bbox": [
+                  419,
+                  340,
+                  446,
+                  355
+                ],
+                "area": 91,
+                "aspect": 1.8,
+                "extent": 0.22469135802469137
+              },
+              {
+                "bbox": [
+                  471,
+                  346,
+                  485,
+                  355
+                ],
+                "area": 70,
+                "aspect": 1.5555555555555556,
+                "extent": 0.5555555555555556
+              }
+            ],
+            "kept_pixels": 1619
+          }
+        }
+      }
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies a single, clear residential facade plane. While there are other buildings in the row, the mask is tightly focused on one distinct unit, and the occlusion from the tree is minimal enough to allow for architectural evaluation.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+  }
+}

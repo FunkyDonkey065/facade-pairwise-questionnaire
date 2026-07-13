@@ -1,0 +1,129 @@
+{
+  "selected_heading": 0,
+  "selection_reason": "Heading 0 provides the most complete and clearly visible view of the building facade, including the roofline, while meeting all criteria. Other headings either show distant buildings or are obstructed by vegetation.",
+  "bbox": [
+    358,
+    0,
+    637,
+    458
+  ],
+  "facade_area_ratio": 0.3119677734375,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "mask_diagnostics": {
+    "repair_method": "mllm_suggested_bbox",
+    "bbox_norm": [
+      0.56,
+      0.0,
+      0.995,
+      0.715
+    ],
+    "bbox_pixels": [
+      358,
+      0,
+      637,
+      458
+    ],
+    "facade_area_ratio": 0.3119677734375,
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": false,
+      "reason": "The mask incorrectly includes a large portion of the natural rock cliff face behind the building, which is not part of the architectural facade.",
+      "failure_tags": [
+        "includes_non_facade_elements",
+        "incorrect_boundary"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.56,
+        0.0,
+        0.995,
+        0.715
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "wwr_source": "bbox_repair_existing_window_mask",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "source_pixels": 16632
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies the main building facade visible in the frame. It excludes the adjacent rock face and follows the architectural boundaries of the building.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": false,
+      "reason": "The mask incorrectly includes a large portion of the natural rock cliff face behind the building, which is not part of the architectural facade.",
+      "failure_tags": [
+        "includes_non_facade_elements",
+        "incorrect_boundary"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.56,
+        0.0,
+        0.995,
+        0.715
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "repair": {
+      "repair_method": "mllm_suggested_bbox",
+      "bbox_norm": [
+        0.56,
+        0.0,
+        0.995,
+        0.715
+      ],
+      "bbox_pixels": [
+        358,
+        0,
+        637,
+        458
+      ],
+      "facade_area_ratio": 0.3119677734375,
+      "initial_validation": {
+        "is_valid": false,
+        "single_facade": false,
+        "main_facade": true,
+        "not_multiple_facades": false,
+        "not_blank_side_wall": true,
+        "occlusion_ok": false,
+        "reason": "The mask incorrectly includes a large portion of the natural rock cliff face behind the building, which is not part of the architectural facade.",
+        "failure_tags": [
+          "includes_non_facade_elements",
+          "incorrect_boundary"
+        ],
+        "repair_possible": true,
+        "suggested_bbox_norm": [
+          0.56,
+          0.0,
+          0.995,
+          0.715
+        ],
+        "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+      },
+      "wwr_source": "bbox_repair_existing_window_mask",
+      "wwr_debug": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "source_pixels": 16632
+      }
+    }
+  }
+}

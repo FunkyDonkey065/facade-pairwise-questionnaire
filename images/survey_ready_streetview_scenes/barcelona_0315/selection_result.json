@@ -1,0 +1,126 @@
+{
+  "selected_heading": 270,
+  "selection_reason": "Heading 270 provides the most complete and clear frontal view of a building facade. The entire structure, including the roofline, is visible within the frame, and it occupies a significant portion of the image without being obstructed by the image borders or excessive vegetation.",
+  "bbox": [
+    316,
+    32,
+    637,
+    333
+  ],
+  "facade_area_ratio": 0.23589111328125,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "mask_diagnostics": {
+    "repair_method": "mllm_suggested_bbox",
+    "bbox_norm": [
+      0.495,
+      0.05,
+      0.995,
+      0.52
+    ],
+    "bbox_pixels": [
+      316,
+      32,
+      637,
+      333
+    ],
+    "facade_area_ratio": 0.23589111328125,
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask incorrectly wraps around the corner of the building, including two distinct facade planes (the front and the side) instead of selecting a single architectural elevation.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.495,
+        0.05,
+        0.995,
+        0.52
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "wwr_source": "bbox_repair_existing_window_mask",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "source_pixels": 416
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies the main street-facing facade of the building, excluding the side wall and surrounding environment.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask incorrectly wraps around the corner of the building, including two distinct facade planes (the front and the side) instead of selecting a single architectural elevation.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.495,
+        0.05,
+        0.995,
+        0.52
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "repair": {
+      "repair_method": "mllm_suggested_bbox",
+      "bbox_norm": [
+        0.495,
+        0.05,
+        0.995,
+        0.52
+      ],
+      "bbox_pixels": [
+        316,
+        32,
+        637,
+        333
+      ],
+      "facade_area_ratio": 0.23589111328125,
+      "initial_validation": {
+        "is_valid": false,
+        "single_facade": false,
+        "main_facade": true,
+        "not_multiple_facades": false,
+        "not_blank_side_wall": true,
+        "occlusion_ok": true,
+        "reason": "The mask incorrectly wraps around the corner of the building, including two distinct facade planes (the front and the side) instead of selecting a single architectural elevation.",
+        "failure_tags": [
+          "multiple_facades"
+        ],
+        "repair_possible": true,
+        "suggested_bbox_norm": [
+          0.495,
+          0.05,
+          0.995,
+          0.52
+        ],
+        "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+      },
+      "wwr_source": "bbox_repair_existing_window_mask",
+      "wwr_debug": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "source_pixels": 416
+      }
+    }
+  }
+}

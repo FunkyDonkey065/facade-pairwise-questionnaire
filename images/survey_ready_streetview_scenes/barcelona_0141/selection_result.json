@@ -1,0 +1,289 @@
+{
+  "selected_heading": 180,
+  "selection_reason": "Heading 180 provides the most complete and clear view of a building facade, showing the entire height and a significant portion of the structure without being cut off by the frame, whereas other headings show mostly streets, vegetation, or partial views.",
+  "bbox": [
+    469,
+    0,
+    640,
+    333
+  ],
+  "facade_area_ratio": 0.13902099609375,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "mask_diagnostics": {
+    "repair_method": "mllm_suggested_bbox",
+    "bbox_norm": [
+      0.733,
+      0.0,
+      0.999,
+      0.52
+    ],
+    "bbox_pixels": [
+      469,
+      0,
+      640,
+      333
+    ],
+    "facade_area_ratio": 0.13902099609375,
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": true,
+      "main_facade": true,
+      "not_multiple_facades": true,
+      "not_blank_side_wall": true,
+      "occlusion_ok": false,
+      "reason": "The mask includes a large portion of a blank pink perimeter wall and a large hedge, rather than focusing solely on the architectural facade of the building.",
+      "failure_tags": [
+        "includes_non_facade_elements",
+        "poor_boundary_adherence"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.733,
+        0.0,
+        0.999,
+        0.52
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "wwr_source": "cv_window_fallback",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "cv_fallback": {
+        "method": "cv_dark_edge_component_fallback",
+        "dark_threshold": 89.0,
+        "l_threshold": 96.0,
+        "saturation_threshold": 105.0,
+        "value_mid_threshold": 121.0,
+        "candidate_pixels": 31280,
+        "component_filter": {
+          "candidate_pixels": 31204,
+          "kept_components": 6,
+          "kept_component_sample": [
+            {
+              "bbox": [
+                621,
+                46,
+                638,
+                59
+              ],
+              "area": 55,
+              "aspect": 1.3076923076923077,
+              "extent": 0.248868778280543
+            },
+            {
+              "bbox": [
+                565,
+                304,
+                568,
+                317
+              ],
+              "area": 25,
+              "aspect": 0.23076923076923078,
+              "extent": 0.6410256410256411
+            },
+            {
+              "bbox": [
+                621,
+                319,
+                628,
+                324
+              ],
+              "area": 27,
+              "aspect": 1.4,
+              "extent": 0.7714285714285715
+            },
+            {
+              "bbox": [
+                605,
+                325,
+                611,
+                334
+              ],
+              "area": 26,
+              "aspect": 0.6666666666666666,
+              "extent": 0.48148148148148145
+            },
+            {
+              "bbox": [
+                625,
+                327,
+                640,
+                335
+              ],
+              "area": 89,
+              "aspect": 1.875,
+              "extent": 0.7416666666666667
+            },
+            {
+              "bbox": [
+                586,
+                328,
+                603,
+                335
+              ],
+              "area": 51,
+              "aspect": 2.4285714285714284,
+              "extent": 0.42857142857142855
+            }
+          ],
+          "kept_pixels": 217
+        }
+      }
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies the main residential facade plane, excluding the foreground wall and surrounding environment.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": true,
+      "main_facade": true,
+      "not_multiple_facades": true,
+      "not_blank_side_wall": true,
+      "occlusion_ok": false,
+      "reason": "The mask includes a large portion of a blank pink perimeter wall and a large hedge, rather than focusing solely on the architectural facade of the building.",
+      "failure_tags": [
+        "includes_non_facade_elements",
+        "poor_boundary_adherence"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.733,
+        0.0,
+        0.999,
+        0.52
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "repair": {
+      "repair_method": "mllm_suggested_bbox",
+      "bbox_norm": [
+        0.733,
+        0.0,
+        0.999,
+        0.52
+      ],
+      "bbox_pixels": [
+        469,
+        0,
+        640,
+        333
+      ],
+      "facade_area_ratio": 0.13902099609375,
+      "initial_validation": {
+        "is_valid": false,
+        "single_facade": true,
+        "main_facade": true,
+        "not_multiple_facades": true,
+        "not_blank_side_wall": true,
+        "occlusion_ok": false,
+        "reason": "The mask includes a large portion of a blank pink perimeter wall and a large hedge, rather than focusing solely on the architectural facade of the building.",
+        "failure_tags": [
+          "includes_non_facade_elements",
+          "poor_boundary_adherence"
+        ],
+        "repair_possible": true,
+        "suggested_bbox_norm": [
+          0.733,
+          0.0,
+          0.999,
+          0.52
+        ],
+        "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+      },
+      "wwr_source": "cv_window_fallback",
+      "wwr_debug": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "cv_fallback": {
+          "method": "cv_dark_edge_component_fallback",
+          "dark_threshold": 89.0,
+          "l_threshold": 96.0,
+          "saturation_threshold": 105.0,
+          "value_mid_threshold": 121.0,
+          "candidate_pixels": 31280,
+          "component_filter": {
+            "candidate_pixels": 31204,
+            "kept_components": 6,
+            "kept_component_sample": [
+              {
+                "bbox": [
+                  621,
+                  46,
+                  638,
+                  59
+                ],
+                "area": 55,
+                "aspect": 1.3076923076923077,
+                "extent": 0.248868778280543
+              },
+              {
+                "bbox": [
+                  565,
+                  304,
+                  568,
+                  317
+                ],
+                "area": 25,
+                "aspect": 0.23076923076923078,
+                "extent": 0.6410256410256411
+              },
+              {
+                "bbox": [
+                  621,
+                  319,
+                  628,
+                  324
+                ],
+                "area": 27,
+                "aspect": 1.4,
+                "extent": 0.7714285714285715
+              },
+              {
+                "bbox": [
+                  605,
+                  325,
+                  611,
+                  334
+                ],
+                "area": 26,
+                "aspect": 0.6666666666666666,
+                "extent": 0.48148148148148145
+              },
+              {
+                "bbox": [
+                  625,
+                  327,
+                  640,
+                  335
+                ],
+                "area": 89,
+                "aspect": 1.875,
+                "extent": 0.7416666666666667
+              },
+              {
+                "bbox": [
+                  586,
+                  328,
+                  603,
+                  335
+                ],
+                "area": 51,
+                "aspect": 2.4285714285714284,
+                "extent": 0.42857142857142855
+              }
+            ],
+            "kept_pixels": 217
+          }
+        }
+      }
+    }
+  }
+}

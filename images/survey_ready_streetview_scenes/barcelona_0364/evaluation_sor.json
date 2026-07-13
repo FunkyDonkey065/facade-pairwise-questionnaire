@@ -1,0 +1,253 @@
+{
+  "city": "Barcelona",
+  "selected_heading": 0,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "computed_metrics": {
+    "wwr": 0.02079460966542751,
+    "fractal_dimension": 1.5549834671582259,
+    "brightness": 0.5985898971557617,
+    "saturation": 0.18550661206245422,
+    "wwr_source": "cv_window_fallback",
+    "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "opening_filter": {
+        "candidate_pixels": 0,
+        "kept_components": 0
+      },
+      "cv_fallback": {
+        "method": "cv_dark_edge_component_fallback",
+        "dark_threshold": 117.0,
+        "l_threshold": 126.0,
+        "saturation_threshold": 41.0,
+        "value_mid_threshold": 165.0,
+        "candidate_pixels": 61709,
+        "component_filter": {
+          "candidate_pixels": 61317,
+          "kept_components": 5,
+          "kept_component_sample": [
+            {
+              "bbox": [
+                438,
+                35,
+                502,
+                52
+              ],
+              "area": 692,
+              "aspect": 3.764705882352941,
+              "extent": 0.6360294117647058
+            },
+            {
+              "bbox": [
+                535,
+                293,
+                546,
+                303
+              ],
+              "area": 70,
+              "aspect": 1.1,
+              "extent": 0.6363636363636364
+            },
+            {
+              "bbox": [
+                533,
+                309,
+                546,
+                365
+              ],
+              "area": 528,
+              "aspect": 0.23214285714285715,
+              "extent": 0.7252747252747253
+            },
+            {
+              "bbox": [
+                409,
+                472,
+                472,
+                488
+              ],
+              "area": 289,
+              "aspect": 3.9375,
+              "extent": 0.2867063492063492
+            },
+            {
+              "bbox": [
+                278,
+                510,
+                363,
+                546
+              ],
+              "area": 1490,
+              "aspect": 2.361111111111111,
+              "extent": 0.4869281045751634
+            }
+          ],
+          "kept_pixels": 2864
+        }
+      }
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies a single, clear, street-facing residential facade unit, excluding the adjacent unit and surrounding non-facade elements.",
+    "suggested_bbox_norm": null,
+    "repair_possible": false,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask includes two distinct residential units (two separate house facades) rather than a single architectural facade plane.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.43,
+        0.05,
+        0.85,
+        0.85
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "repair": {
+      "repair_method": "mllm_suggested_bbox",
+      "bbox_norm": [
+        0.43,
+        0.05,
+        0.85,
+        0.85
+      ],
+      "bbox_pixels": [
+        275,
+        32,
+        544,
+        544
+      ],
+      "facade_area_ratio": 0.33625,
+      "initial_validation": {
+        "is_valid": false,
+        "single_facade": false,
+        "main_facade": true,
+        "not_multiple_facades": false,
+        "not_blank_side_wall": true,
+        "occlusion_ok": true,
+        "reason": "The mask includes two distinct residential units (two separate house facades) rather than a single architectural facade plane.",
+        "failure_tags": [
+          "multiple_facades"
+        ],
+        "repair_possible": true,
+        "suggested_bbox_norm": [
+          0.43,
+          0.05,
+          0.85,
+          0.85
+        ],
+        "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+      },
+      "wwr_source": "cv_window_fallback",
+      "wwr_debug": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "opening_filter": {
+          "candidate_pixels": 0,
+          "kept_components": 0
+        },
+        "cv_fallback": {
+          "method": "cv_dark_edge_component_fallback",
+          "dark_threshold": 117.0,
+          "l_threshold": 126.0,
+          "saturation_threshold": 41.0,
+          "value_mid_threshold": 165.0,
+          "candidate_pixels": 61709,
+          "component_filter": {
+            "candidate_pixels": 61317,
+            "kept_components": 5,
+            "kept_component_sample": [
+              {
+                "bbox": [
+                  438,
+                  35,
+                  502,
+                  52
+                ],
+                "area": 692,
+                "aspect": 3.764705882352941,
+                "extent": 0.6360294117647058
+              },
+              {
+                "bbox": [
+                  535,
+                  293,
+                  546,
+                  303
+                ],
+                "area": 70,
+                "aspect": 1.1,
+                "extent": 0.6363636363636364
+              },
+              {
+                "bbox": [
+                  533,
+                  309,
+                  546,
+                  365
+                ],
+                "area": 528,
+                "aspect": 0.23214285714285715,
+                "extent": 0.7252747252747253
+              },
+              {
+                "bbox": [
+                  409,
+                  472,
+                  472,
+                  488
+                ],
+                "area": 289,
+                "aspect": 3.9375,
+                "extent": 0.2867063492063492
+              },
+              {
+                "bbox": [
+                  278,
+                  510,
+                  363,
+                  546
+                ],
+                "area": 1490,
+                "aspect": 2.361111111111111,
+                "extent": 0.4869281045751634
+              }
+            ],
+            "kept_pixels": 2864
+          }
+        }
+      }
+    }
+  },
+  "mask_quality": {
+    "usable_for_training": true,
+    "visible_facade_completeness": 0.95,
+    "non_facade_contamination": 0.15,
+    "occlusion_severity": 0.1,
+    "reason": "The mask captures the primary facade of the residential unit well, with minor inclusion of the boundary wall and gate."
+  },
+  "pad": {
+    "pleasure": 0.2,
+    "arousal": -0.2,
+    "dominance": 0.3
+  },
+  "preference_score": 5.5,
+  "sample_weight": 1.0,
+  "confidence": {
+    "o_stage": 0.85
+  }
+}

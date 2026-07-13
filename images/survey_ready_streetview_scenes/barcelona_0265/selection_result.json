@@ -1,0 +1,126 @@
+{
+  "selected_heading": 270,
+  "selection_reason": "Heading 270 provides the most direct, frontal, and complete view of the building facade, showing the full height and width without being cut off, and with minimal perspective distortion compared to the other angles.",
+  "bbox": [
+    288,
+    96,
+    608,
+    352
+  ],
+  "facade_area_ratio": 0.2,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "mask_diagnostics": {
+    "repair_method": "mllm_suggested_bbox",
+    "bbox_norm": [
+      0.45,
+      0.15,
+      0.95,
+      0.55
+    ],
+    "bbox_pixels": [
+      288,
+      96,
+      608,
+      352
+    ],
+    "facade_area_ratio": 0.2,
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask includes two distinct building sections/facade planes that are separated by a structural recess, rather than a single continuous facade plane.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.45,
+        0.15,
+        0.95,
+        0.55
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "wwr_source": "bbox_repair_existing_window_mask",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "source_pixels": 12056
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies a single, primary residential facade plane with clear architectural features, excluding adjacent sections and ground-level obstructions.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask includes two distinct building sections/facade planes that are separated by a structural recess, rather than a single continuous facade plane.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.45,
+        0.15,
+        0.95,
+        0.55
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "repair": {
+      "repair_method": "mllm_suggested_bbox",
+      "bbox_norm": [
+        0.45,
+        0.15,
+        0.95,
+        0.55
+      ],
+      "bbox_pixels": [
+        288,
+        96,
+        608,
+        352
+      ],
+      "facade_area_ratio": 0.2,
+      "initial_validation": {
+        "is_valid": false,
+        "single_facade": false,
+        "main_facade": true,
+        "not_multiple_facades": false,
+        "not_blank_side_wall": true,
+        "occlusion_ok": true,
+        "reason": "The mask includes two distinct building sections/facade planes that are separated by a structural recess, rather than a single continuous facade plane.",
+        "failure_tags": [
+          "multiple_facades"
+        ],
+        "repair_possible": true,
+        "suggested_bbox_norm": [
+          0.45,
+          0.15,
+          0.95,
+          0.55
+        ],
+        "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+      },
+      "wwr_source": "bbox_repair_existing_window_mask",
+      "wwr_debug": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "source_pixels": 12056
+      }
+    }
+  }
+}

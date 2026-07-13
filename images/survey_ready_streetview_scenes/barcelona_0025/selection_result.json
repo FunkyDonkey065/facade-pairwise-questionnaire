@@ -1,0 +1,107 @@
+{
+  "selected_heading": 270,
+  "selection_reason": "Heading 270 provides the most direct, frontal view of a building facade, showing the full width of the ground floor storefronts and the upper residential levels clearly without being cut off at the top.",
+  "bbox": [
+    0,
+    0,
+    211,
+    392
+  ],
+  "facade_area_ratio": 0.1922265625,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "mask_diagnostics": {
+    "pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "seed_area": 242218,
+    "opening_seed_area": 2742,
+    "splits": [
+      {
+        "reason": "vertical_boundary",
+        "seam_x": 211,
+        "kept_side": "left",
+        "area_before": 242579,
+        "area_after": 78736,
+        "left_area": 78736,
+        "right_area": 163843,
+        "left_score": 149254.73252579366,
+        "right_score": 42974.92958359697,
+        "left_opening_area": 2742,
+        "right_opening_area": 0,
+        "left_opening_components": 1,
+        "right_opening_components": 0,
+        "low_coverage": false,
+        "strong_vertical": true,
+        "strong_gradient": false,
+        "seam_score": 2.7094740867614746
+      }
+    ],
+    "component_count": 2,
+    "main_component_selected": true,
+    "main_component_seed_pixels": 242217,
+    "main_component_opening_pixels": 2742,
+    "merge_component_count": 1,
+    "merged_component_count": 1,
+    "join_gap_px": 18,
+    "main_component_bbox": [
+      0,
+      0,
+      640,
+      405
+    ],
+    "main_component_opening_components": 1,
+    "area_after_component_merge": 242579,
+    "final_opening_area": 2742,
+    "final_opening_components": 1,
+    "final_width_ratio": 0.3296875,
+    "area_final": 78736,
+    "segmenter_backend": "mask2former",
+    "raw_facade_seed_area_ratio": 0.5913525390625,
+    "raw_opening_seed_area_ratio": 0.0066943359375,
+    "hard_exclusion_area_ratio": 0.403583984375,
+    "vegetation_area_ratio_image": 0.0,
+    "mask2former_window_pixels": 0,
+    "mask2former_opening_pixels": 2742,
+    "tree_occlusion_reject": false,
+    "tree_to_facade_ratio": 0.0,
+    "tree_context_share": 0.0,
+    "tree_center_share": 0.0,
+    "tree_context_area": 0,
+    "mask2former_segment_pixels": {
+      "building": 239476,
+      "awning": 2742
+    },
+    "wwr_source": "mask2former_opening_fallback",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "opening_filter": {
+        "candidate_pixels": 2742,
+        "kept_components": 1,
+        "kept_component_sample": [
+          {
+            "bbox": [
+              0,
+              284,
+              92,
+              320
+            ],
+            "area": 2814,
+            "aspect": 2.5555555555555554,
+            "extent": 0.8496376811594203
+          }
+        ],
+        "kept_pixels": 2814
+      }
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies a single, distinct architectural facade plane, including the ground floor storefront and the residential levels above, without including adjacent buildings.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+  }
+}

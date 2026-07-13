@@ -1,0 +1,126 @@
+{
+  "selected_heading": 0,
+  "selection_reason": "Heading 0 provides the most complete and clear view of a building facade, showing the entire height and a significant portion of the structure without being cut off by the frame, whereas other headings show partial views or are dominated by street elements.",
+  "bbox": [
+    352,
+    0,
+    637,
+    330
+  ],
+  "facade_area_ratio": 0.2296142578125,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "mask_diagnostics": {
+    "repair_method": "mllm_suggested_bbox",
+    "bbox_norm": [
+      0.55,
+      0.0,
+      0.995,
+      0.515
+    ],
+    "bbox_pixels": [
+      352,
+      0,
+      637,
+      330
+    ],
+    "facade_area_ratio": 0.2296142578125,
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask incorrectly includes two distinct building facades (the front-facing elevation and the side elevation) as well as a separate building in the background, violating the single-facade requirement.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.55,
+        0.0,
+        0.995,
+        0.515
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "wwr_source": "bbox_repair_existing_window_mask",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "source_pixels": 24216
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies the primary building facade in the scene. It is a single, well-defined architectural plane with clear openings, and the occlusion from the tree is minimal and does not hinder the perception of the building's structure.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask incorrectly includes two distinct building facades (the front-facing elevation and the side elevation) as well as a separate building in the background, violating the single-facade requirement.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.55,
+        0.0,
+        0.995,
+        0.515
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "repair": {
+      "repair_method": "mllm_suggested_bbox",
+      "bbox_norm": [
+        0.55,
+        0.0,
+        0.995,
+        0.515
+      ],
+      "bbox_pixels": [
+        352,
+        0,
+        637,
+        330
+      ],
+      "facade_area_ratio": 0.2296142578125,
+      "initial_validation": {
+        "is_valid": false,
+        "single_facade": false,
+        "main_facade": true,
+        "not_multiple_facades": false,
+        "not_blank_side_wall": true,
+        "occlusion_ok": true,
+        "reason": "The mask incorrectly includes two distinct building facades (the front-facing elevation and the side elevation) as well as a separate building in the background, violating the single-facade requirement.",
+        "failure_tags": [
+          "multiple_facades"
+        ],
+        "repair_possible": true,
+        "suggested_bbox_norm": [
+          0.55,
+          0.0,
+          0.995,
+          0.515
+        ],
+        "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+      },
+      "wwr_source": "bbox_repair_existing_window_mask",
+      "wwr_debug": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "source_pixels": 24216
+      }
+    }
+  }
+}

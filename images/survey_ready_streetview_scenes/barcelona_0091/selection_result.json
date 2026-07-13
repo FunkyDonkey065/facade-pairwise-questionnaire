@@ -1,0 +1,126 @@
+{
+  "selected_heading": 0,
+  "selection_reason": "Heading 0 provides the most complete and clearly visible view of the building facades, showing both the top edge and a significant portion of the structures without being cut off by the frame.",
+  "bbox": [
+    323,
+    0,
+    637,
+    394
+  ],
+  "facade_area_ratio": 0.302041015625,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "mask_diagnostics": {
+    "repair_method": "mllm_suggested_bbox",
+    "bbox_norm": [
+      0.505,
+      0.0,
+      0.995,
+      0.615
+    ],
+    "bbox_pixels": [
+      323,
+      0,
+      637,
+      394
+    ],
+    "facade_area_ratio": 0.302041015625,
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask incorrectly includes two distinct facade planes of the building (the front facade and the side wall facing the alleyway) as a single entity, rather than focusing on one elevation plane.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.505,
+        0.0,
+        0.995,
+        0.615
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "wwr_source": "bbox_repair_existing_window_mask",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "source_pixels": 9584
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies the main, street-facing facade of the building on the right, which is the primary subject of the view. It excludes the adjacent building on the left and the alleyway.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask incorrectly includes two distinct facade planes of the building (the front facade and the side wall facing the alleyway) as a single entity, rather than focusing on one elevation plane.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.505,
+        0.0,
+        0.995,
+        0.615
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "repair": {
+      "repair_method": "mllm_suggested_bbox",
+      "bbox_norm": [
+        0.505,
+        0.0,
+        0.995,
+        0.615
+      ],
+      "bbox_pixels": [
+        323,
+        0,
+        637,
+        394
+      ],
+      "facade_area_ratio": 0.302041015625,
+      "initial_validation": {
+        "is_valid": false,
+        "single_facade": false,
+        "main_facade": true,
+        "not_multiple_facades": false,
+        "not_blank_side_wall": true,
+        "occlusion_ok": true,
+        "reason": "The mask incorrectly includes two distinct facade planes of the building (the front facade and the side wall facing the alleyway) as a single entity, rather than focusing on one elevation plane.",
+        "failure_tags": [
+          "multiple_facades"
+        ],
+        "repair_possible": true,
+        "suggested_bbox_norm": [
+          0.505,
+          0.0,
+          0.995,
+          0.615
+        ],
+        "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+      },
+      "wwr_source": "bbox_repair_existing_window_mask",
+      "wwr_debug": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "source_pixels": 9584
+      }
+    }
+  }
+}

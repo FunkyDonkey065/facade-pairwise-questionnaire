@@ -1,0 +1,129 @@
+{
+  "selected_heading": 270,
+  "selection_reason": "Heading 270 provides the most complete and frontal view of the building facade, with the entire structure including the roofline clearly visible and unobstructed by the frame.",
+  "bbox": [
+    265,
+    0,
+    640,
+    372
+  ],
+  "facade_area_ratio": 0.340576171875,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "mask_diagnostics": {
+    "repair_method": "mllm_suggested_bbox",
+    "bbox_norm": [
+      0.415,
+      0.0,
+      0.999,
+      0.58
+    ],
+    "bbox_pixels": [
+      265,
+      0,
+      640,
+      372
+    ],
+    "facade_area_ratio": 0.340576171875,
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask incorrectly includes a separate building structure in the background (the covered pavilion area) and the ground-level wooden fencing, rather than focusing solely on the main building facade.",
+      "failure_tags": [
+        "multiple_facades",
+        "includes_non_facade_elements"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.415,
+        0.0,
+        0.999,
+        0.58
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "wwr_source": "bbox_repair_existing_window_mask",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "source_pixels": 8019
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies the main visible facade of the building. While there is a wooden fence in the foreground, it does not significantly obscure the architectural features of the facade itself, and the mask is well-aligned with the building's boundaries.",
+    "suggested_bbox_norm": null,
+    "repair_possible": false,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask incorrectly includes a separate building structure in the background (the covered pavilion area) and the ground-level wooden fencing, rather than focusing solely on the main building facade.",
+      "failure_tags": [
+        "multiple_facades",
+        "includes_non_facade_elements"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.415,
+        0.0,
+        0.999,
+        0.58
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "repair": {
+      "repair_method": "mllm_suggested_bbox",
+      "bbox_norm": [
+        0.415,
+        0.0,
+        0.999,
+        0.58
+      ],
+      "bbox_pixels": [
+        265,
+        0,
+        640,
+        372
+      ],
+      "facade_area_ratio": 0.340576171875,
+      "initial_validation": {
+        "is_valid": false,
+        "single_facade": false,
+        "main_facade": true,
+        "not_multiple_facades": false,
+        "not_blank_side_wall": true,
+        "occlusion_ok": true,
+        "reason": "The mask incorrectly includes a separate building structure in the background (the covered pavilion area) and the ground-level wooden fencing, rather than focusing solely on the main building facade.",
+        "failure_tags": [
+          "multiple_facades",
+          "includes_non_facade_elements"
+        ],
+        "repair_possible": true,
+        "suggested_bbox_norm": [
+          0.415,
+          0.0,
+          0.999,
+          0.58
+        ],
+        "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+      },
+      "wwr_source": "bbox_repair_existing_window_mask",
+      "wwr_debug": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "source_pixels": 8019
+      }
+    }
+  }
+}

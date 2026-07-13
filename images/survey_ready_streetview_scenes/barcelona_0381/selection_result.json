@@ -1,0 +1,126 @@
+{
+  "selected_heading": 180,
+  "selection_reason": "Heading 180 provides the most complete, frontal, and unobstructed view of a building facade, showing the entire structure from the ground to the roofline without being cut off by the frame.",
+  "bbox": [
+    294,
+    156,
+    637,
+    439
+  ],
+  "facade_area_ratio": 0.23698486328125,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "mask_diagnostics": {
+    "repair_method": "mllm_suggested_bbox",
+    "bbox_norm": [
+      0.46,
+      0.245,
+      0.995,
+      0.685
+    ],
+    "bbox_pixels": [
+      294,
+      156,
+      637,
+      439
+    ],
+    "facade_area_ratio": 0.23698486328125,
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask incorrectly includes a portion of the adjacent building on the left, violating the single facade requirement.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.46,
+        0.245,
+        0.995,
+        0.685
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "wwr_source": "bbox_repair_existing_window_mask",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "source_pixels": 4110
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies the main, street-facing facade of the building on the right. It excludes the adjacent building on the left and captures the primary architectural features.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask incorrectly includes a portion of the adjacent building on the left, violating the single facade requirement.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.46,
+        0.245,
+        0.995,
+        0.685
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "repair": {
+      "repair_method": "mllm_suggested_bbox",
+      "bbox_norm": [
+        0.46,
+        0.245,
+        0.995,
+        0.685
+      ],
+      "bbox_pixels": [
+        294,
+        156,
+        637,
+        439
+      ],
+      "facade_area_ratio": 0.23698486328125,
+      "initial_validation": {
+        "is_valid": false,
+        "single_facade": false,
+        "main_facade": true,
+        "not_multiple_facades": false,
+        "not_blank_side_wall": true,
+        "occlusion_ok": true,
+        "reason": "The mask incorrectly includes a portion of the adjacent building on the left, violating the single facade requirement.",
+        "failure_tags": [
+          "multiple_facades"
+        ],
+        "repair_possible": true,
+        "suggested_bbox_norm": [
+          0.46,
+          0.245,
+          0.995,
+          0.685
+        ],
+        "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+      },
+      "wwr_source": "bbox_repair_existing_window_mask",
+      "wwr_debug": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "source_pixels": 4110
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "city": "Barcelona",
+  "selected_heading": 270,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "computed_metrics": {
+    "wwr": 0.14639419907712592,
+    "fractal_dimension": 1.5249531457306813,
+    "brightness": 0.5417188405990601,
+    "saturation": 0.26652541756629944,
+    "wwr_source": "cv_window_fallback",
+    "wwr_pipeline_version": "window_opening_cv_fallback_v1"
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies the main facade of the building, which is the primary subject of the image. It excludes the street and surrounding environment appropriately.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+  },
+  "mask_quality": {
+    "usable_for_training": true,
+    "visible_facade_completeness": 0.95,
+    "non_facade_contamination": 0.15,
+    "occlusion_severity": 0.1,
+    "reason": "The mask captures the primary facade well, including the entrance and signage, with minimal obstruction from the foreground stairs and trees."
+  },
+  "pad": {
+    "pleasure": 0.2,
+    "arousal": 0.1,
+    "dominance": 0.3
+  },
+  "preference_score": 5.5,
+  "sample_weight": 1.0,
+  "confidence": {
+    "o_stage": 0.85
+  }
+}

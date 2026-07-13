@@ -1,0 +1,107 @@
+{
+  "city": "Barcelona",
+  "selected_heading": 180,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "computed_metrics": {
+    "wwr": 0.04234101515416869,
+    "fractal_dimension": 1.5548600248002438,
+    "brightness": 0.6466374397277832,
+    "saturation": 0.2550618350505829,
+    "wwr_source": "bbox_repair_existing_window_mask",
+    "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "source_pixels": 4110
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies the main, street-facing facade of the building on the right. It excludes the adjacent building on the left and captures the primary architectural features.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask incorrectly includes a portion of the adjacent building on the left, violating the single facade requirement.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.46,
+        0.245,
+        0.995,
+        0.685
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "repair": {
+      "repair_method": "mllm_suggested_bbox",
+      "bbox_norm": [
+        0.46,
+        0.245,
+        0.995,
+        0.685
+      ],
+      "bbox_pixels": [
+        294,
+        156,
+        637,
+        439
+      ],
+      "facade_area_ratio": 0.23698486328125,
+      "initial_validation": {
+        "is_valid": false,
+        "single_facade": false,
+        "main_facade": true,
+        "not_multiple_facades": false,
+        "not_blank_side_wall": true,
+        "occlusion_ok": true,
+        "reason": "The mask incorrectly includes a portion of the adjacent building on the left, violating the single facade requirement.",
+        "failure_tags": [
+          "multiple_facades"
+        ],
+        "repair_possible": true,
+        "suggested_bbox_norm": [
+          0.46,
+          0.245,
+          0.995,
+          0.685
+        ],
+        "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+      },
+      "wwr_source": "bbox_repair_existing_window_mask",
+      "wwr_debug": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "source_pixels": 4110
+      }
+    }
+  },
+  "mask_quality": {
+    "usable_for_training": true,
+    "visible_facade_completeness": 0.95,
+    "non_facade_contamination": 0.15,
+    "occlusion_severity": 0.2,
+    "reason": "The mask captures the primary facade well, with minor contamination from the car parked in front."
+  },
+  "pad": {
+    "pleasure": -0.2,
+    "arousal": -0.3,
+    "dominance": 0.1
+  },
+  "preference_score": 4.0,
+  "sample_weight": 1.0,
+  "confidence": {
+    "o_stage": 0.85
+  }
+}

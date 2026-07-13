@@ -1,0 +1,352 @@
+{
+  "selected_heading": 180,
+  "selection_reason": "Heading 180 provides the most direct, frontal view of a building facade, with the entire structure clearly visible from top to bottom without being cut off by the frame.",
+  "bbox": [
+    182,
+    48,
+    458,
+    509
+  ],
+  "facade_area_ratio": 0.310634765625,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "mask_diagnostics": {
+    "repair_method": "mllm_suggested_bbox",
+    "bbox_norm": [
+      0.285,
+      0.075,
+      0.715,
+      0.795
+    ],
+    "bbox_pixels": [
+      182,
+      48,
+      458,
+      509
+    ],
+    "facade_area_ratio": 0.310634765625,
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask incorrectly wraps around the corner of the building, including two distinct facade planes (the front-facing plane and the side-facing plane) instead of selecting a single architectural elevation.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.285,
+        0.075,
+        0.715,
+        0.795
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "wwr_source": "cv_window_fallback",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "cv_fallback": {
+        "method": "cv_dark_edge_component_fallback",
+        "dark_threshold": 92.0,
+        "l_threshold": 100.0,
+        "saturation_threshold": 57.0,
+        "value_mid_threshold": 142.0,
+        "candidate_pixels": 66289,
+        "component_filter": {
+          "candidate_pixels": 65994,
+          "kept_components": 9,
+          "kept_component_sample": [
+            {
+              "bbox": [
+                185,
+                84,
+                197,
+                133
+              ],
+              "area": 248,
+              "aspect": 0.24489795918367346,
+              "extent": 0.4217687074829932
+            },
+            {
+              "bbox": [
+                323,
+                88,
+                374,
+                102
+              ],
+              "area": 158,
+              "aspect": 3.642857142857143,
+              "extent": 0.22128851540616246
+            },
+            {
+              "bbox": [
+                408,
+                109,
+                453,
+                122
+              ],
+              "area": 153,
+              "aspect": 3.4615384615384617,
+              "extent": 0.26153846153846155
+            },
+            {
+              "bbox": [
+                185,
+                233,
+                200,
+                280
+              ],
+              "area": 418,
+              "aspect": 0.3191489361702128,
+              "extent": 0.5929078014184397
+            },
+            {
+              "bbox": [
+                185,
+                289,
+                190,
+                312
+              ],
+              "area": 75,
+              "aspect": 0.21739130434782608,
+              "extent": 0.6521739130434783
+            },
+            {
+              "bbox": [
+                185,
+                317,
+                195,
+                340
+              ],
+              "area": 98,
+              "aspect": 0.43478260869565216,
+              "extent": 0.4260869565217391
+            },
+            {
+              "bbox": [
+                204,
+                321,
+                219,
+                331
+              ],
+              "area": 99,
+              "aspect": 1.5,
+              "extent": 0.66
+            },
+            {
+              "bbox": [
+                310,
+                489,
+                377,
+                511
+              ],
+              "area": 763,
+              "aspect": 3.0454545454545454,
+              "extent": 0.5176390773405699
+            },
+            {
+              "bbox": [
+                417,
+                501,
+                443,
+                511
+              ],
+              "area": 212,
+              "aspect": 2.6,
+              "extent": 0.8153846153846154
+            }
+          ],
+          "kept_pixels": 2088
+        }
+      }
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies the primary street-facing facade of the building. While there is a utility pole in the foreground, the facade itself is clearly visible and the mask is well-aligned.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask incorrectly wraps around the corner of the building, including two distinct facade planes (the front-facing plane and the side-facing plane) instead of selecting a single architectural elevation.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.285,
+        0.075,
+        0.715,
+        0.795
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "repair": {
+      "repair_method": "mllm_suggested_bbox",
+      "bbox_norm": [
+        0.285,
+        0.075,
+        0.715,
+        0.795
+      ],
+      "bbox_pixels": [
+        182,
+        48,
+        458,
+        509
+      ],
+      "facade_area_ratio": 0.310634765625,
+      "initial_validation": {
+        "is_valid": false,
+        "single_facade": false,
+        "main_facade": true,
+        "not_multiple_facades": false,
+        "not_blank_side_wall": true,
+        "occlusion_ok": true,
+        "reason": "The mask incorrectly wraps around the corner of the building, including two distinct facade planes (the front-facing plane and the side-facing plane) instead of selecting a single architectural elevation.",
+        "failure_tags": [
+          "multiple_facades"
+        ],
+        "repair_possible": true,
+        "suggested_bbox_norm": [
+          0.285,
+          0.075,
+          0.715,
+          0.795
+        ],
+        "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+      },
+      "wwr_source": "cv_window_fallback",
+      "wwr_debug": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "cv_fallback": {
+          "method": "cv_dark_edge_component_fallback",
+          "dark_threshold": 92.0,
+          "l_threshold": 100.0,
+          "saturation_threshold": 57.0,
+          "value_mid_threshold": 142.0,
+          "candidate_pixels": 66289,
+          "component_filter": {
+            "candidate_pixels": 65994,
+            "kept_components": 9,
+            "kept_component_sample": [
+              {
+                "bbox": [
+                  185,
+                  84,
+                  197,
+                  133
+                ],
+                "area": 248,
+                "aspect": 0.24489795918367346,
+                "extent": 0.4217687074829932
+              },
+              {
+                "bbox": [
+                  323,
+                  88,
+                  374,
+                  102
+                ],
+                "area": 158,
+                "aspect": 3.642857142857143,
+                "extent": 0.22128851540616246
+              },
+              {
+                "bbox": [
+                  408,
+                  109,
+                  453,
+                  122
+                ],
+                "area": 153,
+                "aspect": 3.4615384615384617,
+                "extent": 0.26153846153846155
+              },
+              {
+                "bbox": [
+                  185,
+                  233,
+                  200,
+                  280
+                ],
+                "area": 418,
+                "aspect": 0.3191489361702128,
+                "extent": 0.5929078014184397
+              },
+              {
+                "bbox": [
+                  185,
+                  289,
+                  190,
+                  312
+                ],
+                "area": 75,
+                "aspect": 0.21739130434782608,
+                "extent": 0.6521739130434783
+              },
+              {
+                "bbox": [
+                  185,
+                  317,
+                  195,
+                  340
+                ],
+                "area": 98,
+                "aspect": 0.43478260869565216,
+                "extent": 0.4260869565217391
+              },
+              {
+                "bbox": [
+                  204,
+                  321,
+                  219,
+                  331
+                ],
+                "area": 99,
+                "aspect": 1.5,
+                "extent": 0.66
+              },
+              {
+                "bbox": [
+                  310,
+                  489,
+                  377,
+                  511
+                ],
+                "area": 763,
+                "aspect": 3.0454545454545454,
+                "extent": 0.5176390773405699
+              },
+              {
+                "bbox": [
+                  417,
+                  501,
+                  443,
+                  511
+                ],
+                "area": 212,
+                "aspect": 2.6,
+                "extent": 0.8153846153846154
+              }
+            ],
+            "kept_pixels": 2088
+          }
+        }
+      }
+    }
+  }
+}

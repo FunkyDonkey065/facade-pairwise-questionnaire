@@ -1,0 +1,201 @@
+{
+  "selected_heading": 90,
+  "selection_reason": "Heading 90 provides the most complete and clearly visible view of a building facade, with the top edge fully visible and the structure occupying a significant portion of the frame. Other headings are either too distant, show street scenes rather than a specific facade, or are partially obstructed.",
+  "bbox": [
+    12,
+    0,
+    212,
+    442
+  ],
+  "facade_area_ratio": 0.2158203125,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "mask_diagnostics": {
+    "repair_method": "mllm_suggested_bbox",
+    "bbox_norm": [
+      0.02,
+      0.0,
+      0.33,
+      0.69
+    ],
+    "bbox_pixels": [
+      12,
+      0,
+      212,
+      442
+    ],
+    "facade_area_ratio": 0.2158203125,
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": false,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": false,
+      "occlusion_ok": false,
+      "reason": "The mask incorrectly includes two distinct building facades separated by an alleyway, rather than focusing on a single architectural plane.",
+      "failure_tags": [
+        "multiple_facades",
+        "incorrect_boundary"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.02,
+        0.0,
+        0.33,
+        0.69
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "wwr_source": "cv_window_fallback",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "cv_fallback": {
+        "method": "cv_dark_edge_component_fallback",
+        "dark_threshold": 98.0,
+        "l_threshold": 107.0,
+        "saturation_threshold": 36.0,
+        "value_mid_threshold": 165.0,
+        "candidate_pixels": 41750,
+        "component_filter": {
+          "candidate_pixels": 41677,
+          "kept_components": 2,
+          "kept_component_sample": [
+            {
+              "bbox": [
+                15,
+                110,
+                95,
+                127
+              ],
+              "area": 661,
+              "aspect": 4.705882352941177,
+              "extent": 0.4860294117647059
+            },
+            {
+              "bbox": [
+                64,
+                119,
+                172,
+                280
+              ],
+              "area": 10232,
+              "aspect": 0.6708074534161491,
+              "extent": 0.5884518058431102
+            }
+          ],
+          "kept_pixels": 10893
+        }
+      }
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies a single, clear, street-facing facade with architectural features (balconies, entrance) and excludes surrounding elements.",
+    "suggested_bbox_norm": null,
+    "repair_possible": false,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": false,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": false,
+      "occlusion_ok": false,
+      "reason": "The mask incorrectly includes two distinct building facades separated by an alleyway, rather than focusing on a single architectural plane.",
+      "failure_tags": [
+        "multiple_facades",
+        "incorrect_boundary"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.02,
+        0.0,
+        0.33,
+        0.69
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "repair": {
+      "repair_method": "mllm_suggested_bbox",
+      "bbox_norm": [
+        0.02,
+        0.0,
+        0.33,
+        0.69
+      ],
+      "bbox_pixels": [
+        12,
+        0,
+        212,
+        442
+      ],
+      "facade_area_ratio": 0.2158203125,
+      "initial_validation": {
+        "is_valid": false,
+        "single_facade": false,
+        "main_facade": false,
+        "not_multiple_facades": false,
+        "not_blank_side_wall": false,
+        "occlusion_ok": false,
+        "reason": "The mask incorrectly includes two distinct building facades separated by an alleyway, rather than focusing on a single architectural plane.",
+        "failure_tags": [
+          "multiple_facades",
+          "incorrect_boundary"
+        ],
+        "repair_possible": true,
+        "suggested_bbox_norm": [
+          0.02,
+          0.0,
+          0.33,
+          0.69
+        ],
+        "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+      },
+      "wwr_source": "cv_window_fallback",
+      "wwr_debug": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "cv_fallback": {
+          "method": "cv_dark_edge_component_fallback",
+          "dark_threshold": 98.0,
+          "l_threshold": 107.0,
+          "saturation_threshold": 36.0,
+          "value_mid_threshold": 165.0,
+          "candidate_pixels": 41750,
+          "component_filter": {
+            "candidate_pixels": 41677,
+            "kept_components": 2,
+            "kept_component_sample": [
+              {
+                "bbox": [
+                  15,
+                  110,
+                  95,
+                  127
+                ],
+                "area": 661,
+                "aspect": 4.705882352941177,
+                "extent": 0.4860294117647059
+              },
+              {
+                "bbox": [
+                  64,
+                  119,
+                  172,
+                  280
+                ],
+                "area": 10232,
+                "aspect": 0.6708074534161491,
+                "extent": 0.5884518058431102
+              }
+            ],
+            "kept_pixels": 10893
+          }
+        }
+      }
+    }
+  }
+}

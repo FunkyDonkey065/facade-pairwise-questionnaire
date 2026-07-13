@@ -1,0 +1,245 @@
+{
+  "city": "Barcelona",
+  "selected_heading": 180,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "computed_metrics": {
+    "wwr": 0.012284064868676186,
+    "fractal_dimension": 1.564989753183843,
+    "brightness": 0.5165277719497681,
+    "saturation": 0.2595701813697815,
+    "wwr_source": "cv_window_fallback",
+    "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "cv_fallback": {
+        "method": "cv_dark_edge_component_fallback",
+        "dark_threshold": 112.88134584875728,
+        "l_threshold": 119.30897452846818,
+        "saturation_threshold": 68.0,
+        "value_mid_threshold": 144.0,
+        "candidate_pixels": 46324,
+        "component_filter": {
+          "candidate_pixels": 46238,
+          "kept_components": 5,
+          "kept_component_sample": [
+            {
+              "bbox": [
+                514,
+                89,
+                526,
+                97
+              ],
+              "area": 62,
+              "aspect": 1.5,
+              "extent": 0.6458333333333334
+            },
+            {
+              "bbox": [
+                400,
+                90,
+                427,
+                106
+              ],
+              "area": 258,
+              "aspect": 1.6875,
+              "extent": 0.5972222222222222
+            },
+            {
+              "bbox": [
+                455,
+                94,
+                490,
+                129
+              ],
+              "area": 668,
+              "aspect": 1.0,
+              "extent": 0.5453061224489796
+            },
+            {
+              "bbox": [
+                497,
+                254,
+                504,
+                265
+              ],
+              "area": 53,
+              "aspect": 0.6363636363636364,
+              "extent": 0.6883116883116883
+            },
+            {
+              "bbox": [
+                391,
+                326,
+                404,
+                339
+              ],
+              "area": 74,
+              "aspect": 1.0,
+              "extent": 0.4378698224852071
+            }
+          ],
+          "kept_pixels": 1115
+        }
+      }
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies a single, clear, street-facing facade with visible architectural features (windows, door, garage). It excludes adjacent buildings and is well-aligned.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask incorrectly includes two distinct building facades (the white building on the left and the beige building on the right) instead of selecting a single architectural plane.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.465,
+        0.135,
+        0.845,
+        0.715
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "repair": {
+      "repair_method": "mllm_suggested_bbox",
+      "bbox_norm": [
+        0.465,
+        0.135,
+        0.845,
+        0.715
+      ],
+      "bbox_pixels": [
+        297,
+        86,
+        541,
+        458
+      ],
+      "facade_area_ratio": 0.2216015625,
+      "initial_validation": {
+        "is_valid": false,
+        "single_facade": false,
+        "main_facade": true,
+        "not_multiple_facades": false,
+        "not_blank_side_wall": true,
+        "occlusion_ok": true,
+        "reason": "The mask incorrectly includes two distinct building facades (the white building on the left and the beige building on the right) instead of selecting a single architectural plane.",
+        "failure_tags": [
+          "multiple_facades"
+        ],
+        "repair_possible": true,
+        "suggested_bbox_norm": [
+          0.465,
+          0.135,
+          0.845,
+          0.715
+        ],
+        "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+      },
+      "wwr_source": "cv_window_fallback",
+      "wwr_debug": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "cv_fallback": {
+          "method": "cv_dark_edge_component_fallback",
+          "dark_threshold": 112.88134584875728,
+          "l_threshold": 119.30897452846818,
+          "saturation_threshold": 68.0,
+          "value_mid_threshold": 144.0,
+          "candidate_pixels": 46324,
+          "component_filter": {
+            "candidate_pixels": 46238,
+            "kept_components": 5,
+            "kept_component_sample": [
+              {
+                "bbox": [
+                  514,
+                  89,
+                  526,
+                  97
+                ],
+                "area": 62,
+                "aspect": 1.5,
+                "extent": 0.6458333333333334
+              },
+              {
+                "bbox": [
+                  400,
+                  90,
+                  427,
+                  106
+                ],
+                "area": 258,
+                "aspect": 1.6875,
+                "extent": 0.5972222222222222
+              },
+              {
+                "bbox": [
+                  455,
+                  94,
+                  490,
+                  129
+                ],
+                "area": 668,
+                "aspect": 1.0,
+                "extent": 0.5453061224489796
+              },
+              {
+                "bbox": [
+                  497,
+                  254,
+                  504,
+                  265
+                ],
+                "area": 53,
+                "aspect": 0.6363636363636364,
+                "extent": 0.6883116883116883
+              },
+              {
+                "bbox": [
+                  391,
+                  326,
+                  404,
+                  339
+                ],
+                "area": 74,
+                "aspect": 1.0,
+                "extent": 0.4378698224852071
+              }
+            ],
+            "kept_pixels": 1115
+          }
+        }
+      }
+    }
+  },
+  "mask_quality": {
+    "usable_for_training": true,
+    "visible_facade_completeness": 0.95,
+    "non_facade_contamination": 0.05,
+    "occlusion_severity": 0.1,
+    "reason": "The mask accurately captures the target facade, with only minor foreground vehicle occlusion."
+  },
+  "pad": {
+    "pleasure": -0.3,
+    "arousal": -0.4,
+    "dominance": -0.2
+  },
+  "preference_score": 3.5,
+  "sample_weight": 1.0,
+  "confidence": {
+    "o_stage": 0.85
+  }
+}

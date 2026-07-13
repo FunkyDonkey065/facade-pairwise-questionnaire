@@ -1,0 +1,107 @@
+{
+  "city": "Barcelona",
+  "selected_heading": 270,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "computed_metrics": {
+    "wwr": 0.042271929824561405,
+    "fractal_dimension": 1.689355298049615,
+    "brightness": 0.60687655210495,
+    "saturation": 0.18991568684577942,
+    "wwr_source": "bbox_repair_existing_window_mask",
+    "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "source_pixels": 9638
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies the main visible facade of the building. While there is a car in the foreground, the facade itself is clearly visible and the mask is well-aligned with the architectural boundaries.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": true,
+      "main_facade": true,
+      "not_multiple_facades": true,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask is incomplete; it cuts off the right side of the facade, excluding the third window and the right edge of the building.",
+      "failure_tags": [
+        "incomplete_mask"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.005,
+        0.101,
+        0.895,
+        0.725
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "repair": {
+      "repair_method": "mllm_suggested_bbox",
+      "bbox_norm": [
+        0.005,
+        0.101,
+        0.895,
+        0.725
+      ],
+      "bbox_pixels": [
+        3,
+        64,
+        573,
+        464
+      ],
+      "facade_area_ratio": 0.556640625,
+      "initial_validation": {
+        "is_valid": false,
+        "single_facade": true,
+        "main_facade": true,
+        "not_multiple_facades": true,
+        "not_blank_side_wall": true,
+        "occlusion_ok": true,
+        "reason": "The mask is incomplete; it cuts off the right side of the facade, excluding the third window and the right edge of the building.",
+        "failure_tags": [
+          "incomplete_mask"
+        ],
+        "repair_possible": true,
+        "suggested_bbox_norm": [
+          0.005,
+          0.101,
+          0.895,
+          0.725
+        ],
+        "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+      },
+      "wwr_source": "bbox_repair_existing_window_mask",
+      "wwr_debug": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "source_pixels": 9638
+      }
+    }
+  },
+  "mask_quality": {
+    "usable_for_training": true,
+    "visible_facade_completeness": 1.0,
+    "non_facade_contamination": 0.05,
+    "occlusion_severity": 0.1,
+    "reason": "The mask covers the primary facade well, with only minor foreground car occlusion."
+  },
+  "pad": {
+    "pleasure": 0.2,
+    "arousal": -0.3,
+    "dominance": 0.1
+  },
+  "preference_score": 5.5,
+  "sample_weight": 1.0,
+  "confidence": {
+    "o_stage": 0.9
+  }
+}

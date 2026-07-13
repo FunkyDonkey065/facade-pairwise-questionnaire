@@ -1,0 +1,107 @@
+{
+  "city": "Barcelona",
+  "selected_heading": 180,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "computed_metrics": {
+    "wwr": 0.004142897600841526,
+    "fractal_dimension": 1.5771532988191312,
+    "brightness": 0.6579976081848145,
+    "saturation": 0.1732458770275116,
+    "wwr_source": "bbox_repair_existing_window_mask",
+    "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "source_pixels": 512
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies the primary building facade in the scene. It is a single, clear, and well-defined architectural plane with visible features, and the outline is appropriately constrained to the building structure.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask incorrectly includes a separate building structure in the background (the house on the left) along with the main facade, violating the single-facade requirement.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.498,
+        0.024,
+        0.998,
+        0.625
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "repair": {
+      "repair_method": "mllm_suggested_bbox",
+      "bbox_norm": [
+        0.498,
+        0.024,
+        0.998,
+        0.625
+      ],
+      "bbox_pixels": [
+        318,
+        15,
+        639,
+        400
+      ],
+      "facade_area_ratio": 0.30172119140625,
+      "initial_validation": {
+        "is_valid": false,
+        "single_facade": false,
+        "main_facade": true,
+        "not_multiple_facades": false,
+        "not_blank_side_wall": true,
+        "occlusion_ok": true,
+        "reason": "The mask incorrectly includes a separate building structure in the background (the house on the left) along with the main facade, violating the single-facade requirement.",
+        "failure_tags": [
+          "multiple_facades"
+        ],
+        "repair_possible": true,
+        "suggested_bbox_norm": [
+          0.498,
+          0.024,
+          0.998,
+          0.625
+        ],
+        "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+      },
+      "wwr_source": "bbox_repair_existing_window_mask",
+      "wwr_debug": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "source_pixels": 512
+      }
+    }
+  },
+  "mask_quality": {
+    "usable_for_training": true,
+    "visible_facade_completeness": 0.95,
+    "non_facade_contamination": 0.05,
+    "occlusion_severity": 0.1,
+    "reason": "The mask clearly captures the primary residential facade, with minimal obstruction from foreground elements."
+  },
+  "pad": {
+    "pleasure": 0.4,
+    "arousal": -0.2,
+    "dominance": 0.3
+  },
+  "preference_score": 6.5,
+  "sample_weight": 1.0,
+  "confidence": {
+    "o_stage": 0.9
+  }
+}

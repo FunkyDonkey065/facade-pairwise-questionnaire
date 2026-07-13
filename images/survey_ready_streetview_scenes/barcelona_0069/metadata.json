@@ -1,0 +1,24 @@
+{
+  "city": "Barcelona",
+  "country": "Spain",
+  "lat": 41.4940442,
+  "lon": 2.2954722,
+  "pano_id": "I0qdkig4mJjaoLPmj5QSDQ",
+  "streetview_metadata": {
+    "copyright": "© Google",
+    "date": "2024-06",
+    "location": {
+      "lat": 41.49403185206809,
+      "lng": 2.295475794032886
+    },
+    "pano_id": "I0qdkig4mJjaoLPmj5QSDQ",
+    "status": "OK"
+  },
+  "sampling": {
+    "center_query": "Eixample, Barcelona, Spain",
+    "radius_m": 2000,
+    "urban_node_sample_radius_m": 70,
+    "min_urban_buildings_nearby": 10,
+    "min_urban_building_footprint_m2": 3000.0
+  }
+}

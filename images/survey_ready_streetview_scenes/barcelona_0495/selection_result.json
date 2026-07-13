@@ -1,0 +1,167 @@
+{
+  "selected_heading": 180,
+  "selection_reason": "Heading 180 provides the most complete, frontal, and unobstructed view of a single building facade, with the entire structure including the roofline clearly visible within the frame.",
+  "bbox": [
+    0,
+    0,
+    640,
+    536
+  ],
+  "facade_area_ratio": 0.64454345703125,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "mask_diagnostics": {
+    "pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "seed_area": 263933,
+    "opening_seed_area": 0,
+    "splits": [],
+    "component_count": 1,
+    "main_component_selected": false,
+    "merge_component_count": 1,
+    "merged_component_count": 1,
+    "join_gap_px": 18,
+    "main_component_bbox": [
+      0,
+      0,
+      640,
+      536
+    ],
+    "main_component_opening_pixels": 0,
+    "main_component_opening_components": 0,
+    "area_after_component_merge": 264009,
+    "final_opening_area": 0,
+    "final_opening_components": 0,
+    "final_width_ratio": 1.0,
+    "area_final": 264005,
+    "segmenter_backend": "mask2former",
+    "raw_facade_seed_area_ratio": 0.64436767578125,
+    "raw_opening_seed_area_ratio": 0.0,
+    "hard_exclusion_area_ratio": 0.35544677734375,
+    "vegetation_area_ratio_image": 0.0,
+    "mask2former_window_pixels": 0,
+    "mask2former_opening_pixels": 0,
+    "tree_occlusion_reject": false,
+    "tree_to_facade_ratio": 0.0,
+    "tree_context_share": 0.0,
+    "tree_center_share": 0.0,
+    "tree_context_area": 0,
+    "mask2former_segment_pixels": {
+      "building": 263933
+    },
+    "wwr_source": "cv_window_fallback",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "reason": "no_usable_window_candidate",
+      "segformer_attempt": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "reason": "no_usable_window_candidate"
+      },
+      "final_fallback": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "cv_fallback": {
+          "method": "cv_dark_edge_component_fallback",
+          "dark_threshold": 133.49542243518115,
+          "l_threshold": 141.94727751368345,
+          "saturation_threshold": 133.0,
+          "value_mid_threshold": 154.0,
+          "candidate_pixels": 146017,
+          "component_filter": {
+            "candidate_pixels": 145814,
+            "kept_components": 7,
+            "kept_component_sample": [
+              {
+                "bbox": [
+                  0,
+                  121,
+                  47,
+                  184
+                ],
+                "area": 1374,
+                "aspect": 0.746031746031746,
+                "extent": 0.46403242147923
+              },
+              {
+                "bbox": [
+                  596,
+                  201,
+                  640,
+                  231
+                ],
+                "area": 755,
+                "aspect": 1.4666666666666666,
+                "extent": 0.571969696969697
+              },
+              {
+                "bbox": [
+                  389,
+                  247,
+                  461,
+                  404
+                ],
+                "area": 7571,
+                "aspect": 0.4585987261146497,
+                "extent": 0.6697629157820241
+              },
+              {
+                "bbox": [
+                  563,
+                  378,
+                  617,
+                  397
+                ],
+                "area": 772,
+                "aspect": 2.8421052631578947,
+                "extent": 0.7524366471734892
+              },
+              {
+                "bbox": [
+                  0,
+                  459,
+                  17,
+                  491
+                ],
+                "area": 282,
+                "aspect": 0.53125,
+                "extent": 0.5183823529411765
+              },
+              {
+                "bbox": [
+                  198,
+                  486,
+                  220,
+                  502
+                ],
+                "area": 136,
+                "aspect": 1.375,
+                "extent": 0.38636363636363635
+              },
+              {
+                "bbox": [
+                  180,
+                  513,
+                  226,
+                  536
+                ],
+                "area": 317,
+                "aspect": 2.0,
+                "extent": 0.2996219281663516
+              }
+            ],
+            "kept_pixels": 11039
+          }
+        }
+      }
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask accurately captures the main street-facing facade of the building, including the door and window, while excluding adjacent structures.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+  }
+}

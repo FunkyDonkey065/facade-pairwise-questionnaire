@@ -1,0 +1,107 @@
+{
+  "city": "Barcelona",
+  "selected_heading": 180,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "computed_metrics": {
+    "wwr": 0.07572630319621908,
+    "fractal_dimension": 1.565784246883131,
+    "brightness": 0.585850715637207,
+    "saturation": 0.2708483040332794,
+    "wwr_source": "bbox_repair_existing_window_mask",
+    "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "source_pixels": 14052
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies the primary, street-facing facade plane of the building. It excludes the adjacent side wall and captures the architectural features (windows, openings) of the main elevation.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask incorrectly wraps around the corner of the building, including two distinct facade planes (the front and the side) in a single outline.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.465,
+        0.0,
+        1.0,
+        0.845
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "repair": {
+      "repair_method": "mllm_suggested_bbox",
+      "bbox_norm": [
+        0.465,
+        0.0,
+        1.0,
+        0.845
+      ],
+      "bbox_pixels": [
+        297,
+        0,
+        640,
+        541
+      ],
+      "facade_area_ratio": 0.45303466796875,
+      "initial_validation": {
+        "is_valid": false,
+        "single_facade": false,
+        "main_facade": true,
+        "not_multiple_facades": false,
+        "not_blank_side_wall": true,
+        "occlusion_ok": true,
+        "reason": "The mask incorrectly wraps around the corner of the building, including two distinct facade planes (the front and the side) in a single outline.",
+        "failure_tags": [
+          "multiple_facades"
+        ],
+        "repair_possible": true,
+        "suggested_bbox_norm": [
+          0.465,
+          0.0,
+          1.0,
+          0.845
+        ],
+        "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+      },
+      "wwr_source": "bbox_repair_existing_window_mask",
+      "wwr_debug": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "source_pixels": 14052
+      }
+    }
+  },
+  "mask_quality": {
+    "usable_for_training": true,
+    "visible_facade_completeness": 0.95,
+    "non_facade_contamination": 0.05,
+    "occlusion_severity": 0.0,
+    "reason": "The mask accurately captures the main facade of the building, with minimal contamination from surrounding elements."
+  },
+  "pad": {
+    "pleasure": -0.3,
+    "arousal": -0.4,
+    "dominance": -0.2
+  },
+  "preference_score": 3.5,
+  "sample_weight": 1.0,
+  "confidence": {
+    "o_stage": 0.9
+  }
+}

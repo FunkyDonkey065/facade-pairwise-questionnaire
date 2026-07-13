@@ -1,0 +1,161 @@
+{
+  "city": "Barcelona",
+  "selected_heading": 270,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "computed_metrics": {
+    "wwr": 0.0,
+    "fractal_dimension": 1.385658922149897,
+    "brightness": 0.5595662593841553,
+    "saturation": 0.30043962597846985,
+    "wwr_source": "none",
+    "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "cv_fallback": {
+        "method": "cv_dark_edge_component_fallback",
+        "dark_threshold": 90.0,
+        "l_threshold": 97.0,
+        "saturation_threshold": 90.0,
+        "value_mid_threshold": 156.0,
+        "candidate_pixels": 23620,
+        "component_filter": {
+          "candidate_pixels": 22825,
+          "kept_components": 1,
+          "kept_component_sample": [
+            {
+              "bbox": [
+                586,
+                201,
+                601,
+                211
+              ],
+              "area": 73,
+              "aspect": 1.5,
+              "extent": 0.4866666666666667
+            }
+          ],
+          "kept_pixels": 73
+        }
+      },
+      "reason": "no_usable_window_candidate"
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The outlined building is a clear, multi-story residential facade with balconies and windows, which is the most evaluable architectural element in the scene. The mask is well-defined and excludes surrounding infrastructure.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": true,
+      "main_facade": false,
+      "not_multiple_facades": true,
+      "not_blank_side_wall": false,
+      "occlusion_ok": true,
+      "reason": "The outlined structure is a small utility building/electrical substation, not a residential or commercial building facade. It is a blank, non-evaluable structure compared to the actual residential building visible on the right.",
+      "failure_tags": [
+        "not_main_facade",
+        "blank_side_wall"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.67,
+        0.165,
+        0.995,
+        0.525
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "repair": {
+      "repair_method": "mllm_suggested_bbox",
+      "bbox_norm": [
+        0.67,
+        0.165,
+        0.995,
+        0.525
+      ],
+      "bbox_pixels": [
+        428,
+        105,
+        637,
+        336
+      ],
+      "facade_area_ratio": 0.11786865234375,
+      "initial_validation": {
+        "is_valid": false,
+        "single_facade": true,
+        "main_facade": false,
+        "not_multiple_facades": true,
+        "not_blank_side_wall": false,
+        "occlusion_ok": true,
+        "reason": "The outlined structure is a small utility building/electrical substation, not a residential or commercial building facade. It is a blank, non-evaluable structure compared to the actual residential building visible on the right.",
+        "failure_tags": [
+          "not_main_facade",
+          "blank_side_wall"
+        ],
+        "repair_possible": true,
+        "suggested_bbox_norm": [
+          0.67,
+          0.165,
+          0.995,
+          0.525
+        ],
+        "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+      },
+      "wwr_source": "none",
+      "wwr_debug": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "cv_fallback": {
+          "method": "cv_dark_edge_component_fallback",
+          "dark_threshold": 90.0,
+          "l_threshold": 97.0,
+          "saturation_threshold": 90.0,
+          "value_mid_threshold": 156.0,
+          "candidate_pixels": 23620,
+          "component_filter": {
+            "candidate_pixels": 22825,
+            "kept_components": 1,
+            "kept_component_sample": [
+              {
+                "bbox": [
+                  586,
+                  201,
+                  601,
+                  211
+                ],
+                "area": 73,
+                "aspect": 1.5,
+                "extent": 0.4866666666666667
+              }
+            ],
+            "kept_pixels": 73
+          }
+        },
+        "reason": "no_usable_window_candidate"
+      }
+    }
+  },
+  "mask_quality": {
+    "usable_for_training": true,
+    "visible_facade_completeness": 0.95,
+    "non_facade_contamination": 0.05,
+    "occlusion_severity": 0.1,
+    "reason": "The marked region clearly identifies the target residential facade, with minimal occlusion from balconies or foreground elements."
+  },
+  "pad": {
+    "pleasure": 0.2,
+    "arousal": 0.3,
+    "dominance": 0.4
+  },
+  "preference_score": 5.5,
+  "sample_weight": 1.0,
+  "confidence": {
+    "o_stage": 0.9
+  }
+}

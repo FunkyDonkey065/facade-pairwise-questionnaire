@@ -1,0 +1,205 @@
+{
+  "city": "Barcelona",
+  "selected_heading": 180,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "computed_metrics": {
+    "wwr": 0.009603658536585366,
+    "fractal_dimension": 1.6459007858857406,
+    "brightness": 0.5152112245559692,
+    "saturation": 0.22728876769542694,
+    "wwr_source": "cv_window_fallback",
+    "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "cv_fallback": {
+        "method": "cv_dark_edge_component_fallback",
+        "dark_threshold": 97.0,
+        "l_threshold": 106.0,
+        "saturation_threshold": 48.0,
+        "value_mid_threshold": 157.0,
+        "candidate_pixels": 49758,
+        "component_filter": {
+          "candidate_pixels": 49496,
+          "kept_components": 3,
+          "kept_component_sample": [
+            {
+              "bbox": [
+                448,
+                0,
+                482,
+                60
+              ],
+              "area": 470,
+              "aspect": 0.5666666666666667,
+              "extent": 0.23039215686274508
+            },
+            {
+              "bbox": [
+                293,
+                338,
+                362,
+                351
+              ],
+              "area": 430,
+              "aspect": 5.3076923076923075,
+              "extent": 0.4793756967670011
+            },
+            {
+              "bbox": [
+                469,
+                470,
+                482,
+                482
+              ],
+              "area": 114,
+              "aspect": 1.0833333333333333,
+              "extent": 0.7307692307692307
+            }
+          ],
+          "kept_pixels": 945
+        }
+      }
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies the main residential facade plane. While there is a utility pole and some vegetation, the facade itself is clearly visible and evaluable.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": false,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": false,
+      "occlusion_ok": false,
+      "reason": "The mask incorrectly includes a side wall/entrance area and a portion of an adjacent structure, rather than focusing on the main residential facade with balconies. It also captures non-facade elements like the gate and surrounding wall.",
+      "failure_tags": [
+        "multiple_facades",
+        "incorrect_boundary",
+        "includes_non_facade_elements"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.43,
+        0.0,
+        0.75,
+        0.75
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "repair": {
+      "repair_method": "mllm_suggested_bbox",
+      "bbox_norm": [
+        0.43,
+        0.0,
+        0.75,
+        0.75
+      ],
+      "bbox_pixels": [
+        275,
+        0,
+        480,
+        480
+      ],
+      "facade_area_ratio": 0.240234375,
+      "initial_validation": {
+        "is_valid": false,
+        "single_facade": false,
+        "main_facade": false,
+        "not_multiple_facades": false,
+        "not_blank_side_wall": false,
+        "occlusion_ok": false,
+        "reason": "The mask incorrectly includes a side wall/entrance area and a portion of an adjacent structure, rather than focusing on the main residential facade with balconies. It also captures non-facade elements like the gate and surrounding wall.",
+        "failure_tags": [
+          "multiple_facades",
+          "incorrect_boundary",
+          "includes_non_facade_elements"
+        ],
+        "repair_possible": true,
+        "suggested_bbox_norm": [
+          0.43,
+          0.0,
+          0.75,
+          0.75
+        ],
+        "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+      },
+      "wwr_source": "cv_window_fallback",
+      "wwr_debug": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "cv_fallback": {
+          "method": "cv_dark_edge_component_fallback",
+          "dark_threshold": 97.0,
+          "l_threshold": 106.0,
+          "saturation_threshold": 48.0,
+          "value_mid_threshold": 157.0,
+          "candidate_pixels": 49758,
+          "component_filter": {
+            "candidate_pixels": 49496,
+            "kept_components": 3,
+            "kept_component_sample": [
+              {
+                "bbox": [
+                  448,
+                  0,
+                  482,
+                  60
+                ],
+                "area": 470,
+                "aspect": 0.5666666666666667,
+                "extent": 0.23039215686274508
+              },
+              {
+                "bbox": [
+                  293,
+                  338,
+                  362,
+                  351
+                ],
+                "area": 430,
+                "aspect": 5.3076923076923075,
+                "extent": 0.4793756967670011
+              },
+              {
+                "bbox": [
+                  469,
+                  470,
+                  482,
+                  482
+                ],
+                "area": 114,
+                "aspect": 1.0833333333333333,
+                "extent": 0.7307692307692307
+              }
+            ],
+            "kept_pixels": 945
+          }
+        }
+      }
+    }
+  },
+  "mask_quality": {
+    "usable_for_training": true,
+    "visible_facade_completeness": 0.9,
+    "non_facade_contamination": 0.1,
+    "occlusion_severity": 0.3,
+    "reason": "The mask captures the primary facade well, though there is some minor occlusion from a utility pole and street sign."
+  },
+  "pad": {
+    "pleasure": 0.1,
+    "arousal": -0.2,
+    "dominance": 0.2
+  },
+  "preference_score": 5.0,
+  "sample_weight": 1.0,
+  "confidence": {
+    "o_stage": 0.8
+  }
+}

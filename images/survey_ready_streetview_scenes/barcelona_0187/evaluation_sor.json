@@ -1,0 +1,42 @@
+{
+  "city": "Barcelona",
+  "selected_heading": 0,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "computed_metrics": {
+    "wwr": 0.031222082855827973,
+    "fractal_dimension": 1.639278186045686,
+    "brightness": 0.580470860004425,
+    "saturation": 0.20948432385921478,
+    "wwr_source": "mask2former_opening_fallback",
+    "wwr_pipeline_version": "window_opening_cv_fallback_v1"
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies the primary residential facade on the left, which is clearly visible and contains architectural features like windows and balconies.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+  },
+  "mask_quality": {
+    "usable_for_training": true,
+    "visible_facade_completeness": 0.95,
+    "non_facade_contamination": 0.15,
+    "occlusion_severity": 0.2,
+    "reason": "The mask covers the primary target facade well, with minor contamination from the street lamp and sidewalk elements."
+  },
+  "pad": {
+    "pleasure": 0.3,
+    "arousal": -0.2,
+    "dominance": 0.2
+  },
+  "preference_score": 5.5,
+  "sample_weight": 1.0,
+  "confidence": {
+    "o_stage": 0.85
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "selected_heading": 90,
+  "selection_reason": "Heading 90 provides the most complete and clear frontal view of a building facade, with the entire structure visible within the frame. The other headings primarily show trees, roads, or distant/obscured buildings.",
+  "bbox": [
+    120,
+    174,
+    269,
+    375
+  ],
+  "facade_area_ratio": 0.07311767578125,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "mask_diagnostics": {
+    "repair_method": "mllm_suggested_bbox",
+    "bbox_norm": [
+      0.188,
+      0.273,
+      0.42,
+      0.585
+    ],
+    "bbox_pixels": [
+      120,
+      174,
+      269,
+      375
+    ],
+    "facade_area_ratio": 0.07311767578125,
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask incorrectly encompasses multiple distinct building facades (at least three separate properties) rather than a single architectural plane.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.188,
+        0.273,
+        0.42,
+        0.585
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "wwr_source": "none",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "cv_fallback": {
+        "method": "cv_dark_edge_component_fallback",
+        "dark_threshold": 118.0,
+        "l_threshold": 127.0,
+        "saturation_threshold": 84.0,
+        "value_mid_threshold": 137.0,
+        "candidate_pixels": 17784,
+        "component_filter": {
+          "candidate_pixels": 17612,
+          "kept_components": 0,
+          "kept_component_sample": [],
+          "kept_pixels": 0
+        }
+      },
+      "reason": "no_usable_window_candidate"
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies a single, distinct building facade that is clearly visible and serves as a primary element in the street view.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "initial_validation": {
+      "is_valid": false,
+      "single_facade": false,
+      "main_facade": true,
+      "not_multiple_facades": false,
+      "not_blank_side_wall": true,
+      "occlusion_ok": true,
+      "reason": "The mask incorrectly encompasses multiple distinct building facades (at least three separate properties) rather than a single architectural plane.",
+      "failure_tags": [
+        "multiple_facades"
+      ],
+      "repair_possible": true,
+      "suggested_bbox_norm": [
+        0.188,
+        0.273,
+        0.42,
+        0.585
+      ],
+      "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+    },
+    "repair": {
+      "repair_method": "mllm_suggested_bbox",
+      "bbox_norm": [
+        0.188,
+        0.273,
+        0.42,
+        0.585
+      ],
+      "bbox_pixels": [
+        120,
+        174,
+        269,
+        375
+      ],
+      "facade_area_ratio": 0.07311767578125,
+      "initial_validation": {
+        "is_valid": false,
+        "single_facade": false,
+        "main_facade": true,
+        "not_multiple_facades": false,
+        "not_blank_side_wall": true,
+        "occlusion_ok": true,
+        "reason": "The mask incorrectly encompasses multiple distinct building facades (at least three separate properties) rather than a single architectural plane.",
+        "failure_tags": [
+          "multiple_facades"
+        ],
+        "repair_possible": true,
+        "suggested_bbox_norm": [
+          0.188,
+          0.273,
+          0.42,
+          0.585
+        ],
+        "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+      },
+      "wwr_source": "none",
+      "wwr_debug": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "cv_fallback": {
+          "method": "cv_dark_edge_component_fallback",
+          "dark_threshold": 118.0,
+          "l_threshold": 127.0,
+          "saturation_threshold": 84.0,
+          "value_mid_threshold": 137.0,
+          "candidate_pixels": 17784,
+          "component_filter": {
+            "candidate_pixels": 17612,
+            "kept_components": 0,
+            "kept_component_sample": [],
+            "kept_pixels": 0
+          }
+        },
+        "reason": "no_usable_window_candidate"
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "city": "Barcelona",
+  "selected_heading": 90,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "computed_metrics": {
+    "wwr": 0.1352985052104217,
+    "fractal_dimension": 1.7505985181121158,
+    "brightness": 0.5032031536102295,
+    "saturation": 0.28156358003616333,
+    "wwr_source": "cv_window_fallback",
+    "wwr_pipeline_version": "window_opening_cv_fallback_v1"
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies the main building facade. While there are cars parked in front, the facade itself is clearly visible and the mask follows the architectural boundaries appropriately.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+  },
+  "mask_quality": {
+    "usable_for_training": true,
+    "visible_facade_completeness": 0.95,
+    "non_facade_contamination": 0.15,
+    "occlusion_severity": 0.3,
+    "reason": "The mask covers the primary facade well, though there is some minor occlusion from parked vehicles at the base."
+  },
+  "pad": {
+    "pleasure": -0.2,
+    "arousal": -0.3,
+    "dominance": -0.1
+  },
+  "preference_score": 4.0,
+  "sample_weight": 1.0,
+  "confidence": {
+    "o_stage": 0.85
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "city": "Barcelona",
+  "selected_heading": 270,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "computed_metrics": {
+    "wwr": 0.03573968705547653,
+    "fractal_dimension": 1.609452050110405,
+    "brightness": 0.4767354130744934,
+    "saturation": 0.24909143149852753,
+    "wwr_source": "mask2former_opening_fallback",
+    "wwr_pipeline_version": "window_opening_cv_fallback_v1"
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies a single, distinct architectural facade plane, including the ground floor storefront and the residential levels above, without including adjacent buildings.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+  },
+  "mask_quality": {
+    "usable_for_training": true,
+    "visible_facade_completeness": 0.95,
+    "non_facade_contamination": 0.05,
+    "occlusion_severity": 0.1,
+    "reason": "The mask accurately captures the target facade section, with minimal occlusion from street-level elements."
+  },
+  "pad": {
+    "pleasure": -0.2,
+    "arousal": -0.3,
+    "dominance": -0.1
+  },
+  "preference_score": 4.0,
+  "sample_weight": 1.0,
+  "confidence": {
+    "o_stage": 0.9
+  }
+}

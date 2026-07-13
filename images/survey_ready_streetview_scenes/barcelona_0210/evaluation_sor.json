@@ -1,0 +1,42 @@
+{
+  "city": "Barcelona",
+  "selected_heading": 0,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "computed_metrics": {
+    "wwr": 0.0428975105021759,
+    "fractal_dimension": 1.664597912389076,
+    "brightness": 0.5075360536575317,
+    "saturation": 0.295547753572464,
+    "wwr_source": "cv_window_fallback",
+    "wwr_pipeline_version": "window_opening_cv_fallback_v1"
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies the primary, street-facing facade of the building. While there are trees in the foreground, the facade itself is clearly visible and the mask is well-aligned with its architectural boundaries.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+  },
+  "mask_quality": {
+    "usable_for_training": true,
+    "visible_facade_completeness": 0.95,
+    "non_facade_contamination": 0.05,
+    "occlusion_severity": 0.2,
+    "reason": "The mask captures the primary facade area well, with minor occlusion from trees and a scooter at the base."
+  },
+  "pad": {
+    "pleasure": 0.4,
+    "arousal": 0.1,
+    "dominance": 0.3
+  },
+  "preference_score": 6.5,
+  "sample_weight": 1.0,
+  "confidence": {
+    "o_stage": 0.9
+  }
+}

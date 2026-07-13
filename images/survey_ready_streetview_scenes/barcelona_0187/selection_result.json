@@ -1,0 +1,95 @@
+{
+  "selected_heading": 0,
+  "selection_reason": "Heading 0 provides the most complete and clear view of a building facade, showing the full height and width of the structure without being cut off by the frame. Other headings are either obstructed by trees, show only side walls, or focus on street scenes rather than a clear facade.",
+  "bbox": [
+    0,
+    0,
+    301,
+    481
+  ],
+  "facade_area_ratio": 0.27055419921875,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "mask_diagnostics": {
+    "pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "seed_area": 184605,
+    "opening_seed_area": 3485,
+    "splits": [],
+    "component_count": 2,
+    "main_component_selected": true,
+    "main_component_seed_pixels": 110762,
+    "main_component_opening_pixels": 3485,
+    "merge_component_count": 1,
+    "merged_component_count": 1,
+    "join_gap_px": 10,
+    "main_component_bbox": [
+      0,
+      0,
+      301,
+      481
+    ],
+    "main_component_opening_components": 1,
+    "area_after_component_merge": 110825,
+    "final_opening_area": 3485,
+    "final_opening_components": 1,
+    "final_width_ratio": 0.4703125,
+    "area_final": 110819,
+    "segmenter_backend": "mask2former",
+    "raw_facade_seed_area_ratio": 0.45069580078125,
+    "raw_opening_seed_area_ratio": 0.00850830078125,
+    "hard_exclusion_area_ratio": 0.46103759765625,
+    "vegetation_area_ratio_image": 0.0877587890625,
+    "mask2former_window_pixels": 0,
+    "mask2former_opening_pixels": 3485,
+    "tree_occlusion_reject": false,
+    "tree_to_facade_ratio": 0.11604508252195021,
+    "tree_context_share": 0.1039788484706377,
+    "tree_center_share": 0.0,
+    "tree_context_area": 12860,
+    "tree_center_area": 0,
+    "tree_context_bbox": [
+      0,
+      0,
+      325,
+      509
+    ],
+    "mask2former_segment_pixels": {
+      "building": 181120,
+      "tree": 35946,
+      "awning": 3485
+    },
+    "wwr_source": "mask2former_opening_fallback",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "opening_filter": {
+        "candidate_pixels": 3485,
+        "kept_components": 1,
+        "kept_component_sample": [
+          {
+            "bbox": [
+              43,
+              185,
+              199,
+              215
+            ],
+            "area": 3485,
+            "aspect": 5.2,
+            "extent": 0.7446581196581197
+          }
+        ],
+        "kept_pixels": 3460
+      }
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies the primary residential facade on the left, which is clearly visible and contains architectural features like windows and balconies.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "city": "Barcelona",
+  "selected_heading": 270,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "computed_metrics": {
+    "wwr": 0.018091538671703312,
+    "fractal_dimension": 1.5863430313899929,
+    "brightness": 0.6234192848205566,
+    "saturation": 0.3905215263366699,
+    "wwr_source": "cv_window_fallback",
+    "wwr_pipeline_version": "window_opening_cv_fallback_v1"
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies the main residential facade plane. While there is a tree in the foreground, the facade itself is clearly visible and the mask excludes the ground level and sky appropriately.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+  },
+  "mask_quality": {
+    "usable_for_training": true,
+    "visible_facade_completeness": 0.9,
+    "non_facade_contamination": 0.15,
+    "occlusion_severity": 0.2,
+    "reason": "The mask covers the main residential facade well, with minor occlusion from a foreground tree and some lower-level fencing."
+  },
+  "pad": {
+    "pleasure": 0.3,
+    "arousal": -0.2,
+    "dominance": 0.2
+  },
+  "preference_score": 6.0,
+  "sample_weight": 0.9,
+  "confidence": {
+    "o_stage": 0.85
+  }
+}

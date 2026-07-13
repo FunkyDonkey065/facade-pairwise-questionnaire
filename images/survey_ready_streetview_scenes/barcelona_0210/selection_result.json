@@ -1,0 +1,223 @@
+{
+  "selected_heading": 0,
+  "selection_reason": "Heading 0 provides the most complete and clear view of the building facade, satisfying the criteria for top edge visibility and facade dominance. Other headings either show mostly trees and cars or are cut off at the top edge.",
+  "bbox": [
+    130,
+    0,
+    422,
+    455
+  ],
+  "facade_area_ratio": 0.29116455078125,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "mask_diagnostics": {
+    "pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+    "seed_area": 159450,
+    "opening_seed_area": 0,
+    "splits": [],
+    "component_count": 6,
+    "main_component_selected": true,
+    "main_component_seed_pixels": 118621,
+    "main_component_opening_pixels": 0,
+    "merge_component_count": 1,
+    "merged_component_count": 1,
+    "join_gap_px": 10,
+    "main_component_bbox": [
+      130,
+      0,
+      422,
+      455
+    ],
+    "main_component_opening_components": 0,
+    "area_after_component_merge": 119266,
+    "final_opening_area": 0,
+    "final_opening_components": 0,
+    "final_width_ratio": 0.45625,
+    "area_final": 119261,
+    "segmenter_backend": "mask2former",
+    "raw_facade_seed_area_ratio": 0.3892822265625,
+    "raw_opening_seed_area_ratio": 0.0,
+    "hard_exclusion_area_ratio": 0.1521533203125,
+    "vegetation_area_ratio_image": 0.269814453125,
+    "mask2former_window_pixels": 0,
+    "mask2former_opening_pixels": 0,
+    "tree_occlusion_reject": false,
+    "tree_to_facade_ratio": 0.24599827269601965,
+    "tree_context_share": 0.1974306691162121,
+    "tree_center_share": 0.0,
+    "tree_context_area": 29338,
+    "tree_center_area": 0,
+    "tree_context_bbox": [
+      107,
+      0,
+      445,
+      482
+    ],
+    "mask2former_segment_pixels": {
+      "building": 159450,
+      "plant": 1811,
+      "grass": 11030,
+      "streetlight": 605,
+      "tree": 97070
+    },
+    "wwr_source": "cv_window_fallback",
+    "wwr_debug": {
+      "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+      "reason": "no_usable_window_candidate",
+      "segformer_attempt": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "reason": "no_usable_window_candidate"
+      },
+      "final_fallback": {
+        "wwr_pipeline_version": "window_opening_cv_fallback_v1",
+        "cv_fallback": {
+          "method": "cv_dark_edge_component_fallback",
+          "dark_threshold": 87.0,
+          "l_threshold": 95.0,
+          "saturation_threshold": 79.0,
+          "value_mid_threshold": 153.0,
+          "candidate_pixels": 61710,
+          "component_filter": {
+            "candidate_pixels": 61442,
+            "kept_components": 11,
+            "kept_component_sample": [
+              {
+                "bbox": [
+                  216,
+                  0,
+                  233,
+                  35
+                ],
+                "area": 347,
+                "aspect": 0.4857142857142857,
+                "extent": 0.5831932773109244
+              },
+              {
+                "bbox": [
+                  241,
+                  0,
+                  258,
+                  51
+                ],
+                "area": 569,
+                "aspect": 0.3333333333333333,
+                "extent": 0.6562860438292965
+              },
+              {
+                "bbox": [
+                  404,
+                  9,
+                  424,
+                  83
+                ],
+                "area": 668,
+                "aspect": 0.2702702702702703,
+                "extent": 0.45135135135135135
+              },
+              {
+                "bbox": [
+                  345,
+                  19,
+                  377,
+                  96
+                ],
+                "area": 1340,
+                "aspect": 0.4155844155844156,
+                "extent": 0.5438311688311688
+              },
+              {
+                "bbox": [
+                  215,
+                  148,
+                  224,
+                  160
+                ],
+                "area": 84,
+                "aspect": 0.75,
+                "extent": 0.7777777777777778
+              },
+              {
+                "bbox": [
+                  230,
+                  155,
+                  270,
+                  228
+                ],
+                "area": 705,
+                "aspect": 0.547945205479452,
+                "extent": 0.24143835616438356
+              },
+              {
+                "bbox": [
+                  324,
+                  172,
+                  350,
+                  189
+                ],
+                "area": 67,
+                "aspect": 1.5294117647058822,
+                "extent": 0.1515837104072398
+              },
+              {
+                "bbox": [
+                  329,
+                  234,
+                  350,
+                  301
+                ],
+                "area": 575,
+                "aspect": 0.31343283582089554,
+                "extent": 0.40867093105899077
+              },
+              {
+                "bbox": [
+                  215,
+                  259,
+                  233,
+                  295
+                ],
+                "area": 290,
+                "aspect": 0.5,
+                "extent": 0.44753086419753085
+              },
+              {
+                "bbox": [
+                  240,
+                  263,
+                  262,
+                  297
+                ],
+                "area": 330,
+                "aspect": 0.6470588235294118,
+                "extent": 0.4411764705882353
+              },
+              {
+                "bbox": [
+                  380,
+                  384,
+                  415,
+                  401
+                ],
+                "area": 259,
+                "aspect": 2.0588235294117645,
+                "extent": 0.43529411764705883
+              }
+            ],
+            "kept_pixels": 5116
+          }
+        }
+      }
+    }
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask correctly identifies the primary, street-facing facade of the building. While there are trees in the foreground, the facade itself is clearly visible and the mask is well-aligned with its architectural boundaries.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "city": "Barcelona",
+  "selected_heading": 180,
+  "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9",
+  "computed_metrics": {
+    "wwr": 0.04181360201511335,
+    "fractal_dimension": 1.5726210790676303,
+    "brightness": 0.6414916515350342,
+    "saturation": 0.41987502574920654,
+    "wwr_source": "cv_window_fallback",
+    "wwr_pipeline_version": "window_opening_cv_fallback_v1"
+  },
+  "mask_mllm_validation": {
+    "is_valid": true,
+    "single_facade": true,
+    "main_facade": true,
+    "not_multiple_facades": true,
+    "not_blank_side_wall": true,
+    "occlusion_ok": true,
+    "reason": "The mask accurately captures the main street-facing facade of the building, including the door and window, while excluding adjacent structures.",
+    "repair_possible": false,
+    "suggested_bbox_norm": null,
+    "mask_pipeline_version": "main_facade_single_mllm_bbox_repair_v9"
+  },
+  "mask_quality": {
+    "usable_for_training": true,
+    "visible_facade_completeness": 0.95,
+    "non_facade_contamination": 0.15,
+    "occlusion_severity": 0.2,
+    "reason": "The mask covers the primary facade well, with minor contamination from the foreground car and some overhead wires."
+  },
+  "pad": {
+    "pleasure": -0.2,
+    "arousal": -0.4,
+    "dominance": -0.3
+  },
+  "preference_score": 4.0,
+  "sample_weight": 1.0,
+  "confidence": {
+    "o_stage": 0.85
+  }
+}
