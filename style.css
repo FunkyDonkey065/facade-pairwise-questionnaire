@@ -385,14 +385,6 @@ p {
   object-fit: contain;
 }
 
-#preview-banner {
-  padding: 10px 18px;
-  background: #fff2b6;
-  color: #32301f;
-  font-size: 13px;
-  line-height: 1.5;
-}
-
 button:disabled {
   opacity: 0.5;
   cursor: wait;

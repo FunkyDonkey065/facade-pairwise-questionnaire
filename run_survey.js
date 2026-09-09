@@ -304,7 +304,6 @@ function startWithLock() {
 }
 
 const issues = launchIssues();
-document.querySelector("#preview-banner").hidden = isProduction;
 if (issues.length) {
   document.querySelector("#jspsych-target").innerHTML = `<div class="wrap"><section class="panel"><h1>Study unavailable</h1><p>Please contact the researcher through Prolific.</p><details><summary>Study setup details</summary><ul>${issues.map(s => `<li>${escapeHtml(s)}</li>`).join("")}</ul></details></section></div>`;
 } else {
