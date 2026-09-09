@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,14 +33,24 @@
       <textarea name="payload_csv"></textarea>
     </form>
 
+    <header class="survey-toolbar">
+      <label for="survey-language">Language</label>
+      <select id="survey-language" data-no-translate><option value="es">Español</option><option value="ca">Català</option><option value="en">English</option></select>
+      <button type="button" class="secondary-button" id="progress-download" hidden>Download progress backup</button>
+      <button type="button" class="secondary-button" id="progress-clear" hidden>Delete local progress</button>
+    </header>
     <aside id="preview-banner" hidden>Research preview: 50 Eixample scenes. Responses are not uploaded.</aside>
+    <p id="recovery-status" role="status" hidden></p>
     <main id="jspsych-target"></main>
 
     <script src="vendor/jspsych-7.3.4.min.js"></script>
     <script src="scene_manifest.js"></script>
     <script src="study_config.js"></script>
+    <script src="i18n.js"></script>
+    <script src="recovery.js"></script>
     <script src="pairs.js"></script>
     <script src="experiment.js"></script>
+    <script src="session.js"></script>
     <script src="run_survey.js"></script>
   </body>
 </html>

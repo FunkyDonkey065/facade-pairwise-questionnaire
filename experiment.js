@@ -1,6 +1,6 @@
 const studyConfig = window.STUDY_CONFIG;
 const PROLIFIC_COMPLETION_URL = studyConfig.completionUrl;
-const SURVEY_VERSION = "facade_50_exposure_balanced_20260909";
+const SURVEY_VERSION = "facade_50_trilingual_upc_20260910_approval";
 
 function getUrlParam(name) {
   return new URLSearchParams(window.location.search).get(name) || "";
@@ -346,7 +346,7 @@ const jsPsychChoiceCheck = (() => {
 
     trial(displayElement, trial) {
       const start = performance.now();
-      const attempts = [];
+      const attempts = window.surveySession?.draftAttempts() || [];
       const options = trial.choices
         .map(
           (choice, index) => `
@@ -386,6 +386,7 @@ const jsPsychChoiceCheck = (() => {
           error.textContent = "Please re-read the instructions above and try once more.";
           error.hidden = false;
           selected.checked = false;
+          window.surveySession?.saveAttempts(attempts);
           return;
         }
         const rt = Math.round(performance.now() - start);
@@ -480,7 +481,6 @@ const jsPsychPadLikert = (() => {
           <section class="panel single-panel">
             <div class="comparison-header">
               <div class="progress">PAD rating ${trial.trial_index + 1} of ${trial.trial_count}</div>
-              <div class="progress">Image ID: ${escapeHtml(image.id)}</div>
             </div>
             <div class="context-strip">
               <strong>Location/context:</strong> ${escapeHtml(image.location || "Barcelona, Catalonia, Spain")}.
@@ -488,7 +488,7 @@ const jsPsychPadLikert = (() => {
             </div>
             <div class="single-image-layout">
               <div class="image-panel">
-                <div class="image-label"><strong>Target facade</strong><span>${escapeHtml(image.id)}</span></div>
+                <div class="image-label"><strong>Target facade</strong></div>
                 <img class="single-facade-image" src="${image.url}" alt="Marked target facade" />
                 ${renderContextThumbs(image.context_urls)}
               </div>
@@ -608,7 +608,6 @@ const jsPsychPreferencePairwise = (() => {
           <section class="panel comparison-panel">
             <div class="comparison-header">
               <div class="progress">Preference pair ${trial.trial_index + 1} of ${trial.trial_count}</div>
-              <div class="progress">Pair ID: ${escapeHtml(pair.pair_id)}</div>
             </div>
             <div class="context-strip">
               <strong>Location/context:</strong> ${escapeHtml(pair.location_context || "Barcelona, Catalonia, Spain")}.
@@ -616,12 +615,12 @@ const jsPsychPreferencePairwise = (() => {
             </div>
             <div class="pair-grid comparison-image-grid">
               <div class="image-panel">
-                <div class="image-label"><strong>Image A</strong><span>${escapeHtml(pair.image_A_id)}</span></div>
+                <div class="image-label"><strong>Image A</strong></div>
                 <img class="main-facade-image" src="${pair.image_A_url}" alt="Marked main facade image A" />
                 ${imageAContextThumbs}
               </div>
               <div class="image-panel">
-                <div class="image-label"><strong>Image B</strong><span>${escapeHtml(pair.image_B_id)}</span></div>
+                <div class="image-label"><strong>Image B</strong></div>
                 <img class="main-facade-image" src="${pair.image_B_url}" alt="Marked main facade image B" />
                 ${imageBContextThumbs}
               </div>

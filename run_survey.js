@@ -5,7 +5,11 @@ const studyId = getUrlParam("STUDY_ID");
 const sessionId = getUrlParam("SESSION_ID");
 const forcedSet = getUrlParam("BLOCK_ID") || getUrlParam("PAIR_SET_ID");
 const isProduction = studyConfig.mode === "production";
-const randomizationSeed = sessionId || prolificPid || Math.random().toString(36).slice(2);
+const surveySession = new window.SurveySession({ path: location.pathname, version: SURVEY_VERSION,
+  manifest: window.STIMULUS_MANIFEST.fingerprint, mode: studyConfig.mode,
+  prolificPid, studyId, sessionId, forcedSet }, sessionId || prolificPid || Math.random().toString(36).slice(2));
+window.surveySession = surveySession;
+const randomizationSeed = surveySession.seed;
 const pairSetId = forcedSet && ACTIVE_PAIR_SETS.some(b => b.set_id === forcedSet)
   ? forcedSet : pickSetFromSession(randomizationSeed);
 const pairList = preparePairList(getPairSet(pairSetId), randomizationSeed);
@@ -13,10 +17,10 @@ const padDimensionOrder = pickPadDimensionOrder(randomizationSeed);
 const padSceneList = preparePadSceneList(pairList, randomizationSeed);
 const taskOrder = createSeededRandom(`${randomizationSeed}|task-order`)() < 0.5
   ? "pad_first" : "preference_first";
-let effectiveProlificPid = prolificPid;
+let effectiveProlificPid = prolificPid || surveySession.rows.find(r => r.screen === "prolific_id_entry")?.response || "";
 let outcome = "in_progress";
 let submissionInFlight = false;
-const submissionKey = `${SURVEY_VERSION}|${prolificPid || randomizationSeed}|${sessionId}|${pairSetId}`;
+const submissionKey = `${SURVEY_VERSION}|${window.STIMULUS_MANIFEST.fingerprint}|${prolificPid || randomizationSeed}|${studyId}|${sessionId}|${pairSetId}`;
 
 function launchIssues() {
   const issues = [];
@@ -49,11 +53,8 @@ function showStopped() {
   document.querySelector("#jspsych-target").innerHTML = `<div class="wrap"><section class="panel"><h1>Study ended</h1><p>${escapeHtml(messages[outcome] || "The study did not finish. No response data has been uploaded.")}</p></section></div>`;
 }
 
-const jsPsych = initJsPsych({
-  display_element: "jspsych-target",
-  on_finish: async () => {
-    if (outcome !== "complete") { showStopped(); return; }
-    const rows = jsPsych.data.get().values();
+function finalizeData() {
+    const rows = surveySession.rows;
     const attentionFailCount = rows.filter(r => /^attention_check_[12]$/.test(r.screen || "") && !r.correct).length;
     const summary = {
       record_type: "session_summary", outcome, attention_fail_count: attentionFailCount,
@@ -62,12 +63,22 @@ const jsPsych = initJsPsych({
       usable_pad_trials: rows.filter(r => r.task === "pad_likert" && r.judgeability !== "no").length,
       completed_preference_trials: rows.filter(r => r.task === "pairwise_preference").length,
       usable_preference_trials: rows.filter(r => r.task === "pairwise_preference" && r.judgeability !== "no").length,
-      completed_at: new Date().toISOString()
+      completed_at: rows.find(r => r.screen === "pre_finish")?.completed_at || new Date().toISOString(), session_started_at: surveySession.startedAt,
+      language_history: surveySession.languageHistory, resumed_sessions: surveySession.resumeCount
     };
-    jsPsych.data.addProperties({ attention_fail_count: attentionFailCount });
+    rows.forEach(row => { row.attention_fail_count = attentionFailCount; });
     Object.assign(rows.find(r => r.screen === "pre_finish"), summary);
-    const csv = jsPsych.data.get().csv();
-    const json = JSON.stringify(jsPsych.data.get().values(), null, 2);
+    surveySession.save();
+    return { csv: surveySession.csv(), json: JSON.stringify(rows, null, 2), attentionFailCount };
+}
+
+const jsPsych = initJsPsych({
+  display_element: "jspsych-target",
+  on_trial_start: trial => surveySession.begin(trial),
+  on_trial_finish: data => surveySession.finish(data),
+  on_finish: async () => {
+    if (outcome !== "complete") { showStopped(); return; }
+    const { csv, json, attentionFailCount } = finalizeData();
     showFinalScreen({ status: isProduction ? "saving" : "preview", csv, json });
     if (isProduction) {
       const saved = await submitToNetlify({ csv, json, attentionFailCount });
@@ -77,16 +88,23 @@ const jsPsych = initJsPsych({
 });
 
 jsPsych.data.addProperties({
-  prolific_pid: prolificPid, study_id: studyId, session_id: sessionId,
+  prolific_pid: effectiveProlificPid, study_id: studyId, session_id: sessionId,
   pair_set_id: pairSetId, allocation_method: forcedSet ? "fixed_block" : "preview_hash",
   randomization_seed: randomizationSeed, task_order: taskOrder,
   pad_dimension_order: padDimensionOrder.join("|"),
   pad_scene_order: padSceneList.map(s => s.id).join("|"),
   survey_version: SURVEY_VERSION, design_version: DESIGN.version,
+  protocol_source_document: studyConfig.protocolSourceDocument,
+  data_processing_activity_code: studyConfig.dataProcessingActivityCode,
+  ethics_reference: studyConfig.ethicsReference,
+  ethics_project_title: studyConfig.ethicsProjectTitle,
+  ethics_source_document: studyConfig.ethicsSourceDocument,
+  ethics_committee_meeting_date: studyConfig.ethicsCommitteeMeetingDate,
+  ethics_signed_date: studyConfig.ethicsSignedDate,
   manifest_fingerprint: window.STIMULUS_MANIFEST.fingerprint,
   stimulus_manifest_version: window.STIMULUS_MANIFEST.version,
   study_mode: studyConfig.mode, submission_key: submissionKey,
-  participant_language: studyConfig.participantLanguage,
+  participant_language: window.SurveyI18n.language,
   user_agent: navigator.userAgent, screen_width: window.screen.width, screen_height: window.screen.height,
   viewport_width: window.innerWidth, viewport_height: window.innerHeight
 });
@@ -134,6 +152,7 @@ function downloadText(filename, text, mimeType) {
 }
 
 function showFinalScreen({ status, csv, json }) {
+  if (status === "saved") { surveySession.status = "submitted"; surveySession.save(); }
   const messages = {
     preview: "This preview is complete. Responses have not been uploaded. You can download them to check the study design.",
     saving: "Saving your responses. Please keep this page open.",
@@ -164,14 +183,26 @@ timeline.push(makeButtonTrial({
   title: "Facade perception survey",
   body: `<p>You will view 10 target facades with their surrounding street views. You will rate each facade on three scales and compare five pairs for overall preference.</p>
     <p>Please use a laptop or desktop computer. Estimated time: ${escapeHtml(studyConfig.estimatedMinutes)} minutes.</p>
+    <h2>Ethics review</h2>
+    <p>Ethics approval or exemption reference: ${escapeHtml(studyConfig.ethicsReference || "To be confirmed before participant recruitment.")}</p>
+    ${studyConfig.ethicsReference && studyConfig.ethicsProjectTitle ? `<p>Project reviewed: <span data-no-translate>${escapeHtml(studyConfig.ethicsProjectTitle)}</span></p>
+    <p>Committee meeting date: ${escapeHtml(studyConfig.ethicsCommitteeMeetingDate)}<br>Signature date shown in the decision: ${escapeHtml(studyConfig.ethicsSignedDate)}</p>
+    <p>The UPC Ethics Committee has issued a favourable opinion on the ethical aspects related to the research carried out in this project/article.</p>` : ""}
+    ${!isProduction && !studyConfig.participantInformationApproved ? "<p>The current questionnaire and data-collection arrangements still require confirmation against the approved project scope. This preview is not open for participant recruitment.</p>" : ""}
     <h2>Data use and protection</h2>
-    <p>The Universitat Politecnica de Catalunya - BarcelonaTech (UPC) is the proposed data controller for this academic research on visual perception of building facades. Processing is subject to the General Data Protection Regulation (EU) 2016/679 and Organic Law 3/2018.</p>
+    <p>The Universitat Politecnica de Catalunya - BarcelonaTech (UPC) is the data controller named in the research protocol for this academic study on visual perception of building facades. Processing is subject to the General Data Protection Regulation (EU) 2016/679 and Organic Law 3/2018.</p>
+    <p>Responsible department: ${escapeHtml(studyConfig.responsibleDepartment)}<br>Data-processing activity: ${escapeHtml(studyConfig.dataProcessingActivityCode)}</p>
     <p>Taking part is voluntary. You may stop at any time by closing the survey. Contact the research team through Prolific if you wish to request withdrawal of an identifiable response before it is de-identified.</p>
-    <p>The study records your Prolific ID, answers, response times and basic device information. Selected demographic information will be supplied by Prolific. Your ID links these records and supports participation checks and payment. Published results will be aggregated or de-identified.</p>
-    <p>${isProduction ? "Responses are submitted using Netlify Forms and exported to restricted research storage." : "This is a preview. Your responses remain in this page unless you download them; they are not uploaded."}</p>
-    <p>Retention period: ${escapeHtml(studyConfig.retentionPeriod || "To be confirmed before participant recruitment.")}</p>
-    <p>Research contact: ${escapeHtml(studyConfig.researchContact || "To be confirmed before participant recruitment.")}<br>Ethics approval or exemption reference: ${escapeHtml(studyConfig.ethicsReference || "To be confirmed before participant recruitment.")}</p>
-    <p>Data protection enquiries: <a href="mailto:proteccio.dades@upc.edu">proteccio.dades@upc.edu</a>. You may exercise applicable data protection rights and contact the <a href="https://apdcat.gencat.cat">Catalan Data Protection Authority</a>.</p>`,
+    <p>The study records your Prolific participant, study and session identifiers; PAD ratings, pairwise choices and image-judgeability responses; comprehension and attention-check answers; response times; display language and recovery events; and browser, screen and viewport information. Selected demographic information will be supplied by Prolific. Your participant ID links these records and supports participation checks and payment.</p>
+    <p>Processing is based on your consent. You may withdraw consent by contacting the research team. You may request access, rectification, erasure, restriction of processing or data portability, and object to processing where applicable.</p>
+    <p>The protocol specifies password-protected research storage managed by the department, with access limited to the research team and periodic backups. The collection service used by this questionnaire is described below.</p>
+    <p>The protocol separates coded research responses from identifying information for analysis. It provides for academic publications and open release of fully anonymized ratings and generalized profile data in CORA. Prolific IDs and linkage information will not be included in public datasets.</p>
+    <p>After you consent, a temporary copy of your progress and current selections is saved in this browser. Recovery expires 24 hours after your last activity; expired copies are removed when this survey is next opened. Reopening the same link in this browser before expiry can restore your progress. Clearing browser data or changing devices prevents recovery. You can delete the local copy using the button above.</p>
+    <p>${isProduction ? "Responses are submitted using Netlify Forms and exported to restricted research storage." : "This is a preview. Responses are not uploaded. After consent, they are temporarily stored in this browser so you can resume, and you may download a backup."}</p>
+    <p>Retention period: ${escapeHtml(studyConfig.retentionPeriod || "To be confirmed before participant recruitment.")}<br><a href="https://www.upc.edu/normatives/ca/proteccio-de-dades/politica-de-conservacio-de-les-dades-de-caracter-personal">UPC data retention policy</a></p>
+    <p>Research contact: ${escapeHtml(studyConfig.researchContact || "To be confirmed before participant recruitment.")}</p>
+    <p>Data protection enquiries: <a href="mailto:proteccio.dades@upc.edu">proteccio.dades@upc.edu</a>. You may exercise applicable data protection rights and contact the <a href="https://apdcat.gencat.cat">Catalan Data Protection Authority</a>.</p>
+    <p><a href="https://www.upc.edu/normatives/ca/proteccio-de-dades/drets">UPC data protection rights and request procedure</a></p>`,
   data: { screen: "welcome" }
 }));
 timeline.push({
@@ -189,6 +220,10 @@ timeline.push({
   on_finish: data => {
     effectiveProlificPid = prolificPid || data.response;
     jsPsych.data.addProperties({ prolific_pid: effectiveProlificPid, prolific_pid_confirmed: effectiveProlificPid });
+    surveySession.rows.forEach(row => {
+      row.prolific_pid = effectiveProlificPid;
+      row.prolific_pid_confirmed = effectiveProlificPid;
+    });
   }
 });
 const instructions = `<p>Evaluate the marked target facade as part of its visible street context. The other three images show the right, back and left views from the same location.</p>
@@ -225,13 +260,53 @@ timeline.push({ ...makeButtonTrial({ title: "End of task", body: "<p>You have co
   on_finish: () => { outcome = "complete"; }
 });
 
+timeline.forEach((trial, index) => {
+  trial.data = { ...trial.data, study_trial_id: `T${String(index).padStart(2, "0")}` };
+});
+
+function startOrResume() {
+  surveySession.enabled = true;
+  if (isProduction && window.innerWidth < 980) {
+    document.querySelector("#jspsych-target").innerHTML = `<div class="wrap"><section class="panel"><h1>Enlarge the window</h1><p>Please maximize this browser window or use a laptop or desktop computer, then try again. Your saved progress has not been deleted.</p><button class="primary-button" id="retry-window">Try again</button></section></div>`;
+    document.querySelector("#retry-window").onclick = startOrResume;
+    return;
+  }
+  const remaining = surveySession.remaining(timeline);
+  if (!remaining) {
+    surveySession.enabled = false;
+    document.querySelector("#jspsych-target").textContent = "Saved progress does not match this questionnaire. Download your backup and contact the researcher; it has not been overwritten.";
+    return;
+  }
+  if (surveySession.rows.length) {
+    document.querySelector("#jspsych-target").innerHTML = `<div class="wrap"><section class="panel"><h1>Saved progress found</h1><p>Continue the saved session in this browser. Your previous answers and question order will be preserved.</p><div class="actions"><button class="secondary-button" id="resume-restart">Start again</button><button class="primary-button" id="resume-session">Resume session</button></div></section></div>`;
+    document.querySelector("#resume-restart").onclick = () => surveySession.restart();
+    document.querySelector("#resume-session").onclick = () => {
+      if (!remaining.length) {
+        outcome = "complete";
+        showFinalScreen({ status: !isProduction ? "preview" : surveySession.status === "submitted" ? "saved" : "failed",
+          ...finalizeData() });
+      } else jsPsych.run(remaining);
+    };
+  } else jsPsych.run(timeline);
+}
+
+function startWithLock() {
+  if (!navigator.locks) { startOrResume(); return; }
+  navigator.locks.request(surveySession.store.key, { ifAvailable: true }, async lock => {
+    if (!lock) {
+      document.querySelector("#jspsych-target").innerHTML = `<div class="wrap"><section class="panel"><h1>Use one tab</h1><p>This survey is already open in another tab. Close that tab, then try again here.</p><button id="retry-tab" class="primary-button">Try again</button></section></div>`;
+      document.querySelector("#retry-tab").onclick = () => location.reload();
+      return;
+    }
+    startOrResume();
+    await new Promise(resolve => window.addEventListener("pagehide", resolve, { once: true }));
+  }).catch(() => startOrResume());
+}
+
 const issues = launchIssues();
 document.querySelector("#preview-banner").hidden = isProduction;
 if (issues.length) {
   document.querySelector("#jspsych-target").innerHTML = `<div class="wrap"><section class="panel"><h1>Study unavailable</h1><p>Please contact the researcher through Prolific.</p><details><summary>Study setup details</summary><ul>${issues.map(s => `<li>${escapeHtml(s)}</li>`).join("")}</ul></details></section></div>`;
-} else if (isProduction && window.innerWidth < 980) {
-  outcome = "technical_stop";
-  showStopped();
 } else {
-  jsPsych.run(timeline);
+  startWithLock();
 }
