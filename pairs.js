@@ -1,196 +1,86 @@
-function placeholderImage(label) {
-  const svg = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
-      <rect width="1200" height="900" fill="#e8e1d3"/>
-      <rect x="170" y="130" width="860" height="640" rx="18" fill="#c9d8d0" stroke="#41524a" stroke-width="8"/>
-      <g fill="#f7f3ea" stroke="#41524a" stroke-width="5">
-        <rect x="250" y="210" width="140" height="150"/>
-        <rect x="530" y="210" width="140" height="150"/>
-        <rect x="810" y="210" width="140" height="150"/>
-        <rect x="250" y="455" width="140" height="150"/>
-        <rect x="530" y="455" width="140" height="150"/>
-        <rect x="810" y="455" width="140" height="150"/>
-      </g>
-      <rect x="500" y="655" width="200" height="115" fill="#6f7f77"/>
-      <text x="600" y="830" text-anchor="middle" font-family="Arial" font-size="58" fill="#17201c">${label}</text>
-    </svg>`;
-  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
-}
+"use strict";
 
-const DEFAULT_LOCATION_CONTEXT = "Barcelona, Catalonia, Spain";
-const DEFAULT_STREET_CONTEXT =
-  "Urban street context: consider the visible adjacent buildings, street width, ground-floor interface, sidewalk, vegetation, enclosure, and overall visual coherence.";
-
-// Optional: add image-specific metadata here when real images are inserted.
-// Example:
-// F001: {
-//   location: "Barcelona, Catalonia, Spain",
-//   context: "Narrow mixed-use street with continuous street wall and active ground floor."
-// }
-const IMAGE_CONTEXT = {};
+const DESIGN = Object.freeze({
+  version: "exposure_balanced_50_20260909",
+  scenes: 50,
+  blocks: 25,
+  padPerParticipant: 10,
+  pairsPerParticipant: 5,
+  validParticipantsPerBlock: 4,
+  targetValidParticipants: 100,
+  targetPadPerScene: 20,
+  targetPreferenceExposurePerScene: 20
+});
 const SURVEY_SCENES = Array.isArray(window.SURVEY_SCENES) ? window.SURVEY_SCENES : [];
-const SCENE_BY_ID = Object.fromEntries(
-  SURVEY_SCENES.map((scene) => [`S${scene.scene_id}`, scene])
-);
+const SCENE_BY_ID = Object.fromEntries(SURVEY_SCENES.map(scene => [`S${scene.scene_id}`, scene]));
+const DEFAULT_LOCATION_CONTEXT = "Eixample, Barcelona, Catalonia, Spain";
+const DEFAULT_STREET_CONTEXT = "Consider the marked facade within its visible street context.";
 
-function getImageContext(imageId) {
-  const metadata = IMAGE_CONTEXT[imageId] || {};
-  return {
-    location: metadata.location || DEFAULT_LOCATION_CONTEXT,
-    context: metadata.context || DEFAULT_STREET_CONTEXT
-  };
+function scheduleHash(value) {
+  let hash = 2166136261;
+  for (const char of value) hash = Math.imul(hash ^ char.charCodeAt(0), 16777619);
+  return hash >>> 0;
 }
 
-function buildAutoPairSetsFromScenes(scenes, pairsPerSet = 8) {
-  if (!scenes.length) return [];
-  const sortedScenes = [...scenes].sort((a, b) => {
-    const aId = Number(a.scene_id);
-    const bId = Number(b.scene_id);
-    if (Number.isFinite(aId) && Number.isFinite(bId)) return aId - bId;
-    return String(a.scene_id).localeCompare(String(b.scene_id));
-  });
-  const sceneIds = sortedScenes.map((scene) => `S${scene.scene_id}`);
-  const setCount = Math.max(sortedScenes.length, 2);
-  const offset = Math.max(1, Math.floor(sortedScenes.length / 2));
-
-  return Array.from({ length: setCount }, (_, setIndex) => {
-    const pairs = Array.from({ length: pairsPerSet }, (_, trialIndex) => {
-      const aIndex = (setIndex * pairsPerSet + trialIndex) % sceneIds.length;
-      let bIndex = (aIndex + offset + trialIndex * 7) % sceneIds.length;
-      if (bIndex === aIndex) bIndex = (bIndex + 1) % sceneIds.length;
-      const pairNo = setIndex * pairsPerSet + trialIndex + 1;
-      return [`P${String(pairNo).padStart(4, "0")}`, sceneIds[aIndex], sceneIds[bIndex]];
-    });
-    return {
-      set_id: `S${String(setIndex + 1).padStart(2, "0")}`,
-      pairs
-    };
-  });
-}
-
-// Replace these examples with your real balanced pair schedule.
-// For deployment, keep 10 pairs per set and create enough sets for your target sample.
-const PAIR_SETS = [
-  {
-    set_id: "S01",
-    pairs: [
-      ["P001", "F001", "F014"],
-      ["P002", "F002", "F027"],
-      ["P003", "F003", "F041"],
-      ["P004", "F004", "F018"],
-      ["P005", "F005", "F032"],
-      ["P006", "F006", "F045"],
-      ["P007", "F007", "F021"],
-      ["P008", "F008", "F036"],
-      ["P009", "F009", "F049"],
-      ["P010", "F010", "F024"]
-    ]
-  },
-  {
-    set_id: "S02",
-    pairs: [
-      ["P011", "F011", "F025"],
-      ["P012", "F012", "F038"],
-      ["P013", "F013", "F050"],
-      ["P014", "F014", "F028"],
-      ["P015", "F015", "F042"],
-      ["P016", "F016", "F006"],
-      ["P017", "F017", "F031"],
-      ["P018", "F018", "F044"],
-      ["P019", "F019", "F008"],
-      ["P020", "F020", "F033"]
-    ]
+function buildBalancedBlocks(scenes) {
+  if (scenes.length !== DESIGN.scenes || new Set(scenes.map(s => s.scene_id)).size !== DESIGN.scenes) {
+    throw new Error("Exactly 50 distinct scenes are required. Rebuild scene_manifest.js.");
   }
-];
-
-const ACTIVE_PAIR_SETS = SURVEY_SCENES.length
-  ? buildAutoPairSetsFromScenes(SURVEY_SCENES)
-  : PAIR_SETS;
-
-function buildSceneImage(scene, imageId) {
-  const imageContext = getImageContext(imageId);
-  const contextUrls = Array.isArray(scene.context_images)
-    ? scene.context_images.map((entry) => ({
-        heading: entry.heading,
-        url: entry.url
-      }))
-    : [];
-
-  return {
-    id: imageId,
-    url: scene.main_image,
-    scene_id: scene.scene_id,
-    selected_heading: scene.selected_heading,
-    context_urls: contextUrls,
-    excluded_duplicate: scene.excluded_duplicate || "",
-    location: imageContext.location,
-    context: imageContext.context
-  };
+  // Five round-robin matchings give each scene five distinct opponents.
+  // Each matching is divided into five blocks of ten distinct scenes.
+  let ring = [...scenes].sort((a, b) =>
+    scheduleHash(`schedule-20260909|${a.scene_id}`) - scheduleHash(`schedule-20260909|${b.scene_id}`)
+    || a.scene_id.localeCompare(b.scene_id)).map(s => `S${s.scene_id}`);
+  const blocks = [];
+  for (let round = 0; round < 5; round += 1) {
+    const matching = Array.from({ length: 25 }, (_, i) => [ring[i], ring[49 - i]]);
+    for (let group = 0; group < 5; group += 1) {
+      const setId = `B${String(blocks.length + 1).padStart(2, "0")}`;
+      const pairs = matching.slice(group * 5, group * 5 + 5).map(([a, b]) =>
+        [`P_${[a, b].sort().join("__")}`, a, b]);
+      blocks.push({ set_id: setId, round: round + 1, pairs, pad_ids: pairs.flatMap(p => p.slice(1)) });
+    }
+    ring = [ring[0], ring[49], ...ring.slice(1, 49)];
+  }
+  return blocks;
 }
 
-function buildPlaceholderImage(imageId) {
-  const imageContext = getImageContext(imageId);
-  return {
-    id: imageId,
-    url: placeholderImage(imageId),
-    scene_id: "",
-    selected_heading: "",
-    context_urls: [],
-    excluded_duplicate: "",
-    location: imageContext.location,
-    context: imageContext.context
-  };
-}
+const ACTIVE_PAIR_SETS = buildBalancedBlocks(SURVEY_SCENES);
 
 function resolveImage(imageId) {
   const scene = SCENE_BY_ID[imageId];
-  if (scene) return buildSceneImage(scene, imageId);
-  return buildPlaceholderImage(imageId);
-}
-
-function buildPair(pairTuple, setId, sourceIndex) {
-  const [pairId, imageAId, imageBId] = pairTuple;
-  const imageA = resolveImage(imageAId);
-  const imageB = resolveImage(imageBId);
+  if (!scene) throw new Error(`Unknown scene: ${imageId}`);
   return {
-    pair_id: pairId,
-    set_id: setId,
-    source_order_index: sourceIndex + 1,
-    location_context: DEFAULT_LOCATION_CONTEXT,
-    street_context: DEFAULT_STREET_CONTEXT,
-    image_A_id: imageA.id,
-    image_A_url: imageA.url,
-    image_A_scene_id: imageA.scene_id,
-    image_A_selected_heading: imageA.selected_heading,
-    image_A_context_urls: imageA.context_urls,
-    image_A_excluded_duplicate: imageA.excluded_duplicate,
-    image_A_location: imageA.location,
-    image_A_context: imageA.context,
-    image_B_id: imageB.id,
-    image_B_url: imageB.url,
-    image_B_scene_id: imageB.scene_id,
-    image_B_selected_heading: imageB.selected_heading,
-    image_B_context_urls: imageB.context_urls,
-    image_B_excluded_duplicate: imageB.excluded_duplicate,
-    image_B_location: imageB.location,
-    image_B_context: imageB.context
-
-    // For real images, replace the two URL lines above with:
-    // image_A_url: `images/${imageAId}.jpg`,
-    // image_B_url: `images/${imageBId}.jpg`
+    id: imageId, url: scene.main_image, scene_id: scene.scene_id,
+    selected_heading: scene.selected_heading, context_urls: scene.context_images,
+    excluded_duplicate: scene.excluded_duplicate || "",
+    location: scene.location || DEFAULT_LOCATION_CONTEXT, context: DEFAULT_STREET_CONTEXT
   };
 }
 
+function getBlock(setId) {
+  const block = ACTIVE_PAIR_SETS.find(b => b.set_id === setId);
+  if (!block) throw new Error(`Unknown block: ${setId}. Expected B01-B25.`);
+  return block;
+}
+
+function buildPair(tuple, setId, index) {
+  const [pairId, a, b] = tuple;
+  const result = { pair_id: pairId, set_id: setId, source_order_index: index + 1,
+    location_context: DEFAULT_LOCATION_CONTEXT, street_context: DEFAULT_STREET_CONTEXT };
+  for (const [side, id] of [["A", a], ["B", b]]) {
+    const image = resolveImage(id);
+    for (const key of ["id", "url", "scene_id", "selected_heading", "context_urls", "excluded_duplicate", "location", "context"]) {
+      result[`image_${side}_${key}`] = image[key];
+    }
+  }
+  return result;
+}
+
 function getPairSet(setId) {
-  const selected = ACTIVE_PAIR_SETS.find((set) => set.set_id === setId) || ACTIVE_PAIR_SETS[0];
-  return selected.pairs.map((pair, index) => buildPair(pair, selected.set_id, index));
+  return getBlock(setId).pairs.map((p, i) => buildPair(p, setId, i));
 }
 
 function pickSetFromSession(sessionId) {
-  if (!sessionId) return ACTIVE_PAIR_SETS[0].set_id;
-  let hash = 0;
-  for (let i = 0; i < sessionId.length; i += 1) {
-    hash = (hash * 31 + sessionId.charCodeAt(i)) >>> 0;
-  }
-  return ACTIVE_PAIR_SETS[hash % ACTIVE_PAIR_SETS.length].set_id;
+  return ACTIVE_PAIR_SETS[scheduleHash(sessionId || "preview") % DESIGN.blocks].set_id;
 }

@@ -1,5 +1,6 @@
-const PROLIFIC_COMPLETION_URL = "https://app.prolific.com/submissions/complete?cc=YOUR_COMPLETION_CODE";
-const SURVEY_VERSION = "facade_preference_pairwise_pad_likert_20260706";
+const studyConfig = window.STUDY_CONFIG;
+const PROLIFIC_COMPLETION_URL = studyConfig.completionUrl;
+const SURVEY_VERSION = "facade_50_exposure_balanced_20260909";
 
 function getUrlParam(name) {
   return new URLSearchParams(window.location.search).get(name) || "";
@@ -64,8 +65,9 @@ function preparePairList(basePairs, seedInput) {
   const pairOrderRandom = createSeededRandom(`${seedInput}|pair-order`);
   const sideRandom = createSeededRandom(`${seedInput}|ab-side`);
   const orderedPairs = shuffleWithRandom(basePairs, pairOrderRandom);
+  const swapCount = Math.floor(orderedPairs.length / 2) + (sideRandom() < 0.5 ? 0 : 1);
   const sidePattern = shuffleWithRandom(
-    orderedPairs.map((_, index) => index < Math.floor(orderedPairs.length / 2)),
+    orderedPairs.map((_, index) => index < swapCount),
     sideRandom
   );
 
@@ -125,12 +127,82 @@ function renderContextThumbs(contextUrls) {
     .map(
       (entry) => `
         <figure>
-          <img src="${escapeHtml(entry.url)}" alt="Street context heading ${escapeHtml(entry.heading)}" />
-          <figcaption>${escapeHtml(entry.heading)} deg</figcaption>
+          <img src="${escapeHtml(entry.url)}" alt="Street context heading ${escapeHtml(entry.heading)}" tabindex="0" />
+          <figcaption>${escapeHtml(entry.relative_view || entry.heading)}${entry.relative_view ? "" : " deg"}</figcaption>
         </figure>`
     )
     .join("");
   return `<div class="context-thumbs" aria-label="Street context images">${thumbs}</div>`;
+}
+
+function guardImageForm(displayElement) {
+  const images = [...displayElement.querySelectorAll(".image-panel img")];
+  const submit = displayElement.querySelector('button[type="submit"]');
+  const status = document.createElement("p");
+  status.className = "image-load-status";
+  status.setAttribute("role", "status");
+  submit.parentElement.before(status);
+  const started = performance.now();
+  const state = { ready: false, readyAt: null, loadMs: null };
+  submit.disabled = true;
+  const waitForImage = img => new Promise(resolve => {
+    let settled = false;
+    const finish = ok => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      img.removeEventListener("load", loaded);
+      img.removeEventListener("error", failed);
+      resolve(ok);
+    };
+    const loaded = () => finish(img.naturalWidth > 0 && img.naturalHeight > 0);
+    const failed = () => finish(false);
+    const timer = setTimeout(failed, 20000);
+    if (img.complete) loaded();
+    else {
+      img.addEventListener("load", loaded);
+      img.addEventListener("error", failed);
+    }
+  });
+  const check = async () => {
+    status.textContent = "Loading images...";
+    const results = await Promise.all(images.map(waitForImage));
+    if (results.every(Boolean)) {
+      state.ready = true;
+      state.readyAt = performance.now();
+      state.loadMs = Math.round(state.readyAt - started);
+      submit.disabled = false;
+      status.remove();
+    } else {
+      status.textContent = "Some images could not load. Please retry before answering. ";
+      const retry = document.createElement("button");
+      retry.type = "button";
+      retry.className = "secondary-button";
+      retry.textContent = "Retry images";
+      status.append(retry);
+      retry.addEventListener("click", () => {
+        images.forEach((img, i) => { if (!results[i]) img.src = img.getAttribute("src"); });
+        check();
+      }, { once: true });
+    }
+  };
+  images.forEach(img => {
+    img.title = "Enlarge image";
+    img.tabIndex = 0;
+    const enlarge = () => {
+      const dialog = document.createElement("dialog");
+      dialog.className = "image-dialog";
+      dialog.innerHTML = `<button type="button" aria-label="Close enlarged image" title="Close">&times;</button><img src="${escapeHtml(img.src)}" alt="${escapeHtml(img.alt)}" />`;
+      document.body.append(dialog);
+      dialog.querySelector("button").addEventListener("click", () => dialog.close());
+      dialog.addEventListener("close", () => dialog.remove(), { once: true });
+      dialog.showModal();
+    };
+    img.addEventListener("click", enlarge);
+    img.addEventListener("keydown", e => { if (e.key === "Enter") enlarge(); });
+  });
+  check();
+  return state;
 }
 
 function makeButtonTrial({ title, body, button = "Continue", data = {} }) {
@@ -222,6 +294,7 @@ const jsPsychTextEntry = (() => {
                 spellcheck="false"
                 placeholder="${escapeHtml(trial.placeholder)}"
                 value="${escapeHtml(trial.initial_value)}"
+                ${studyConfig.mode === "production" ? 'readonly pattern="[a-fA-F0-9]{24}" maxlength="24"' : ""}
               />
               <div class="error" id="text-entry-error" hidden>Please enter your Prolific ID.</div>
               <div class="actions">
@@ -261,6 +334,7 @@ const jsPsychChoiceCheck = (() => {
       prompt: { type: jsPsychModule.ParameterType.HTML_STRING, default: "" },
       choices: { type: jsPsychModule.ParameterType.STRING, array: true, default: [] },
       correct_index: { type: jsPsychModule.ParameterType.INT, default: 0 },
+      max_attempts: { type: jsPsychModule.ParameterType.INT, default: 1 },
       data: { type: jsPsychModule.ParameterType.OBJECT, default: {} }
     }
   };
@@ -272,6 +346,7 @@ const jsPsychChoiceCheck = (() => {
 
     trial(displayElement, trial) {
       const start = performance.now();
+      const attempts = [];
       const options = trial.choices
         .map(
           (choice, index) => `
@@ -305,12 +380,22 @@ const jsPsychChoiceCheck = (() => {
           return;
         }
         const choiceIndex = Number(selected.value);
+        attempts.push(choiceIndex);
+        if (choiceIndex !== trial.correct_index && attempts.length < trial.max_attempts) {
+          const error = displayElement.querySelector("#choice-error");
+          error.textContent = "Please re-read the instructions above and try once more.";
+          error.hidden = false;
+          selected.checked = false;
+          return;
+        }
         const rt = Math.round(performance.now() - start);
         this.jsPsych.finishTrial({
           ...trial.data,
           choice_index: choiceIndex,
           choice_label: trial.choices[choiceIndex],
           correct: choiceIndex === trial.correct_index,
+          attempt_count: attempts.length,
+          attempt_choices: attempts.join("|"),
           rt
         });
       });
@@ -426,10 +511,18 @@ const jsPsychPadLikert = (() => {
           </section>
         </div>`;
 
+      const imageState = guardImageForm(displayElement);
       displayElement.querySelector("#pad-form").addEventListener("submit", (event) => {
         event.preventDefault();
+        if (!imageState.ready) return;
+        const judgeability = displayElement.querySelector('input[name="judgeability"]:checked');
+        if (!judgeability) {
+          displayElement.querySelector("#pad-error").hidden = false;
+          return;
+        }
         const values = {};
         for (const name of dimensionOrder) {
+          if (judgeability.value === "no") { values[name] = null; continue; }
           const selected = displayElement.querySelector(`input[name="${name}"]:checked`);
           if (!selected) {
             displayElement.querySelector("#pad-error").hidden = false;
@@ -437,12 +530,7 @@ const jsPsychPadLikert = (() => {
           }
           values[name] = Number(selected.value);
         }
-        const judgeability = displayElement.querySelector('input[name="judgeability"]:checked');
-        if (!judgeability) {
-          displayElement.querySelector("#pad-error").hidden = false;
-          return;
-        }
-        const rt = Math.round(performance.now() - start);
+        const rt = Math.round(performance.now() - imageState.readyAt);
         this.jsPsych.finishTrial({
           task: "pad_likert",
           image_id: image.id,
@@ -460,10 +548,13 @@ const jsPsychPadLikert = (() => {
           pleasure_likert: values.pleasure,
           arousal_likert: values.arousal,
           dominance_likert: values.dominance,
-          pleasure_norm: values.pleasure / 3,
-          arousal_norm: values.arousal / 3,
-          dominance_norm: values.dominance / 3,
+          pleasure_norm: values.pleasure === null ? null : values.pleasure / 3,
+          arousal_norm: values.arousal === null ? null : values.arousal / 3,
+          dominance_norm: values.dominance === null ? null : values.dominance / 3,
           judgeability: judgeability.value,
+          image_load_status: "ready",
+          image_load_ms: imageState.loadMs,
+          page_duration_ms: Math.round(performance.now() - start),
           rt
         });
       });
@@ -558,18 +649,20 @@ const jsPsychPreferencePairwise = (() => {
           </section>
         </div>`;
 
+      const imageState = guardImageForm(displayElement);
       displayElement.querySelector("#pair-form").addEventListener("submit", (event) => {
         event.preventDefault();
+        if (!imageState.ready) return;
         const selected = displayElement.querySelector('input[name="preference"]:checked');
         const judgeability = displayElement.querySelector('input[name="judgeability"]:checked');
-        if (!selected || !judgeability) {
+        if (!judgeability || (!selected && judgeability.value !== "no")) {
           displayElement.querySelector("#pair-error").hidden = false;
           return;
         }
-        const preferenceChoice = Number(selected.value);
+        const preferenceChoice = judgeability.value === "no" ? null : Number(selected.value);
         const preferredImageId =
-          preferenceChoice < 0 ? pair.image_A_id : preferenceChoice > 0 ? pair.image_B_id : "about_the_same";
-        const rt = Math.round(performance.now() - start);
+          preferenceChoice === null ? "not_judgeable" : preferenceChoice < 0 ? pair.image_A_id : preferenceChoice > 0 ? pair.image_B_id : "about_the_same";
+        const rt = Math.round(performance.now() - imageState.readyAt);
         this.jsPsych.finishTrial({
           task: "pairwise_preference",
           pair_id: pair.pair_id,
@@ -603,8 +696,11 @@ const jsPsychPreferencePairwise = (() => {
           image_B_url: pair.image_B_url.startsWith("data:") ? "placeholder" : pair.image_B_url,
           preference_choice: preferenceChoice,
           preferred_image_id: preferredImageId,
-          preference_strength: Math.abs(preferenceChoice),
+          preference_strength: preferenceChoice === null ? null : Math.abs(preferenceChoice),
           judgeability: judgeability.value,
+          image_load_status: "ready",
+          image_load_ms: imageState.loadMs,
+          page_duration_ms: Math.round(performance.now() - start),
           rt
         });
       });
@@ -615,286 +711,3 @@ const jsPsychPreferencePairwise = (() => {
   return PreferencePairwisePlugin;
 })();
 
-const prolificPid = getUrlParam("PROLIFIC_PID");
-const studyId = getUrlParam("STUDY_ID");
-const sessionId = getUrlParam("SESSION_ID");
-const forcedSet = getUrlParam("PAIR_SET_ID");
-const padTrialLimitRaw = Number(getUrlParam("PAD_TRIAL_LIMIT"));
-const DEFAULT_PAD_TRIAL_LIMIT = 6;
-const padTrialLimit = Number.isFinite(padTrialLimitRaw) && padTrialLimitRaw > 0 ? Math.floor(padTrialLimitRaw) : DEFAULT_PAD_TRIAL_LIMIT;
-const randomizationSeed = sessionId || prolificPid || Math.random().toString(36).slice(2);
-const pairSetId = forcedSet || pickSetFromSession(randomizationSeed);
-const pairList = preparePairList(getPairSet(pairSetId), randomizationSeed);
-const padDimensionOrder = pickPadDimensionOrder(randomizationSeed);
-const fullPadSceneList = preparePadSceneList(pairList, randomizationSeed);
-const padSceneList = padTrialLimit ? fullPadSceneList.slice(0, padTrialLimit) : fullPadSceneList;
-let effectiveProlificPid = prolificPid;
-
-const jsPsych = initJsPsych({
-  display_element: "jspsych-target",
-  on_finish: async () => {
-    const allData = jsPsych.data.get();
-    const csv = allData.csv();
-    const json = JSON.stringify(allData.values(), null, 2);
-    const submitted = await submitToNetlify({ csv, json });
-    showFinalScreen({ submitted, csv, json });
-  }
-});
-
-jsPsych.data.addProperties({
-  prolific_pid: prolificPid,
-  prolific_pid_confirmed: "",
-  study_id: studyId,
-  session_id: sessionId,
-  pair_set_id: pairSetId,
-  randomization_seed: randomizationSeed,
-  pad_dimension_order: padDimensionOrder.join("|"),
-  pad_scene_order: padSceneList.map((scene) => scene.id).join("|"),
-  survey_version: SURVEY_VERSION,
-  user_agent: navigator.userAgent,
-  screen_width: window.screen.width,
-  screen_height: window.screen.height,
-  viewport_width: window.innerWidth,
-  viewport_height: window.innerHeight
-});
-
-async function submitToNetlify({ csv, json }) {
-  const payload = {
-    "form-name": "facade_pairwise_data",
-    prolific_pid: effectiveProlificPid,
-    study_id: studyId,
-    session_id: sessionId,
-    pair_set_id: pairSetId,
-    randomization_seed: randomizationSeed,
-    pad_dimension_order: padDimensionOrder.join("|"),
-    pad_scene_order: padSceneList.map((scene) => scene.id).join("|"),
-    survey_version: SURVEY_VERSION,
-    payload_json: json,
-    payload_csv: csv
-  };
-
-  try {
-    const response = await fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encodeFormData(payload)
-    });
-    return response.ok;
-  } catch (error) {
-    console.warn("Netlify submission failed", error);
-    return false;
-  }
-}
-
-function downloadText(filename, text, mimeType) {
-  const blob = new Blob([text], { type: mimeType });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = filename;
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  URL.revokeObjectURL(url);
-}
-
-function showFinalScreen({ submitted, csv, json }) {
-  const target = document.querySelector("#jspsych-target");
-  target.innerHTML = `
-    <div class="wrap">
-      <section class="panel final-box">
-        <h1>Thank you</h1>
-        ${
-          submitted
-            ? "<p>Your response has been saved. Please return to Prolific to complete the study.</p>"
-            : "<p><strong>Data upload could not be confirmed.</strong> This can happen in local preview or GitHub Pages. For a real Prolific study, deploy on Netlify Forms or another data endpoint before launch.</p>"
-        }
-        <p class="muted">Prolific ID: <code>${escapeHtml(effectiveProlificPid || "not provided")}</code></p>
-        <div class="actions">
-          <button class="secondary-button" id="download-csv">Download CSV backup</button>
-          <button class="secondary-button" id="download-json">Download JSON backup</button>
-          <button class="primary-button" id="finish-prolific">Return to Prolific</button>
-        </div>
-      </section>
-    </div>`;
-
-  document.querySelector("#download-csv").addEventListener("click", () => {
-    downloadText(`facade_pad_pairwise_${effectiveProlificPid || "anonymous"}.csv`, csv, "text/csv");
-  });
-  document.querySelector("#download-json").addEventListener("click", () => {
-    downloadText(`facade_pad_pairwise_${effectiveProlificPid || "anonymous"}.json`, json, "application/json");
-  });
-  document.querySelector("#finish-prolific").addEventListener("click", () => {
-    window.location.href = PROLIFIC_COMPLETION_URL;
-  });
-}
-
-const timeline = [];
-
-timeline.push(
-  makeButtonTrial({
-    title: "Facade perception survey",
-    body: `
-      <p>You will evaluate urban street-scene images from Barcelona, Catalonia, Spain.</p>
-      <p>The study has two parts. First, you will rate individual target facades using three affective scales. Second, you will compare pairs of facades and choose which one you prefer.</p>
-      <p>This study must be completed on a laptop or desktop computer. Mobile phones and tablets are not suitable because images need to be inspected carefully.</p>
-      <p class="muted">Estimated time: 8-10 minutes.</p>
-      <h2>Data use and protection</h2>
-      <p>Your personal data will be processed by the Universitat Politecnica de Catalunya - BarcelonaTech (UPC), as data controller, in accordance with Regulation (EU) 2016/679, the General Data Protection Regulation (GDPR), and Organic Law 3/2018 on personal data protection and digital rights.</p>
-      <p>The purpose of processing is to conduct academic research on visual perception of urban building facades and to validate a computational facade perception model. We will collect your Prolific ID, survey responses, completion information, response time, basic technical information needed to run the online task, and selected demographic information supplied by Prolific or confirmed in the survey where necessary.</p>
-      <p>The research dataset will be pseudonymised wherever possible. Your Prolific ID will be used only to verify participation, prevent duplicate submissions, process payment, and link Prolific prescreening variables to survey responses. Analysis and publication will use aggregated or de-identified data only.</p>
-      <p>Data may be collected through Prolific and this online experiment platform. The research team will export the data to secure UPC-managed storage as soon as practical and will retain only the data necessary for the research aims. The retention period is [X years, to be confirmed in the ethics/data management plan].</p>
-      <p>You may exercise your rights of access, rectification, erasure, objection, restriction of processing, and portability where applicable. For questions about the processing of your data, contact the UPC Data Protection Officer at proteccio.dades@upc.edu, or by post at: Delegada de Proteccio de Dades, Area de Serveis Juridics, Universitat Politecnica de Catalunya, Placa Eusebi Guell 6, Edifici Vertex, planta 2, porta 206, 08034 Barcelona. You may also lodge a complaint with the Catalan Data Protection Authority (APDCAT): https://apdcat.gencat.cat.</p>`,
-    data: { screen: "welcome" }
-  })
-);
-
-timeline.push({
-  type: jsPsychChoiceCheck,
-  title: "Consent",
-  prompt: "Do you consent to take part in this study?",
-  choices: [
-    "Yes, I am 18 or older, I have read the information, and I consent to participate.",
-    "No, I do not consent to participate."
-  ],
-  correct_index: 0,
-  data: { screen: "consent" },
-  on_finish: (data) => {
-    if (data.choice_index !== 0) {
-      jsPsych.endExperiment("You did not provide consent. Please return the study on Prolific.");
-    }
-  }
-});
-
-timeline.push({
-  type: jsPsychTextEntry,
-  title: "Prolific ID",
-  prompt:
-    "Please confirm your Prolific ID. If you entered from Prolific, this field should already be filled in. Do not enter your name, email address, or any other personal identifier.",
-  label: "Prolific ID",
-  placeholder: "Paste your Prolific ID here",
-  initial_value: prolificPid,
-  button: "Continue",
-  data: {
-    screen: "prolific_id_entry",
-    prolific_pid_from_url: prolificPid
-  },
-  on_finish: (data) => {
-    effectiveProlificPid = data.response;
-    data.prolific_pid = effectiveProlificPid;
-    data.prolific_pid_confirmed = effectiveProlificPid;
-    jsPsych.data.addProperties({
-      prolific_pid: effectiveProlificPid,
-      prolific_pid_confirmed: effectiveProlificPid
-    });
-  }
-});
-
-timeline.push({
-  type: jsPsychChoiceCheck,
-  title: "Device check",
-  prompt: "What type of device are you using right now?",
-  choices: ["Laptop or desktop computer", "Tablet", "Mobile phone", "Other"],
-  correct_index: 0,
-  data: { screen: "device_check" },
-  on_finish: (data) => {
-    if (data.choice_index !== 0) {
-      jsPsych.endExperiment("This task must be completed on a laptop or desktop computer. Please return the study on Prolific.");
-    }
-  }
-});
-
-timeline.push(
-  makeButtonTrial({
-    title: "General instructions",
-    body: `
-      <p>All images in this task show urban street scenes from <strong>Barcelona, Catalonia, Spain</strong>.</p>
-      <p>If a facade is marked or outlined, evaluate the marked target facade as part of its visible street context.</p>
-      <p>Please consider stable contextual features such as adjacent buildings, street width, ground-floor interface, sidewalk, vegetation, enclosure, and overall visual coherence.</p>
-      <p>Do not base your answers mainly on temporary or incidental elements such as cars, pedestrians, sky, weather, shadows, or photo quality.</p>
-      <p>There are no right or wrong answers. We are interested in your immediate visual impression.</p>`,
-    data: { screen: "instructions" }
-  })
-);
-
-timeline.push({
-  type: jsPsychChoiceCheck,
-  title: "Comprehension check",
-  prompt: "What should your evaluations focus on?",
-  choices: [
-    "The marked target building facade within its Barcelona street context.",
-    "Only the sky and weather.",
-    "Only cars, traffic signs, and temporary objects.",
-    "Whether the photos are technically perfect."
-  ],
-  correct_index: 0,
-  data: { screen: "comprehension_check" }
-});
-
-timeline.push({
-  type: jsPsychChoiceCheck,
-  title: "Attention check",
-  prompt: "This is an attention check. To show that you are reading the questions, please select Image B.",
-  choices: ["Image A", "Image B", "About the same"],
-  correct_index: 1,
-  data: { screen: "attention_check_1" }
-});
-
-timeline.push(
-  makeButtonTrial({
-    title: "Part 1: single-image PAD ratings",
-    body: `
-      <p>You will now rate a small subset of individual target facades. Each page shows one target facade and three context views from the same location.</p>
-      <p>Use the 7-point scales from -3 to +3. A value of 0 means neutral.</p>`,
-    data: { screen: "pad_instructions" }
-  })
-);
-
-padSceneList.forEach((image, index) => {
-  timeline.push({
-    type: jsPsychPadLikert,
-    image,
-    trial_index: index,
-    trial_count: padSceneList.length,
-    dimension_order: padDimensionOrder
-  });
-});
-
-timeline.push(
-  makeButtonTrial({
-    title: "Part 2: pairwise preference comparisons",
-    body: `
-      <p>You will now compare pairs of target facades. For each pair, choose which target facade you prefer within its visible Barcelona street context.</p>
-      <p>This part asks only about overall preference. The affective PAD ratings were collected separately to avoid turning those ratings into direct pairwise comparisons.</p>`,
-    data: { screen: "pairwise_instructions" }
-  })
-);
-
-pairList.forEach((pair, index) => {
-  timeline.push({
-    type: jsPsychPreferencePairwise,
-    pair,
-    trial_index: index,
-    trial_count: pairList.length
-  });
-});
-
-timeline.push({
-  type: jsPsychChoiceCheck,
-  title: "Attention check",
-  prompt: "This is an attention check. Please select No for this question.",
-  choices: ["Yes", "No"],
-  correct_index: 1,
-  data: { screen: "attention_check_2" }
-});
-
-timeline.push(
-  makeButtonTrial({
-    title: "End of task",
-    body: "<p>You have completed the survey. On the next screen, your data will be saved and you will be able to return to Prolific.</p>",
-    button: "Save responses",
-    data: { screen: "pre_finish" }
-  })
-);
-
-jsPsych.run(timeline);
