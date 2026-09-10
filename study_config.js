@@ -1,6 +1,7 @@
-// Researcher settings. Preview is intentional until these study details are verified.
+// Technical upload testing only. Production still requires every research review below.
 window.STUDY_CONFIG = Object.freeze({
-  mode: "preview",
+  mode: "upload_test",
+  uploadTestHost: "facadeevaluation.netlify.app",
   completionUrl: "",
   submissionEndpoint: "/",
   collectionPlatform: "netlify_forms",

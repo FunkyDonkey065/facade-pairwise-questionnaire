@@ -15,6 +15,7 @@ export function coverageReport(sessions, { includePreview = false } = {}) {
     const summary = rows.find(r => r.record_type === "session_summary");
     const meta = rows.find(r => r.manifest_fingerprint);
     const skip = reason => exclusions.push({ file: name, reason });
+    if (rows.some(r => r.study_mode === "upload_test" || r.test_submission === true || r.test_submission === "true")) { skip("upload_test"); continue; }
     if (!summary || summary.outcome !== "complete" || !meta) { skip("incomplete"); continue; }
     if (meta.study_mode !== "production" && !includePreview) { skip("preview"); continue; }
     if (meta.manifest_fingerprint !== manifest.fingerprint) { skip("different_stimulus_set"); continue; }

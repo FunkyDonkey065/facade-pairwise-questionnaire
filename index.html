@@ -13,7 +13,7 @@
     </noscript>
 
     <!-- Netlify detects this static form during deploy. The experiment submits to it by fetch(). -->
-    <form name="facade_pairwise_data" data-netlify="true" hidden>
+    <form name="facade_pairwise_data" method="POST" data-netlify="true" hidden>
       <input type="hidden" name="form-name" value="facade_pairwise_data" />
       <input type="hidden" name="prolific_pid" />
       <input type="hidden" name="study_id" />
@@ -26,6 +26,8 @@
       <input type="hidden" name="survey_version" />
       <input type="hidden" name="manifest_fingerprint" />
       <input type="hidden" name="study_mode" />
+      <input type="hidden" name="test_submission" />
+      <input type="hidden" name="test_session_id" />
       <input type="hidden" name="task_order" />
       <input type="hidden" name="attention_fail_count" />
       <input type="hidden" name="submission_key" />
