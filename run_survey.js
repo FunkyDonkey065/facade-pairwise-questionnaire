@@ -77,6 +77,8 @@ function launchIssues() {
     if (isInitialBatch && forcedSet !== studyConfig.prolificInitialBlock) issues.push("Use the configured block for the initial four participants.");
     if (!isLocalRecruitment && !isInitialBatch && forcedSet === studyConfig.prolificInitialBlock) issues.push("This block is reserved for the initial four participants.");
     if (!forcedSet) issues.push("A fixed BLOCK_ID is required for quota allocation.");
+    if (!isLocalRecruitment && !isInitialBatch && (window.ProlificAllocation?.participantId !== prolificPid
+      || window.ProlificAllocation?.blockId !== forcedSet)) issues.push("A server-assigned Prolific place is required.");
     if (isLocalRecruitment) {
       if (!localInvitationId) issues.push("An individual local invitation link is required.");
       if (studyConfig.localAutomaticAllocation && (window.LocalAllocation?.participantId !== localInvitationId
@@ -103,6 +105,7 @@ function launchIssues() {
 }
 
 function showStopped() {
+  if (isProduction && !isLocalRecruitment && !isInitialBatch) window.ProlificAllocation?.abandon();
   if (isProduction && isLocalRecruitment && studyConfig.localAutomaticAllocation) window.LocalAllocation?.abandon();
   const messages = {
     no_consent: "You did not consent to participate. No response data has been uploaded. Please return the study on Prolific.",
@@ -165,8 +168,8 @@ jsPsych.data.addProperties({
   study_phase: "main", recruitment_batch: recruitmentBatch,
   participant_id: participantId(), recruitment_source: recruitmentSource,
   prolific_pid: effectiveProlificPid, study_id: studyId, session_id: sessionId,
-  pair_set_id: pairSetId, allocation_method: isProduction && isLocalRecruitment && studyConfig.localAutomaticAllocation ? "server_quota_v1" : forcedSet ? "fixed_block" : isUploadTest ? "test_hash" : "preview_hash",
-  allocation_campaign: window.LocalAllocation?.campaign || "",
+  pair_set_id: pairSetId, allocation_method: isProduction && (window.ProlificAllocation || (isLocalRecruitment && studyConfig.localAutomaticAllocation)) ? "server_quota_v1" : forcedSet ? "fixed_block" : isUploadTest ? "test_hash" : "preview_hash",
+  allocation_campaign: window.ProlificAllocation?.campaign || window.LocalAllocation?.campaign || "",
   randomization_seed: randomizationSeed, task_order: taskOrder,
   pad_dimension_order: padDimensionOrder.join("|"),
   pad_scene_order: padSceneList.map(s => s.id).join("|"),
@@ -204,8 +207,10 @@ async function submitToNetlify({ csv, json, attentionFailCount }) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 20000);
   try {
-    const automatic = isProduction && isLocalRecruitment && studyConfig.localAutomaticAllocation;
-    const response = await fetch(automatic ? '/.netlify/functions/local-allocation?action=submit' : studyConfig.submissionEndpoint, {
+    const automaticProlific = isProduction && !isLocalRecruitment && !isInitialBatch && window.ProlificAllocation;
+    const automatic = Boolean(automaticProlific) || (isProduction && isLocalRecruitment && studyConfig.localAutomaticAllocation);
+    const response = await fetch(automaticProlific ? automaticProlific.submissionEndpoint
+      : automatic ? '/.netlify/functions/local-allocation?action=submit' : studyConfig.submissionEndpoint, {
       method: "POST", signal: controller.signal,
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: encodeFormData({

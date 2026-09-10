@@ -1,5 +1,11 @@
 # Recruitment entries
 
+UPDATE 2026-09-10: The main Prolific entry now uses server allocation for 95 new
+completions. Use index.html?LANG=es with Prolific URL parameters, NOT a fixed
+BLOCK_ID. See PROLIFIC_AUTOMATIC_95.md for the authoritative URLs, quotas,
+recovery and private export instructions. The fixed-B02 instructions below
+describe the previous deployment and must not be used for new recruitment.
+
 These entries share the same questionnaire, stimulus manifest, language support,
 randomization and quality rules. The initial four are real participants, not
 technical test submissions. Set four places in Prolific; the browser does not

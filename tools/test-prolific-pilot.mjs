@@ -39,7 +39,7 @@ assert(pending.issues.some(x => x.includes('imageUseReviewed')));
 const approvedFixture = { prolificStudyConfirmed: true, independentStimuliVerified: true,
   imageUseReviewed: true, participantInformationApproved: true };
 assert.equal(check('prolific', approvedFixture).issues.length, 0);
-assert.equal(check('prolific', approvedFixture, 'main', 'B02').issues.length, 0);
+assert(check('prolific', approvedFixture, 'main', 'B02').issues.some(x => x.includes('server-assigned Prolific')));
 assert(check('prolific', approvedFixture, 'main', 'B01').issues.some(x => x.includes('reserved')));
 assert(check('prolific', approvedFixture, 'initial_4', 'B02').issues.some(x => x.includes('initial four')));
 assert.equal(check('local').initial, false);
@@ -56,5 +56,5 @@ assert.equal(claim(state, 'old', allocationDesign, 100).status, 'expired');
 assert.equal(state.entries.old.expiresAt, 50);
 const html = fs.readFileSync(new URL('../initial.html', import.meta.url), 'utf8');
 const mainHtml = fs.readFileSync(new URL('../index.html', import.meta.url), 'utf8');
-assert.equal(html.replace(' data-recruitment-batch="initial_4"', ''), mainHtml);
+assert.equal(html.replace(' data-recruitment-batch="initial_4"', '').replace('src="run_survey.js"','src="prolific-entry.js"'), mainHtml);
 console.log('Entry checks passed: same questionnaire, batch metadata, release gates, block isolation and local exclusions.');
