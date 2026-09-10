@@ -1,4 +1,4 @@
-// Local collection enabled at the researcher's request; review facts remain separate.
+// Release checks confirmed by the researcher; not an independent legal review.
 window.STUDY_CONFIG = Object.freeze({
   mode: "production",
   // The first four are real study responses; set the place limit in Prolific.
@@ -10,8 +10,7 @@ window.STUDY_CONFIG = Object.freeze({
   localExcludedBlocks: ["B01"],
   localMode: "production",
   localAutomaticAllocation: true,
-  // Explicit local-only release decision, not an assertion of completed reviews.
-  localReleaseWithPendingReviews: true,
+  localReleaseWithPendingReviews: false,
   uploadTestHost: "facadeevaluation.netlify.app",
   completionUrl: "https://app.prolific.com/submissions/complete?cc=C1E5N9GT",
   // Paid Custom screening exit, separate from full questionnaire completion.
@@ -19,7 +18,7 @@ window.STUDY_CONFIG = Object.freeze({
   submissionEndpoint: "/",
   collectionPlatform: "netlify_forms",
   // Planning estimate including optional demographics; confirm with participant pilots.
-  estimatedMinutes: "9-13",
+  estimatedMinutes: "10-15",
   retentionPeriod: "approximately 10 years",
   researchContact: "Yanjie Li, yanjie.li@upc.edu",
   protocolSourceDocument: "YanjieLiThesisEthicalCode260119.docx",
@@ -33,10 +32,11 @@ window.STUDY_CONFIG = Object.freeze({
   // Date displayed in the PDF signature block; not a cryptographic verification.
   ethicsSignedDate: "2026-01-23",
   geographyVerified: true,
-  independentStimuliVerified: false,
-  imageUseReviewed: false,
-  // The letter requires review of time/content extensions; current scope is not yet reconciled.
-  participantInformationApproved: false,
+  // 2026-09-10: researcher confirmed no Barcelona training data, image use,
+  // and current questionnaire/data-collection coverage in the Ethical_Code materials.
+  independentStimuliVerified: true,
+  imageUseReviewed: true,
+  participantInformationApproved: true,
   // 2026-09-10: local upload-test JSON/CSV verified in Netlify (Spam).
   // This verifies transport only, not ethics approval or human pilot timing.
   collectorPilotVerified: true,

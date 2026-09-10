@@ -29,7 +29,8 @@ function check(source, overrides = {}, batch = 'initial_4', block = '') {
   };
   return vm.runInNewContext(code + '\n({initial:isInitialBatch, batch:recruitmentBatch, block:forcedSet, issues:launchIssues()})', context);
 }
-const pending = check('prolific');
+assert.equal(check('prolific').issues.length, 0);
+const pending = check('prolific', { imageUseReviewed: false });
 assert.equal(pending.initial, true);
 assert.equal(pending.batch, 'initial_4');
 assert.equal(pending.block, 'B01');
