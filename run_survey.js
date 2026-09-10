@@ -7,12 +7,14 @@ const studyMode = studyConfig.mode === "upload_test" && (localPreview || getUrlP
 const isProduction = studyMode === "production";
 const isUploadTest = studyMode === "upload_test";
 const uploadsEnabled = isProduction || isUploadTest;
-const prolificPid = isUploadTest ? "" : getUrlParam("PROLIFIC_PID");
-const studyId = isUploadTest ? "" : getUrlParam("STUDY_ID");
-const sessionId = isUploadTest ? "" : getUrlParam("SESSION_ID");
+const prolificPid = getUrlParam("PROLIFIC_PID");
+const studyId = getUrlParam("STUDY_ID");
+const sessionId = getUrlParam("SESSION_ID");
+const testFlowVersion = "prolific_rehearsal_v1";
 const forcedSet = getUrlParam("BLOCK_ID") || getUrlParam("PAIR_SET_ID");
 const surveySession = new window.SurveySession({ path: location.pathname, version: SURVEY_VERSION,
   manifest: window.STIMULUS_MANIFEST.fingerprint, mode: studyMode,
+  ...(isUploadTest ? { testFlowVersion } : {}),
   prolificPid, studyId, sessionId, forcedSet }, sessionId || prolificPid || Math.random().toString(36).slice(2));
 window.surveySession = surveySession;
 const randomizationSeed = surveySession.seed;
@@ -27,7 +29,7 @@ const taskOrder = createSeededRandom(`${randomizationSeed}|task-order`)() < 0.5
 let effectiveProlificPid = prolificPid || surveySession.rows.find(r => r.screen === "prolific_id_entry")?.response || "";
 let outcome = "in_progress";
 let submissionInFlight = false;
-const submissionKey = `${isUploadTest ? "TEST|" : ""}${SURVEY_VERSION}|${window.STIMULUS_MANIFEST.fingerprint}|${prolificPid || randomizationSeed}|${studyId}|${sessionId}|${pairSetId}`;
+const submissionKey = `${isUploadTest ? `TEST|${testFlowVersion}|` : ""}${SURVEY_VERSION}|${window.STIMULUS_MANIFEST.fingerprint}|${prolificPid || randomizationSeed}|${studyId}|${sessionId}|${pairSetId}`;
 let lastUploadStatus = null;
 
 function launchIssues() {
@@ -35,6 +37,7 @@ function launchIssues() {
   if (!["preview", "upload_test", "production"].includes(studyConfig.mode)) issues.push("Invalid study mode.");
   if (forcedSet && !ACTIVE_PAIR_SETS.some(b => b.set_id === forcedSet)) issues.push("BLOCK_ID must be B01-B25.");
   if (isUploadTest) {
+    if (prolificPid && !/^[a-f\d]{24}$/i.test(prolificPid)) issues.push("The Prolific ID in the link must contain 24 characters using numbers and letters a-f.");
     if (location.protocol !== "https:" || location.hostname !== studyConfig.uploadTestHost) issues.push("Open the upload test on its configured HTTPS Netlify site.");
     if (studyConfig.collectionPlatform !== "netlify_forms" || studyConfig.submissionEndpoint !== "/") issues.push("The configured collector is not supported by this build.");
   }
@@ -120,6 +123,7 @@ jsPsych.data.addProperties({
   stimulus_manifest_version: window.STIMULUS_MANIFEST.version,
   study_mode: studyMode, submission_key: submissionKey,
   test_submission: isUploadTest, test_session_id: testSessionId,
+  test_flow_version: isUploadTest ? testFlowVersion : "",
   participant_language: window.SurveyI18n.language,
   user_agent: navigator.userAgent, screen_width: window.screen.width, screen_height: window.screen.height,
   viewport_width: window.innerWidth, viewport_height: window.innerHeight
@@ -127,6 +131,7 @@ jsPsych.data.addProperties({
 
 async function submitToNetlify({ csv, json, attentionFailCount }) {
   if (!uploadsEnabled || !surveySession.consented || outcome !== "complete" || submissionInFlight || launchIssues().length) return false;
+  if (!/^[a-f\d]{24}$/i.test(effectiveProlificPid) || (prolificPid && effectiveProlificPid !== prolificPid)) return false;
   submissionInFlight = true;
   lastUploadStatus = null;
   const controller = new AbortController();
@@ -218,7 +223,7 @@ timeline.push(makeButtonTrial({
     <p>The Universitat Politecnica de Catalunya - BarcelonaTech (UPC) is the data controller named in the research protocol for this academic study on visual perception of building facades. Processing is subject to the General Data Protection Regulation (EU) 2016/679 and Organic Law 3/2018.</p>
     <p>Responsible department: ${escapeHtml(studyConfig.responsibleDepartment)}<br>Data-processing activity: ${escapeHtml(studyConfig.dataProcessingActivityCode)}</p>
     <p>${isUploadTest ? "You may stop this technical test at any time. Contact the research team using the email below about a submitted test record." : "Taking part is voluntary. You may stop at any time by closing the survey. Contact the research team through Prolific if you wish to request withdrawal of an identifiable response before it is de-identified."}</p>
-    <p>${isUploadTest ? "This test records dummy ratings, choices, checks, response times, language and recovery events, and browser and display information under a TEST identifier. It does not request Prolific identifiers or demographic data. Test records are excluded from the study analysis." : "The study records your Prolific participant, study and session identifiers; PAD ratings, pairwise choices and image-judgeability responses; comprehension and attention-check answers; response times; display language and recovery events; and browser, screen and viewport information. Selected demographic information will be supplied by Prolific. Your participant ID links these records and supports participation checks and payment."}</p>
+    <p>${isUploadTest ? "This rehearsal follows the Prolific ID step used in the study. Use a dummy 24-character ID, for example 000000000000000000000001. The entered or URL-provided ID, study and session parameters, dummy ratings, choices, checks, response times, language and recovery events, and browser and display information are included in the test record. No Prolific account is verified, no payment is made, and test records are excluded from the study analysis." : "The study records your Prolific participant, study and session identifiers; PAD ratings, pairwise choices and image-judgeability responses; comprehension and attention-check answers; response times; display language and recovery events; and browser, screen and viewport information. Selected demographic information will be supplied by Prolific. Your participant ID links these records and supports participation checks and payment."}</p>
     <p>Processing is based on your consent. You may withdraw consent by contacting the research team. You may request access, rectification, erasure, restriction of processing or data portability, and object to processing where applicable.</p>
     <p>The protocol specifies password-protected research storage managed by the department, with access limited to the research team and periodic backups. The collection service used by this questionnaire is described below.</p>
     <p>The protocol separates coded research responses from identifying information for analysis. It provides for academic publications and open release of fully anonymized ratings and generalized profile data in CORA. Prolific IDs and linkage information will not be included in public datasets.</p>
@@ -236,14 +241,13 @@ timeline.push({
   correct_index: 0, data: { screen: "consent" },
   on_finish: data => { if (!data.correct) { outcome = "no_consent"; jsPsych.endExperiment(); } }
 });
-timeline.push(isUploadTest ? makeButtonTrial({
-  title: "Test record", body: `<p data-no-translate>${escapeHtml(testSessionId)}</p><p>No Prolific ID is needed for this technical test.</p>`,
-  data: { screen: "prolific_id_entry" }
-}) : {
+timeline.push({
   type: jsPsychTextEntry, title: "Prolific ID",
-  prompt: isProduction ? "Your Prolific ID was provided by Prolific. Please confirm it below. Do not enter your name or email address."
+  prompt: uploadsEnabled && prolificPid ? "Your Prolific ID was supplied in the study link. Please confirm it below. Do not enter your name or email address."
+    : uploadsEnabled ? "Please enter your Prolific ID. Do not enter your name or email address."
     : "You can leave this blank for the preview. Do not enter your name or email address.",
-  label: "Prolific ID", initial_value: prolificPid, required: isProduction,
+  label: "Prolific ID", initial_value: prolificPid, required: uploadsEnabled,
+  read_only: uploadsEnabled && Boolean(prolificPid), validate_prolific_id: uploadsEnabled,
   data: { screen: "prolific_id_entry", prolific_pid_from_url: prolificPid },
   on_finish: data => {
     effectiveProlificPid = prolificPid || data.response;
@@ -294,7 +298,7 @@ timeline.forEach((trial, index) => {
 
 function startOrResume() {
   surveySession.enabled = true;
-  if (isProduction && window.innerWidth < 980) {
+  if (uploadsEnabled && window.innerWidth < 980) {
     document.querySelector("#jspsych-target").innerHTML = `<div class="wrap"><section class="panel"><h1>Enlarge the window</h1><p>Please maximize this browser window or use a laptop or desktop computer, then try again. Your saved progress has not been deleted.</p><button class="primary-button" id="retry-window">Try again</button></section></div>`;
     document.querySelector("#retry-window").onclick = startOrResume;
     return;

@@ -266,6 +266,8 @@ const jsPsychTextEntry = (() => {
       initial_value: { type: jsPsychModule.ParameterType.STRING, default: "" },
       button: { type: jsPsychModule.ParameterType.STRING, default: "Continue" },
       required: { type: jsPsychModule.ParameterType.BOOL, default: true },
+      read_only: { type: jsPsychModule.ParameterType.BOOL, default: false },
+      validate_prolific_id: { type: jsPsychModule.ParameterType.BOOL, default: false },
       data: { type: jsPsychModule.ParameterType.OBJECT, default: {} }
     }
   };
@@ -282,21 +284,24 @@ const jsPsychTextEntry = (() => {
           <section class="panel">
             <h1>${escapeHtml(trial.title)}</h1>
             <p>${trial.prompt}</p>
-            <form id="text-entry-form">
+            <form id="text-entry-form" novalidate>
               <label class="text-entry-label" for="text-entry-input">${escapeHtml(trial.label)}</label>
               <input
                 class="text-entry-input"
                 id="text-entry-input"
                 name="text_entry"
                 type="text"
+                aria-describedby="text-entry-error"
                 autocomplete="off"
                 autocapitalize="off"
                 spellcheck="false"
                 placeholder="${escapeHtml(trial.placeholder)}"
                 value="${escapeHtml(trial.initial_value)}"
-                ${studyConfig.mode === "production" ? 'readonly pattern="[a-fA-F0-9]{24}" maxlength="24"' : ""}
+                ${trial.required ? "required" : ""}
+                ${trial.read_only ? "readonly" : ""}
+                ${trial.validate_prolific_id ? 'pattern="[a-fA-F0-9]{24}" maxlength="24"' : ""}
               />
-              <div class="error" id="text-entry-error" hidden>Please enter your Prolific ID.</div>
+              <div class="error" id="text-entry-error" role="alert" hidden>Please enter your Prolific ID.</div>
               <div class="actions">
                 <button class="primary-button" type="submit">${escapeHtml(trial.button)}</button>
               </div>
@@ -307,12 +312,19 @@ const jsPsychTextEntry = (() => {
       const input = displayElement.querySelector("#text-entry-input");
       input.focus();
       input.select();
+      input.addEventListener("input", () => {
+        displayElement.querySelector("#text-entry-error").hidden = true;
+        input.removeAttribute("aria-invalid");
+      });
 
       displayElement.querySelector("#text-entry-form").addEventListener("submit", (event) => {
         event.preventDefault();
         const response = input.value.trim();
-        if (trial.required && !response) {
-          displayElement.querySelector("#text-entry-error").hidden = false;
+        if ((trial.required && !response) || (trial.validate_prolific_id && !/^[a-f\d]{24}$/i.test(response))) {
+          const error = displayElement.querySelector("#text-entry-error");
+          error.textContent = response ? "Please enter a 24-character Prolific ID using numbers and letters a-f." : "Please enter your Prolific ID.";
+          error.hidden = false;
+          input.setAttribute("aria-invalid", "true");
           input.focus();
           return;
         }

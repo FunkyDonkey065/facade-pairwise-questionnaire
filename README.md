@@ -1,13 +1,25 @@
 # Facade perception questionnaire: 50-scene design
 
-This revision uses **50 Eixample scenes**, 10 single-scene PAD trials and 5 pairwise preference trials per participant. It is currently configured for **technical upload testing** on `https://facadeevaluation.netlify.app/`, not Prolific recruitment. Completing the questionnaire and clicking **Send test responses** uploads a clearly marked technical test record to Netlify Forms. No Prolific ID or completion code is required in this mode. Open `index.html` directly to preview without uploading; dependencies are bundled locally.
+This revision uses **50 Eixample scenes**, 10 single-scene PAD trials and 5 pairwise preference trials per participant. It is currently configured for **a Prolific-style rehearsal with test uploads** on `https://facadeevaluation.netlify.app/`, not Prolific recruitment. Completing the questionnaire and clicking **Send test responses** uploads a clearly marked test record to Netlify Forms. The Prolific ID step is now required in both rehearsal and production: use a dummy ID for rehearsal, not a real participant's identity. No Prolific payment or completion code is issued by the rehearsal. Open `index.html` directly to preview without uploading; dependencies are bundled locally.
+
+## Rehearse the Prolific ID step
+
+The rehearsal no longer skips the ID page. Opening the site directly requires manual entry of a 24-character hexadecimal ID; for example, `000000000000000000000001`. Empty or incorrectly formatted IDs cannot advance. With a valid `PROLIFIC_PID` in the link, the page displays that ID read-only for confirmation, using the same text-entry component and validation as production. `STUDY_ID` and `SESSION_ID` parameters are captured too. Format validation does not authenticate a Prolific account.
+
+Example using dummy parameters, after deployment:
+
+```text
+https://facadeevaluation.netlify.app/?LANG=es&BLOCK_ID=B01&PROLIFIC_PID=000000000000000000000001&STUDY_ID=REHEARSAL&SESSION_ID=REHEARSAL01
+```
+
+Rehearsal now applies the same minimum starting viewport width as production. Its checkpoints and submission keys contain `prolific_rehearsal_v1`, separating the new consent/ID flow from older tests that skipped the ID. Old test checkpoints are not deleted or silently reused. Preview and production checkpoint identities and the stimulus manifest remain unchanged. The start/end notices and `study_mode=upload_test` / `test_submission=true` labels intentionally identify the run as a rehearsal. It does not simulate a verified Prolific login, recruitment eligibility, payment or a real return-to-Prolific transaction.
 
 ## Enable and verify test uploads
 
 1. The local `study_config.js` now contains `mode: "upload_test"` and `uploadTestHost: "facadeevaluation.netlify.app"`. Commit and push the updated questionnaire files, including `index.html`, to the repository connected to Netlify. A local edit alone does not change the published site.
 2. Enable **Forms > Enable form detection** in Netlify, then redeploy. The active form should be named `facade_pairwise_data`. New test fields require a new deploy even if this form already existed.
-3. Open the published HTTPS site and confirm the heading is **Questionnaire upload test** (or its Spanish/Catalan translation). Use dummy ratings, consent to the technical test, finish the questions and click **Send test responses**. No requests are sent before this final action; a failed request can be retried explicitly.
-4. Look in **Forms > facade_pairwise_data**, including Spam if needed. Find the displayed `TEST-...` identifier in `test_session_id`. Expect `study_mode=upload_test`, `test_submission=true`, an empty Prolific ID and complete `payload_json` / `payload_csv`. Inspect the payload for 10 PAD trials and 5 preference trials. A successful HTTP response is not sufficient proof of dashboard storage.
+3. Open the published HTTPS site and confirm the heading is **Questionnaire upload test** (or its Spanish/Catalan translation). Use dummy IDs and ratings, consent to the technical test, confirm or enter the Prolific ID, finish the questions and click **Send test responses**. No requests are sent before this final action; a failed request can be retried explicitly.
+4. Look in **Forms > facade_pairwise_data**, including Spam if needed. Find the displayed `TEST-...` identifier in `test_session_id`. Expect `study_mode=upload_test`, `test_submission=true`, your dummy ID in `prolific_pid`, any supplied study/session parameters and complete `payload_json` / `payload_csv`. Inspect the payload for 10 PAD trials and 5 preference trials. A successful HTTP response is not sufficient proof of dashboard storage.
 5. Download and verify the test record, then remove it from Netlify. Only mark `collectorPilotVerified` after verifying actual storage and export. Test data are always excluded by the coverage and preference tools, including when `--include-preview` is supplied.
 
 The local-file/localhost experience remains a non-uploading preview. On the test host, `?PREVIEW=1` also preserves preview behaviour and lets an unexpired old preview session be reopened using the same browser, path, block and Prolific parameters. This URL parameter cannot downgrade or unlock a production study. Preview, upload-test and production checkpoints are separate. Old answers are not silently uploaded or converted to research data; the questionnaire version is unchanged to preserve access to existing preview checkpoints. Downloads, language changes, failure recovery and explicit retry remain available. A submitted session is not automatically sent again on reload; retries use the same submission key, but Netlify may still store duplicates, so check exports by key.
