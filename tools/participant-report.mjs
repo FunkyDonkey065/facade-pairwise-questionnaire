@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { coverageReport } from "./coverage-report.mjs";
 import { participantIdentity } from "./participant-identity.mjs";
 import { privateOutput } from "./prepare-preference.mjs";
+import { expertiseGroup } from "./expertise-groups.mjs";
 
 export function participantReport(sessions) {
   const coverage = coverageReport(sessions);
@@ -15,9 +16,11 @@ export function participantReport(sessions) {
       const identity = participantIdentity(meta);
       const demographic = session.rows.find(row => row.screen === "demographics");
       const values = Object.fromEntries(["demographics_version", "demographics_status", "age_data_source", "education_data_source",
-        "age_band", "education_level", "gender_identity", "design_expertise", "barcelona_residence_duration"]
+        "age_band", "education_level", "gender_identity", "design_expertise", "professional_field",
+        "built_environment_training", "built_environment_experience", "barcelona_residence_duration"]
         .map(key => [key, summary[key] ?? demographic?.[key] ?? "not_collected"]));
       return { participant_key: identity.key, participant_id: identity.id, recruitment_source: identity.source,
+        expertise_group: expertiseGroup(values), expertise_group_rule: "self_reported_training_plus_1year_v1",
         recruitment_batch: meta.recruitment_batch || "unrecorded",
         prolific_pid: meta.prolific_pid || "", block_id: meta.pair_set_id,
         participant_language: summary.participant_language, ...values };

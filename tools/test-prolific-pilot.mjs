@@ -33,7 +33,7 @@ const pending = check('prolific');
 assert.equal(pending.initial, true);
 assert.equal(pending.batch, 'initial_4');
 assert.equal(pending.block, 'B01');
-assert(pending.issues.some(x => x.includes('Prolific study')));
+assert(!pending.issues.some(x => x.includes('Confirm the Prolific study')));
 assert(pending.issues.some(x => x.includes('imageUseReviewed')));
 const approvedFixture = { prolificStudyConfirmed: true, independentStimuliVerified: true,
   imageUseReviewed: true, participantInformationApproved: true };

@@ -5,7 +5,7 @@ window.STUDY_CONFIG = Object.freeze({
   prolificInitialTarget: 4,
   prolificInitialBlock: "B01",
   // Confirm the existing study and completion/screen-out codes before release.
-  prolificStudyConfirmed: false,
+  prolificStudyConfirmed: true,
   // Do not allocate new local places in the block reserved for the first four.
   localExcludedBlocks: ["B01"],
   localMode: "production",
@@ -13,9 +13,9 @@ window.STUDY_CONFIG = Object.freeze({
   // Explicit local-only release decision, not an assertion of completed reviews.
   localReleaseWithPendingReviews: true,
   uploadTestHost: "facadeevaluation.netlify.app",
-  completionUrl: "https://app.prolific.com/submissions/complete?cc=C10Z3K88",
+  completionUrl: "https://app.prolific.com/submissions/complete?cc=C1E5N9GT",
   // Paid Custom screening exit, separate from full questionnaire completion.
-  screenOutUrl: "https://app.prolific.com/submissions/complete?cc=C17N2W1E",
+  screenOutUrl: "https://app.prolific.com/submissions/complete?cc=C5VYN5AN",
   submissionEndpoint: "/",
   collectionPlatform: "netlify_forms",
   // Planning estimate including optional demographics; confirm with participant pilots.

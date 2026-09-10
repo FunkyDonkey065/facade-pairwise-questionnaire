@@ -69,12 +69,14 @@ assert.throws(() => makeLocalInvitations(0));
 const context = { window: {}, jsPsychModule: { ParameterType: { STRING: 1, OBJECT: 2 } } };
 vm.runInNewContext(fs.readFileSync(`${root}/demographics.js`, "utf8"), context);
 const demo = context.window.SurveyDemographics;
-assert.equal(demo.forSource("local").length, 5);
-assert.equal(demo.forSource("prolific").length, 3);
+assert.equal(demo.forSource("local").length, 8);
+assert.equal(demo.forSource("prolific").length, 8);
 assert(demo.forSource("local").every(field => field.options.some(([code]) => code === "prefer_not_to_answer")));
 assert.equal(demo.metadata("local").age_band, "not_collected");
 assert.equal(demo.metadata("local", { age_band: "not_answered" }).age_band, "not_answered");
-assert.equal(demo.metadata("prolific", { gender_identity: "woman" }).age_band, "external_pending");
+assert.equal(demo.metadata("prolific", { gender_identity: "woman" }).age_band, "not_collected");
+assert.equal(demo.metadata("prolific", { age_band: "25_34", professional_field: "architecture" }).age_band, "25_34");
+assert.equal(demo.metadata("local", { professional_field: "architecture" }).professional_field, "architecture");
 const htmlFields = file => [...fs.readFileSync(`${root}/${file}`, "utf8").matchAll(/name="([^"]+)"/g)].map(m => m[1]).sort();
 assert.deepEqual(htmlFields("index.html"), htmlFields("local.html"));
 for (const file of ["index.html", "local.html"]) {
