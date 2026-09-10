@@ -2,12 +2,15 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadDesign, connectedComponents } from "./design.mjs";
+import { participantIdentity } from "./participant-identity.mjs";
 
 export function coverageReport(sessions, { includePreview = false } = {}) {
   const { scenes, blocks, manifest } = loadDesign();
   const ids = scenes.map(s => `S${s.scene_id}`);
   const sceneData = Object.fromEntries(ids.map(id => [id, { pad: new Set(), preference: new Set(), opponents: new Set() }]));
   const blockData = Object.fromEntries(blocks.map(b => [b.set_id, 0]));
+  const sources = { prolific: 0, local: 0 };
+  const blockSources = Object.fromEntries(blocks.map(b => [b.set_id, { prolific: 0, local: 0 }]));
   const seenPeople = new Set();
   const edgeCounts = new Map();
   const exclusions = [];
@@ -16,11 +19,21 @@ export function coverageReport(sessions, { includePreview = false } = {}) {
     const meta = rows.find(r => r.manifest_fingerprint);
     const skip = reason => exclusions.push({ file: name, reason });
     if (rows.some(r => r.study_mode === "upload_test" || r.test_submission === true || r.test_submission === "true")) { skip("upload_test"); continue; }
+    if (summary?.outcome === "screened_out" || rows.some(r => r.screen === "residence_screening" && r.residence_eligible !== true)) { skip("residence_screened_out"); continue; }
     if (!summary || summary.outcome !== "complete" || !meta) { skip("incomplete"); continue; }
+    if (meta.screening_method === "self_report_city_v1") {
+      const screening = rows.filter(r => r.screen === "residence_screening");
+      if (screening.length !== 1 || screening[0].residence_eligible !== true
+        || screening[0].residence_category !== "barcelona_city") { skip("residence_screening_missing_or_invalid"); continue; }
+    }
     if (meta.study_mode !== "production" && !includePreview) { skip("preview"); continue; }
     if (meta.manifest_fingerprint !== manifest.fingerprint) { skip("different_stimulus_set"); continue; }
-    const person = meta.prolific_pid;
-    if (!person) { skip("missing_participant_id"); continue; }
+    const identity = participantIdentity(meta);
+    if (!identity) { skip("missing_or_invalid_participant_id"); continue; }
+    if (meta.recruitment_source && rows.some(row => participantIdentity(row)?.key !== identity.key)) {
+      skip("inconsistent_participant_identity"); continue;
+    }
+    const person = identity.key;
     if (seenPeople.has(person)) { skip("duplicate_participant"); continue; }
     const checks = rows.filter(r => /^attention_check_[12]$/.test(r.screen || ""));
     if (new Set(checks.map(r => r.screen)).size !== 2) { skip("missing_attention_checks"); continue; }
@@ -36,6 +49,7 @@ export function coverageReport(sessions, { includePreview = false } = {}) {
       skip("trial_schedule_mismatch"); continue;
     }
     seenPeople.add(person);
+    sources[identity.source] += 1;
     let usable = 0;
     for (const row of pad) {
       if (!["yes", "somewhat"].includes(row.judgeability) || row.image_load_status !== "ready"
@@ -55,7 +69,7 @@ export function coverageReport(sessions, { includePreview = false } = {}) {
       edgeCounts.set(edge, (edgeCounts.get(edge) || 0) + 1);
       usable += 1;
     }
-    if (usable === 15) blockData[block.set_id] += 1;
+    if (usable === 15) { blockData[block.set_id] += 1; blockSources[block.set_id][identity.source] += 1; }
   }
   const counts = ids.map(id => ({ image_id: id,
     pad_unique_raters: sceneData[id].pad.size, preference_unique_raters: sceneData[id].preference.size,
@@ -63,10 +77,12 @@ export function coverageReport(sessions, { includePreview = false } = {}) {
     pad_shortfall: Math.max(0,20-sceneData[id].pad.size),
     preference_shortfall: Math.max(0,20-sceneData[id].preference.size) }));
   return { manifest_fingerprint: manifest.fingerprint, accepted_unique_participants: seenPeople.size,
+    participants_by_recruitment_source: sources,
     exclusions, scenes: counts, coverage_target_met: counts.every(c => !c.pad_shortfall && !c.preference_shortfall),
     preference_graph_components: connectedComponents(ids, [...edgeCounts.keys()].map(e => e.split("|"))).length,
     pair_counts: Object.fromEntries(edgeCounts),
     blocks: blocks.map(b => ({ block_id: b.set_id, fully_usable_completions: blockData[b.set_id],
+      fully_usable_by_source: blockSources[b.set_id],
       suggested_top_up: Math.max(0, 4-blockData[b.set_id]) })),
     note: "Counts are preliminary quality-control results, not Prolific payment or rejection decisions. Preview data are excluded by default. Check actual scene shortfalls before ordering top-ups." };
 }

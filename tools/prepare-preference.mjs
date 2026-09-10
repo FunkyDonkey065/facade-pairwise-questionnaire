@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { root, loadDesign } from "./design.mjs";
 import { coverageReport } from "./coverage-report.mjs";
+import { participantIdentity } from "./participant-identity.mjs";
 
 export function preparePreference(sessions, { includePreview = false } = {}) {
   const { scenes, manifest } = loadDesign();
@@ -12,10 +13,12 @@ export function preparePreference(sessions, { includePreview = false } = {}) {
   for (const session of sessions) {
     if (excluded.has(session.name)) continue;
     const meta = session.rows.find(row => row.manifest_fingerprint);
+    const identity = participantIdentity(meta);
     for (const row of session.rows.filter(row => row.task === "pairwise_preference")) {
       if (!["yes", "somewhat"].includes(row.judgeability) || row.image_load_status !== "ready"
         || ![-2, -1, 0, 1, 2].includes(row.preference_choice)) continue;
-      records.push({ participant_id: meta.prolific_pid, block_id: meta.pair_set_id, pair_id: row.pair_id,
+      records.push({ participant_id: identity.key, recruitment_source: identity.source,
+        block_id: meta.pair_set_id, pair_id: row.pair_id,
         image_a: row.image_A_id, image_b: row.image_B_id, choice: row.preference_choice,
         judgeability: row.judgeability, language: row.response_language || row.participant_language || "unknown" });
     }

@@ -1,11 +1,16 @@
 // Technical upload testing only. Production still requires every research review below.
 window.STUDY_CONFIG = Object.freeze({
   mode: "upload_test",
+  // Separate release switches; neither entry bypasses the research reviews below.
+  localMode: "upload_test",
   uploadTestHost: "facadeevaluation.netlify.app",
-  completionUrl: "",
+  completionUrl: "https://app.prolific.com/submissions/complete?cc=C10Z3K88",
+  // Paid Custom screening exit, separate from full questionnaire completion.
+  screenOutUrl: "https://app.prolific.com/submissions/complete?cc=C17N2W1E",
   submissionEndpoint: "/",
   collectionPlatform: "netlify_forms",
-  estimatedMinutes: "8-12",
+  // Planning estimate including optional demographics; confirm with participant pilots.
+  estimatedMinutes: "9-13",
   retentionPeriod: "approximately 10 years",
   researchContact: "Yanjie Li, yanjie.li@upc.edu",
   protocolSourceDocument: "YanjieLiThesisEthicalCode260119.docx",

@@ -80,7 +80,7 @@ window.SurveySession = class SurveySession {
   capture() {
     if (!this.enabled || !this.consented) return;
     if (this.currentKey && this.status === "in_progress") {
-      const inputs = [...document.querySelectorAll("#jspsych-target input[name]")]
+      const inputs = [...document.querySelectorAll("#jspsych-target input[name], #jspsych-target select[name]")]
         .filter(input => !input.readOnly).map(input => ({ name: input.name, value: input.value, type: input.type, checked: input.checked }));
       this.draft = { key: this.currentKey, inputs,
         attempts: this.draft?.key === this.currentKey ? this.draft.attempts || [] : [],
@@ -97,7 +97,7 @@ window.SurveySession = class SurveySession {
     const key = this.currentKey;
     requestAnimationFrame(() => {
       if (this.currentKey !== key || this.draft?.key !== key) return;
-      for (const input of document.querySelectorAll("#jspsych-target input[name]")) {
+      for (const input of document.querySelectorAll("#jspsych-target input[name], #jspsych-target select[name]")) {
         if (input.readOnly) continue;
         const saved = this.draft.inputs?.find(item => item.name === input.name && item.type === input.type
           && (!["radio", "checkbox"].includes(input.type) || item.value === input.value));
@@ -134,6 +134,7 @@ window.SurveySession = class SurveySession {
     this.draft = null;
     if (data.screen === "comprehension_check" && !data.correct) { this.discard(); return; }
     if (data.screen === "pre_finish") this.status = "complete";
+    if (data.screen === "residence_screening" && data.residence_eligible === false) this.status = "screened_out";
     this.save();
   }
 

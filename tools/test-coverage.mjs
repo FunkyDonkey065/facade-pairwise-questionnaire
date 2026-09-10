@@ -37,6 +37,22 @@ uploadTests.forEach(s => { s.name += "_upload_test"; s.rows.forEach(r => { r.stu
 assert.equal(coverageReport(uploadTests).accepted_unique_participants, 0);
 assert.equal(coverageReport(uploadTests, { includePreview: true }).accepted_unique_participants, 0);
 assert.equal(coverageReport([...sessions, ...uploadTests]).accepted_unique_participants, 100);
+const screenedOut = { name: "synthetic_screenout", rows: [
+  { ...sessions[0].rows[0], screen: "residence_screening", residence_eligible: false,
+    residence_category: "elsewhere_spain", record_type: "session_summary", outcome: "screened_out" }
+] };
+assert.equal(coverageReport([screenedOut]).exclusions[0].reason, "residence_screened_out");
+assert.equal(coverageReport([...sessions, screenedOut]).accepted_unique_participants, 100);
+const inconsistentScreening = structuredClone(sessions[0]);
+inconsistentScreening.rows.push({ screen: "residence_screening", residence_eligible: false });
+assert.equal(coverageReport([inconsistentScreening]).accepted_unique_participants, 0);
+const screenedEligible = structuredClone(sessions[0]);
+screenedEligible.rows.forEach(r => r.screening_method = "self_report_city_v1");
+assert.equal(coverageReport([screenedEligible]).exclusions[0].reason, "residence_screening_missing_or_invalid");
+screenedEligible.rows.push({ screen: "residence_screening", residence_eligible: true, residence_category: "barcelona_city" });
+assert.equal(coverageReport([screenedEligible]).accepted_unique_participants, 1);
+screenedEligible.rows.at(-1).residence_category = "elsewhere_spain";
+assert.equal(coverageReport([screenedEligible]).accepted_unique_participants, 0);
 const bad = structuredClone(sessions);
 bad[0].rows[0].image_id = "wrong";
 assert.equal(coverageReport(bad).accepted_unique_participants,99);

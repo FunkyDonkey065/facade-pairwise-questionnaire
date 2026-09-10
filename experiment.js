@@ -1,6 +1,6 @@
 const studyConfig = window.STUDY_CONFIG;
 const PROLIFIC_COMPLETION_URL = studyConfig.completionUrl;
-const SURVEY_VERSION = "facade_50_trilingual_upc_20260910_approval";
+const SURVEY_VERSION = "facade_50_dual_recruitment_demographics_20260910";
 
 function getUrlParam(name) {
   return new URLSearchParams(window.location.search).get(name) || "";
@@ -347,6 +347,7 @@ const jsPsychChoiceCheck = (() => {
       choices: { type: jsPsychModule.ParameterType.STRING, array: true, default: [] },
       correct_index: { type: jsPsychModule.ParameterType.INT, default: 0 },
       max_attempts: { type: jsPsychModule.ParameterType.INT, default: 1 },
+      score_response: { type: jsPsychModule.ParameterType.BOOL, default: true },
       data: { type: jsPsychModule.ParameterType.OBJECT, default: {} }
     }
   };
@@ -375,7 +376,7 @@ const jsPsychChoiceCheck = (() => {
             <h1>${escapeHtml(trial.title)}</h1>
             <p>${trial.prompt}</p>
             <form id="choice-form">
-              <div class="option-grid">${options}</div>
+              <div class="option-grid${trial.score_response ? "" : " screening-options"}">${options}</div>
               <div class="error" id="choice-error" hidden>Please select an option.</div>
               <div class="actions">
                 <button class="primary-button" type="submit">Continue</button>
@@ -393,7 +394,7 @@ const jsPsychChoiceCheck = (() => {
         }
         const choiceIndex = Number(selected.value);
         attempts.push(choiceIndex);
-        if (choiceIndex !== trial.correct_index && attempts.length < trial.max_attempts) {
+        if (trial.score_response && choiceIndex !== trial.correct_index && attempts.length < trial.max_attempts) {
           const error = displayElement.querySelector("#choice-error");
           error.textContent = "Please re-read the instructions above and try once more.";
           error.hidden = false;
@@ -406,7 +407,7 @@ const jsPsychChoiceCheck = (() => {
           ...trial.data,
           choice_index: choiceIndex,
           choice_label: trial.choices[choiceIndex],
-          correct: choiceIndex === trial.correct_index,
+          ...(trial.score_response ? { correct: choiceIndex === trial.correct_index } : {}),
           attempt_count: attempts.length,
           attempt_choices: attempts.join("|"),
           rt

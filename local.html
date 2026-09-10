@@ -8,12 +8,9 @@
     <link rel="stylesheet" href="vendor/jspsych-7.3.4.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body data-recruitment-source="prolific">
-    <noscript>
-      This experiment requires JavaScript. Please enable JavaScript to continue.
-    </noscript>
-
-    <!-- Netlify detects this static form during deploy. The experiment submits to it by fetch(). -->
+  <body data-recruitment-source="local">
+    <noscript>This experiment requires JavaScript. Please enable JavaScript to continue.</noscript>
+    <!-- Keep the same collector schema on both independently accessible entries. -->
     <form name="facade_pairwise_data" method="POST" data-netlify="true" hidden>
       <input type="hidden" name="form-name" value="facade_pairwise_data" />
       <input type="hidden" name="prolific_pid" />
@@ -41,7 +38,6 @@
       <textarea name="payload_json"></textarea>
       <textarea name="payload_csv"></textarea>
     </form>
-
     <header class="survey-toolbar">
       <label for="survey-language">Language</label>
       <select id="survey-language" data-no-translate><option value="es">Español</option><option value="ca">Català</option><option value="en">English</option></select>
@@ -50,7 +46,6 @@
     </header>
     <p id="recovery-status" role="status" hidden></p>
     <main id="jspsych-target"></main>
-
     <script src="vendor/jspsych-7.3.4.min.js"></script>
     <script src="scene_manifest.js"></script>
     <script src="study_config.js"></script>
