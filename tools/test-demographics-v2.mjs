@@ -5,13 +5,20 @@ import { expertiseGroup } from './expertise-groups.mjs';
 const context = { window: {}, jsPsychModule: { ParameterType: { STRING: 1, OBJECT: 2 } } };
 vm.runInNewContext(fs.readFileSync(new URL('../demographics.js', import.meta.url), 'utf8'), context);
 const api = context.window.SurveyDemographics;
-assert.equal(api.forSource('prolific').length, 8);
+assert.equal(api.forSource('prolific').length, 9);
+const country = api.forSource('prolific').find(field => field.name === 'growing_up_country');
+assert.equal(country.options.length, 252);
+assert.equal(new Set(country.options.map(([code]) => code)).size, 252);
+assert(country.options.some(([code]) => code === 'ES'));
+assert(country.options.some(([code]) => code === 'multiple_countries'));
+assert.equal(api.metadata('local', {}).growing_up_country, 'not_collected');
+assert.equal(api.metadata('prolific', { growing_up_country: 'multiple_countries' }).growing_up_country, 'multiple_countries');
 assert.deepEqual(api.forSource('local'), api.forSource('prolific'));
 for (const source of ['local', 'prolific']) {
-  const answers = { demographics_version: 'facade_demographics_v2', ...Object.fromEntries(api.forSource(source).map(field => [field.name, field.options[0][0]])) };
+  const answers = { demographics_version: 'facade_demographics_v3', ...Object.fromEntries(api.forSource(source).map(field => [field.name, field.options[0][0]])) };
   const meta = api.metadata(source, answers);
   for (const [key, value] of Object.entries(answers)) assert.equal(meta[key], value);
-  assert.equal(meta.demographics_version, 'facade_demographics_v2');
+  assert.equal(meta.demographics_version, 'facade_demographics_v3');
   assert.equal(meta.age_data_source, 'questionnaire');
 }
 const expert = { design_expertise: 'training_and_experience', built_environment_training: 'completed_qualification',

@@ -17,7 +17,7 @@ export function participantReport(sessions) {
       const demographic = session.rows.find(row => row.screen === "demographics");
       const values = Object.fromEntries(["demographics_version", "demographics_status", "age_data_source", "education_data_source",
         "age_band", "education_level", "gender_identity", "design_expertise", "professional_field",
-        "built_environment_training", "built_environment_experience", "barcelona_residence_duration"]
+        "built_environment_training", "built_environment_experience", "growing_up_country", "barcelona_residence_duration"]
         .map(key => [key, summary[key] ?? demographic?.[key] ?? "not_collected"]));
       return { participant_key: identity.key, participant_id: identity.id, recruitment_source: identity.source,
         expertise_group: expertiseGroup(values), expertise_group_rule: "self_reported_training_plus_1year_v1",

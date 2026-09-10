@@ -1,10 +1,16 @@
-# Demographics v2
+# Demographics v3
 
-All three entries ask the same eight optional questions after image ratings:
+All three entries ask the same nine optional questions after image ratings:
 age band, gender identity, completed education, broad design background,
 current/most recent work field, relevant education status, relevant professional
-experience, and Barcelona residence duration. No employer, exact birth date or
+experience, main country lived in during ages 0-18, and Barcelona residence duration. No employer, exact birth date or
 professional registration number is requested. These are not eligibility filters.
+
+The growing_up_country field stores a two-letter country/territory code, or
+multiple_countries, not_listed, prefer_not_to_answer, not_answered, or not_collected.
+Older records remain not_collected and are not imputed as Spain. This is neither
+birth country nor nationality, and must not be used as a direct proxy for culture.
+Avoid publishing small country-by-age-by-profession cells. Keep v2 and v3 identifiable.
 
 Age is grouped, not an exact age. Gender is self-reported gender identity, not
 Prolific's Sex variable. Age and education now come directly from the questionnaire;
