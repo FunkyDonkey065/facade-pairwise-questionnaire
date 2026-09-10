@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="same-origin" />
+    <title>Facade Perception Study</title>
+    <link rel="stylesheet" href="vendor/jspsych-7.3.4.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body data-recruitment-source="prolific" data-recruitment-batch="initial_4">
+    <noscript>
+      This experiment requires JavaScript. Please enable JavaScript to continue.
+    </noscript>
+
+    <!-- Netlify detects this static form during deploy. The experiment submits to it by fetch(). -->
+    <form name="facade_pairwise_data" method="POST" data-netlify="true" hidden>
+      <input type="hidden" name="form-name" value="facade_pairwise_data" />
+      <input type="hidden" name="prolific_pid" />
+      <input type="hidden" name="participant_id" />
+      <input type="hidden" name="recruitment_source" />
+      <input type="hidden" name="study_id" />
+      <input type="hidden" name="session_id" />
+      <input type="hidden" name="pair_set_id" />
+      <input type="hidden" name="randomization_seed" />
+      <input type="hidden" name="dimension_order" />
+      <input type="hidden" name="pad_dimension_order" />
+      <input type="hidden" name="pad_scene_order" />
+      <input type="hidden" name="survey_version" />
+      <input type="hidden" name="manifest_fingerprint" />
+      <input type="hidden" name="study_mode" />
+      <input type="hidden" name="test_submission" />
+      <input type="hidden" name="test_session_id" />
+      <input type="hidden" name="outcome" />
+      <input type="hidden" name="residence_category" />
+      <input type="hidden" name="residence_eligible" />
+      <input type="hidden" name="screening_result" />
+      <input type="hidden" name="task_order" />
+      <input type="hidden" name="attention_fail_count" />
+      <input type="hidden" name="submission_key" />
+      <textarea name="payload_json"></textarea>
+      <textarea name="payload_csv"></textarea>
+    </form>
+
+    <header class="survey-toolbar">
+      <label for="survey-language">Language</label>
+      <select id="survey-language" data-no-translate><option value="es">Español</option><option value="ca">Català</option><option value="en">English</option></select>
+      <button type="button" class="secondary-button" id="progress-download" hidden>Download progress backup</button>
+      <button type="button" class="secondary-button" id="progress-clear" hidden>Delete local progress</button>
+    </header>
+    <p id="recovery-status" role="status" hidden></p>
+    <main id="jspsych-target"></main>
+
+    <script src="vendor/jspsych-7.3.4.min.js"></script>
+    <script src="scene_manifest.js"></script>
+    <script src="study_config.js"></script>
+    <script src="i18n.js"></script>
+    <script src="recovery.js"></script>
+    <script src="pairs.js"></script>
+    <script src="experiment.js"></script>
+    <script src="demographics.js"></script>
+    <script src="session.js"></script>
+    <script src="run_survey.js"></script>
+  </body>
+</html>

@@ -1,7 +1,13 @@
 // Local collection enabled at the researcher's request; review facts remain separate.
 window.STUDY_CONFIG = Object.freeze({
-  mode: "upload_test",
-  // The Prolific entry remains in upload-test mode.
+  mode: "production",
+  // The first four are real study responses; set the place limit in Prolific.
+  prolificInitialTarget: 4,
+  prolificInitialBlock: "B01",
+  // Confirm the existing study and completion/screen-out codes before release.
+  prolificStudyConfirmed: false,
+  // Do not allocate new local places in the block reserved for the first four.
+  localExcludedBlocks: ["B01"],
   localMode: "production",
   localAutomaticAllocation: true,
   // Explicit local-only release decision, not an assertion of completed reviews.

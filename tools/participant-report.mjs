@@ -18,6 +18,7 @@ export function participantReport(sessions) {
         "age_band", "education_level", "gender_identity", "design_expertise", "barcelona_residence_duration"]
         .map(key => [key, summary[key] ?? demographic?.[key] ?? "not_collected"]));
       return { participant_key: identity.key, participant_id: identity.id, recruitment_source: identity.source,
+        recruitment_batch: meta.recruitment_batch || "unrecorded",
         prolific_pid: meta.prolific_pid || "", block_id: meta.pair_set_id,
         participant_language: summary.participant_language, ...values };
     }) };

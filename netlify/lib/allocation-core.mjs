@@ -38,13 +38,13 @@ export function claim(state, key, design, now) {
     if (now >= existing.startedAt + design.maximumLeaseMs) return publicEntry(existing, now);
     if (existing.expiresAt <= now) {
       const current = counts(state, design, now).find(c => c.blockId === existing.blockId);
-      if (current.occupied >= design.targetPerBlock) return publicEntry(existing, now);
+      if (design.excludedBlocks?.includes(existing.blockId) || current.occupied >= design.targetPerBlock) return publicEntry(existing, now);
     }
     existing.expiresAt = Math.min(now + design.leaseMs, existing.startedAt + design.maximumLeaseMs);
     return publicEntry(existing, now);
   }
   if (Object.keys(state.entries).length >= 5000) throw new AllocationError('recruitment_paused', 503);
-  const available = counts(state, design, now).filter(c => c.occupied < design.targetPerBlock);
+  const available = counts(state, design, now).filter(c => !design.excludedBlocks?.includes(c.blockId) && c.occupied < design.targetPerBlock);
   if (!available.length) throw new AllocationError('full');
   const minimum = Math.min(...available.map(c => c.occupied));
   const pool = available.filter(c => c.occupied === minimum);

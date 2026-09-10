@@ -9,6 +9,8 @@ const studyMode = localPreview || getUrlParam("PREVIEW") === "1"
   ? "preview" : configuredMode;
 const isProduction = studyMode === "production";
 const isUploadTest = studyMode === "upload_test";
+const isInitialBatch = !isLocalRecruitment && document.body.dataset.recruitmentBatch === "initial_4";
+const recruitmentBatch = isInitialBatch ? "initial_4" : "main";
 const uploadsEnabled = isProduction || isUploadTest;
 const pendingResearchReviews = ["independentStimuliVerified", "imageUseReviewed", "participantInformationApproved"]
   .filter(name => studyConfig[name] !== true);
@@ -19,10 +21,11 @@ const studyId = isLocalRecruitment ? "" : getUrlParam("STUDY_ID");
 const sessionId = isLocalRecruitment ? "" : getUrlParam("SESSION_ID");
 const localInvitationId = isLocalRecruitment ? getUrlParam("LOCAL_ID") : "";
 const testFlowVersion = "dual_recruitment_rehearsal_v1";
-const forcedSet = getUrlParam("BLOCK_ID") || getUrlParam("PAIR_SET_ID");
+const forcedSet = getUrlParam("BLOCK_ID") || getUrlParam("PAIR_SET_ID")
+  || (isInitialBatch ? studyConfig.prolificInitialBlock : "");
 const surveySession = new window.SurveySession({ path: location.pathname, version: SURVEY_VERSION,
   manifest: window.STIMULUS_MANIFEST.fingerprint, mode: studyMode,
-  ...(isUploadTest ? { testFlowVersion } : {}),
+  ...(isUploadTest ? { testFlowVersion } : {}), recruitmentBatch,
   recruitmentSource, localInvitationId, prolificPid, studyId, sessionId, forcedSet },
   localInvitationId || sessionId || prolificPid || crypto.randomUUID());
 window.surveySession = surveySession;
@@ -70,6 +73,9 @@ function launchIssues() {
     if (studyConfig.collectionPlatform !== "netlify_forms" || studyConfig.submissionEndpoint !== "/") issues.push("The configured collector is not supported by this build.");
   }
   if (isProduction) {
+    if (!isLocalRecruitment && studyConfig.prolificStudyConfirmed !== true) issues.push("Confirm the Prolific study and its completion/screen-out codes before recruitment.");
+    if (isInitialBatch && forcedSet !== studyConfig.prolificInitialBlock) issues.push("Use the configured block for the initial four participants.");
+    if (!isLocalRecruitment && !isInitialBatch && forcedSet === studyConfig.prolificInitialBlock) issues.push("This block is reserved for the initial four participants.");
     if (!forcedSet) issues.push("A fixed BLOCK_ID is required for quota allocation.");
     if (isLocalRecruitment) {
       if (!localInvitationId) issues.push("An individual local invitation link is required.");
@@ -156,6 +162,7 @@ const jsPsych = initJsPsych({
 });
 
 jsPsych.data.addProperties({
+  study_phase: "main", recruitment_batch: recruitmentBatch,
   participant_id: participantId(), recruitment_source: recruitmentSource,
   prolific_pid: effectiveProlificPid, study_id: studyId, session_id: sessionId,
   pair_set_id: pairSetId, allocation_method: isProduction && isLocalRecruitment && studyConfig.localAutomaticAllocation ? "server_quota_v1" : forcedSet ? "fixed_block" : isUploadTest ? "test_hash" : "preview_hash",

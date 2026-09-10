@@ -18,6 +18,7 @@ export function preparePreference(sessions, { includePreview = false } = {}) {
       if (!["yes", "somewhat"].includes(row.judgeability) || row.image_load_status !== "ready"
         || ![-2, -1, 0, 1, 2].includes(row.preference_choice)) continue;
       records.push({ participant_id: identity.key, recruitment_source: identity.source,
+        recruitment_batch: meta.recruitment_batch || "unrecorded",
         block_id: meta.pair_set_id, pair_id: row.pair_id,
         image_a: row.image_A_id, image_b: row.image_B_id, choice: row.preference_choice,
         judgeability: row.judgeability, language: row.response_language || row.participant_language || "unknown" });

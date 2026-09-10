@@ -26,6 +26,13 @@ const sessions = blocks.flatMap((block, b) => Array.from({ length: 4 }, (_, i) =
   ] };
 }));
 const full = coverageReport(sessions);
+const initialBatch = structuredClone(sessions.slice(0, 1));
+initialBatch[0].rows.forEach(row => Object.assign(row, { study_phase: 'main', recruitment_batch: 'initial_4', test_submission: false }));
+assert.equal(coverageReport(initialBatch).accepted_unique_participants, 1);
+assert.equal(preparePreference(initialBatch).records.length, 5);
+assert.equal(participantReport(initialBatch).participants.length, 1);
+assert.equal(participantReport(initialBatch).participants[0].recruitment_batch, 'initial_4');
+assert(preparePreference(initialBatch).records.every(row => row.recruitment_batch === 'initial_4'));
 assert.equal(full.coverage_target_met, true);
 assert.equal(full.accepted_unique_participants, 100);
 assert.deepEqual(full.participants_by_recruitment_source, { prolific: 25, local: 75 });

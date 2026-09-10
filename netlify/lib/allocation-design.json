@@ -5,6 +5,9 @@
   "host": "facadeevaluation.netlify.app",
   "enabled": true,
   "targetPerBlock": 4,
+  "excludedBlocks": [
+    "B01"
+  ],
   "leaseMs": 2700000,
   "maximumLeaseMs": 86400000,
   "blocks": [

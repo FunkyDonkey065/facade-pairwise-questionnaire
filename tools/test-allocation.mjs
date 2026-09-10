@@ -39,14 +39,15 @@ export function fixture(entry, outcome = 'complete') {
     manifest_fingerprint:design.fingerprint,survey_version:design.surveyVersion}));
 }
 
-test('150 simultaneous claims never exceed 100 occupied places or four per block', async () => {
+test('150 simultaneous claims respect local capacity and excluded Prolific blocks', async () => {
   const store = new MemoryStore();
+  const capacity = design.blocks.filter(b => !design.excludedBlocks?.includes(b.id)).length * design.targetPerBlock;
   const result = await Promise.allSettled(Array.from({length:150},(_,i)=>transact(store,'quotas',state=>claim(state,'person'+i,design,1000),100)));
-  assert.equal(result.filter(r=>r.status==='fulfilled').length,100);
+  assert.equal(result.filter(r=>r.status==='fulfilled').length,capacity);
   assert(result.filter(r=>r.status==='rejected').every(r=>r.reason.code==='full'));
   const state = await store.get('quotas');
-  assert(counts(state,design,1000).every(c=>c.occupied===4));
-  assert.equal(new Set(Object.values(state.entries).map(e=>e.participantId)).size,100);
+  assert(counts(state,design,1000).every(c=>c.occupied===(design.excludedBlocks?.includes(c.blockId) ? 0 : design.targetPerBlock)));
+  assert.equal(new Set(Object.values(state.entries).map(e=>e.participantId)).size,capacity);
 });
 
 test('concurrent retries from one cookie have one ID and one reservation',async()=>{
@@ -141,7 +142,7 @@ test('a saved response survives quota-write failure and retry completes exactly 
 });
 
 test('expired return never silently switches block or steals an occupied place',()=>{
-  const localDesign={...design,blocks:[design.blocks[0]],targetPerBlock:1};
+  const localDesign={...design,excludedBlocks:[],blocks:[design.blocks[0]],targetPerBlock:1};
   const state={entries:{}};
   const first=claim(state,'first',localDesign,1000);
   const next=claim(state,'next',localDesign,first.expiresAt+1);
