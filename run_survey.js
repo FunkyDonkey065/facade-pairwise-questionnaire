@@ -5,11 +5,15 @@ const recruitmentSource = document.body.dataset.recruitmentSource || "prolific";
 const isLocalRecruitment = recruitmentSource === "local";
 const configuredMode = isLocalRecruitment ? studyConfig.localMode : studyConfig.mode;
 // Preview is an opt-out for technical testing, never a way to unlock production.
-const studyMode = configuredMode === "upload_test" && (localPreview || getUrlParam("PREVIEW") === "1")
+const studyMode = localPreview || getUrlParam("PREVIEW") === "1"
   ? "preview" : configuredMode;
 const isProduction = studyMode === "production";
 const isUploadTest = studyMode === "upload_test";
 const uploadsEnabled = isProduction || isUploadTest;
+const pendingResearchReviews = ["independentStimuliVerified", "imageUseReviewed", "participantInformationApproved"]
+  .filter(name => studyConfig[name] !== true);
+const localReleaseWithPendingReviews = isProduction && isLocalRecruitment
+  && studyConfig.localReleaseWithPendingReviews === true;
 const prolificPid = isLocalRecruitment ? "" : getUrlParam("PROLIFIC_PID");
 const studyId = isLocalRecruitment ? "" : getUrlParam("STUDY_ID");
 const sessionId = isLocalRecruitment ? "" : getUrlParam("SESSION_ID");
@@ -69,9 +73,12 @@ function launchIssues() {
     if (!forcedSet) issues.push("A fixed BLOCK_ID is required for quota allocation.");
     if (isLocalRecruitment) {
       if (!localInvitationId) issues.push("An individual local invitation link is required.");
+      if (studyConfig.localAutomaticAllocation && (window.LocalAllocation?.participantId !== localInvitationId
+        || window.LocalAllocation?.blockId !== forcedSet)) issues.push("A server-assigned invitation is required.");
     } else if (!/^[a-f\d]{24}$/i.test(prolificPid) || !studyId || !sessionId) issues.push("The Prolific study link is incomplete.");
     if (getUrlParam("PAD_TRIAL_LIMIT")) issues.push("PAD_TRIAL_LIMIT is not allowed in the fixed study design.");
     for (const name of ["geographyVerified", "independentStimuliVerified", "imageUseReviewed", "participantInformationApproved", "collectorPilotVerified"]) {
+      if (localReleaseWithPendingReviews && pendingResearchReviews.includes(name)) continue;
       if (studyConfig[name] !== true) issues.push(`Researcher review incomplete: ${name}.`);
     }
     if (SURVEY_SCENES.some(s => !s.geography_verified)) issues.push("Scene locations have not been verified.");
@@ -90,6 +97,7 @@ function launchIssues() {
 }
 
 function showStopped() {
+  if (isProduction && isLocalRecruitment && studyConfig.localAutomaticAllocation) window.LocalAllocation?.abandon();
   const messages = {
     no_consent: "You did not consent to participate. No response data has been uploaded. Please return the study on Prolific.",
     comprehension_return: "Please close this survey and return your submission using Cancel participation on Prolific. No response data has been uploaded.",
@@ -150,7 +158,8 @@ const jsPsych = initJsPsych({
 jsPsych.data.addProperties({
   participant_id: participantId(), recruitment_source: recruitmentSource,
   prolific_pid: effectiveProlificPid, study_id: studyId, session_id: sessionId,
-  pair_set_id: pairSetId, allocation_method: forcedSet ? "fixed_block" : isUploadTest ? "test_hash" : "preview_hash",
+  pair_set_id: pairSetId, allocation_method: isProduction && isLocalRecruitment && studyConfig.localAutomaticAllocation ? "server_quota_v1" : forcedSet ? "fixed_block" : isUploadTest ? "test_hash" : "preview_hash",
+  allocation_campaign: window.LocalAllocation?.campaign || "",
   randomization_seed: randomizationSeed, task_order: taskOrder,
   pad_dimension_order: padDimensionOrder.join("|"),
   pad_scene_order: padSceneList.map(s => s.id).join("|"),
@@ -162,6 +171,8 @@ jsPsych.data.addProperties({
   ethics_source_document: studyConfig.ethicsSourceDocument,
   ethics_committee_meeting_date: studyConfig.ethicsCommitteeMeetingDate,
   ethics_signed_date: studyConfig.ethicsSignedDate,
+  research_review_pending: pendingResearchReviews.join("|"),
+  local_release_with_pending_reviews: localReleaseWithPendingReviews && pendingResearchReviews.length > 0,
   manifest_fingerprint: window.STIMULUS_MANIFEST.fingerprint,
   stimulus_manifest_version: window.STIMULUS_MANIFEST.version,
   study_mode: studyMode, submission_key: submissionKey,
@@ -186,7 +197,8 @@ async function submitToNetlify({ csv, json, attentionFailCount }) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 20000);
   try {
-    const response = await fetch(studyConfig.submissionEndpoint, {
+    const automatic = isProduction && isLocalRecruitment && studyConfig.localAutomaticAllocation;
+    const response = await fetch(automatic ? '/.netlify/functions/local-allocation?action=submit' : studyConfig.submissionEndpoint, {
       method: "POST", signal: controller.signal,
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: encodeFormData({
@@ -205,6 +217,7 @@ async function submitToNetlify({ csv, json, attentionFailCount }) {
       })
     });
     lastUploadStatus = response.status;
+    if (automatic) return response.ok && (await response.json()).saved === true;
     return response.ok;
   } catch (error) {
     console.warn("Response upload not confirmed", error);
@@ -295,6 +308,7 @@ timeline.push(makeButtonTrial({
     <p>Committee meeting date: ${escapeHtml(studyConfig.ethicsCommitteeMeetingDate)}<br>Signature date shown in the decision: ${escapeHtml(studyConfig.ethicsSignedDate)}</p>
     <p>The UPC Ethics Committee has issued a favourable opinion on the ethical aspects related to the research carried out in this project/article.</p>` : ""}
     ${!isProduction && !studyConfig.participantInformationApproved ? "<p>The current questionnaire and data-collection arrangements still require confirmation against the approved project scope. This preview is not open for participant recruitment.</p>" : ""}
+    ${isProduction && !studyConfig.participantInformationApproved ? "<p>The current questionnaire and data-collection arrangements have not yet been confirmed against the approved project scope.</p>" : ""}
     <h2>Data use and protection</h2>
     <p>The Universitat Politecnica de Catalunya - BarcelonaTech (UPC) is the data controller named in the research protocol for this academic study on visual perception of building facades. Processing is subject to the General Data Protection Regulation (EU) 2016/679 and Organic Law 3/2018.</p>
     <p>Responsible department: ${escapeHtml(studyConfig.responsibleDepartment)}<br>Data-processing activity: ${escapeHtml(studyConfig.dataProcessingActivityCode)}</p>
@@ -306,7 +320,7 @@ timeline.push(makeButtonTrial({
     <p>The protocol specifies password-protected research storage managed by the department, with access limited to the research team and periodic backups. The collection service used by this questionnaire is described below.</p>
     <p>${isLocalRecruitment ? "The protocol separates coded research responses from identifying information for analysis. It provides for academic publications and open release of fully anonymized ratings and generalized profile data in CORA. Invitation IDs and linkage information will not be included in public datasets." : "The protocol separates coded research responses from identifying information for analysis. It provides for academic publications and open release of fully anonymized ratings and generalized profile data in CORA. Prolific IDs and linkage information will not be included in public datasets."}</p>
     <p>After you consent, a temporary copy of your progress and current selections is saved in this browser. Recovery expires 24 hours after your last activity; expired copies are removed when this survey is next opened. Reopening the same link in this browser before expiry can restore your progress. Clearing browser data or changing devices prevents recovery. You can delete the local copy using the button above.</p>
-    <p>${isUploadTest ? "After you consent, progress is saved in this browser. A test record is sent to Netlify Forms when screening ends the session, or when you click Send test responses after the image ratings. Earlier preview answers are not automatically uploaded. The researcher must verify and then remove technical test records from Netlify." : isProduction ? "Responses are submitted using Netlify Forms and exported to restricted research storage." : "This is a preview. Responses are not uploaded. After consent, they are temporarily stored in this browser so you can resume, and you may download a backup."}</p>
+    <p>${isProduction && isLocalRecruitment && studyConfig.localAutomaticAllocation ? "Your coded responses are saved in private Netlify storage. A copy is also sent to Netlify Forms. The research team exports responses to restricted research storage. A necessary cookie remembers your assigned questionnaire for 30 days; the server records your coded assignment, reservation expiry and completion status. This does not identify you across different browsers or devices." : isUploadTest ? "After you consent, progress is saved in this browser. A test record is sent to Netlify Forms when screening ends the session, or when you click Send test responses after the image ratings. Earlier preview answers are not automatically uploaded. The researcher must verify and then remove technical test records from Netlify." : isProduction ? "Responses are submitted using Netlify Forms and exported to restricted research storage." : "This is a preview. Responses are not uploaded. After consent, they are temporarily stored in this browser so you can resume, and you may download a backup."}</p>
     <p>${isUploadTest ? "Technical test records must be removed from Netlify after verification." : `Retention period: ${escapeHtml(studyConfig.retentionPeriod || "To be confirmed before participant recruitment.")}`}<br><a href="https://www.upc.edu/normatives/ca/proteccio-de-dades/politica-de-conservacio-de-les-dades-de-caracter-personal">UPC data retention policy</a></p>
     <p>Research contact: ${escapeHtml(studyConfig.researchContact || "To be confirmed before participant recruitment.")}</p>
     <p>Data protection enquiries: <a href="mailto:proteccio.dades@upc.edu">proteccio.dades@upc.edu</a>. You may exercise applicable data protection rights and contact the <a href="https://apdcat.gencat.cat">Catalan Data Protection Authority</a>.</p>

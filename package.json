@@ -1,0 +1,10 @@
+{
+  "name": "facade-pairwise-questionnaire",
+  "private": true,
+  "scripts": {
+    "build": "node tools/build-allocation-design.mjs",
+    "test:allocation": "node --test tools/test-allocation.mjs"
+  },
+  "engines": { "node": ">=22" },
+  "dependencies": { "@netlify/blobs": "11.0.3" }
+}

@@ -1,8 +1,11 @@
-// Technical upload testing only. Production still requires every research review below.
+// Local collection enabled at the researcher's request; review facts remain separate.
 window.STUDY_CONFIG = Object.freeze({
   mode: "upload_test",
-  // Separate release switches; neither entry bypasses the research reviews below.
-  localMode: "upload_test",
+  // The Prolific entry remains in upload-test mode.
+  localMode: "production",
+  localAutomaticAllocation: true,
+  // Explicit local-only release decision, not an assertion of completed reviews.
+  localReleaseWithPendingReviews: true,
   uploadTestHost: "facadeevaluation.netlify.app",
   completionUrl: "https://app.prolific.com/submissions/complete?cc=C10Z3K88",
   // Paid Custom screening exit, separate from full questionnaire completion.
@@ -28,7 +31,9 @@ window.STUDY_CONFIG = Object.freeze({
   imageUseReviewed: false,
   // The letter requires review of time/content extensions; current scope is not yet reconciled.
   participantInformationApproved: false,
-  collectorPilotVerified: false,
+  // 2026-09-10: local upload-test JSON/CSV verified in Netlify (Spam).
+  // This verifies transport only, not ethics approval or human pilot timing.
+  collectorPilotVerified: true,
   participantLanguage: "es",
   localRecoveryHours: 24,
   allocation: "fixed_block_quotas"
